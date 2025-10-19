@@ -1,0 +1,297 @@
+/* @theme KIST */
+
+/*
+  ============================================
+    Created by Paulo Cunha
+    version: 1.0
+    last update: 08.fev.2023
+  ============================================
+*/
+
+/* Importing COLOR SCHEMA */
+
+@import "default";
+@import "schema";
+@import "structure";
+
+/***************** COMMON STRUCTURE **********************/
+
+:root {
+  /* font-family: Cochin, Georgia; */
+  /* font-family: 'Times New Roman', Times, serif; */
+  /* font-family: "Fira Sans Light"; */
+  font-family: 'Tahoma';
+  font-family: 'Open Sans';
+  font-family: 'Segoe UI';
+
+  font-weight: initial;
+
+  /* -- Bodytext FONT color */
+  color: #494545;
+
+  /* -- Slides BACKGROUND color */
+  background-color            : white;
+
+  /* -- BOLD font color */
+  --bold-color                : rgb(105, 120, 151);
+  --bold-color                : rgb(71, 111, 184);
+  --bold-color                : rgb(71, 107, 184);
+
+  --italic-color              : rgb(96, 89, 89);
+
+  --italic-background-color   : rgba(142, 145, 146, 0.172);
+
+  /* --background-color          : #fdf6e3; */
+  --list-item-color           : rgb(255, 212, 95);
+
+  --after-color               : rgb(201, 198, 198);
+
+  --table-font-color          : black;
+
+  --table-header-color        : rgb(128, 137, 146);
+
+  --border-color              : #014385;
+
+  --main-color                : rgb(228, 65, 38);
+
+  --darker-color              : rgb(109, 110, 103);
+
+  --lighter-color             : #080a0a;
+
+  --extra-back-color          : rgb(71, 69, 69);
+
+  --letter-spacing            : 0.125px;
+
+  --cool-list-color           : rgb(135, 157, 179);
+
+  --author-align              : right;
+}
+
+/* ------------------- SECTION LAYOUT -----------------------------*/
+
+section {
+  justify-content: flex-start;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+}
+
+/* Add default padding to section content wrapper */
+section > * {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+/* ------------------- H1 HEADER STYLING -----------------------------*/
+
+section h1 {
+  background-color: #565A5A;
+  color: white;
+  font-weight: 600;
+
+  padding: 25pt 40pt;
+  margin: 0;
+
+  letter-spacing: -0.5px;
+  border-left: 8px solid rgb(228, 65, 38);
+}
+
+/* Remove side padding from h1 since it has its own */
+section > h1 {
+  padding-left: 40pt;
+  padding-right: 40pt;
+}
+
+/* Add spacing between h1 and next element */
+section h1 + * {
+  margin-top: 35pt;
+}
+
+section h1 strong {
+  color: rgb(228, 65, 52);
+}
+
+/* ------------------- GENERAL TYPOGRAPHY -----------------------------*/
+
+:root p {
+  font-size: 28px;
+  /* font-family: 'Times New Roman';  */
+  /* font-family: 'Open Sans'; */
+  /* font-family: 'Garamond'; */
+
+  letter-spacing: -0.3px;
+  margin: 0.5em 0;
+}
+
+:root h2 {
+  margin: 0.4em 0 -0.5em 0;
+  font-weight: 600;
+}
+
+:root h3 {
+  margin: 0.7em 0 0.4em 0;
+  font-weight: 600;
+}
+
+/* ------------------- LIST STYLING -----------------------------*/
+
+section ul,
+section ol {
+  /* margin: 0.5em 0 1em 0; */
+  padding-left: 3em;
+}
+
+section li {
+  margin: 0;
+  /* line-height: 1.5; */
+}
+
+/* Nested lists */
+/* section ul ul,
+section ul ol,
+section ol ul,
+section ol ol {
+  margin: 0.3em 0;
+  padding-left: 1.5em;
+}
+
+section li li {
+  margin: 0.25em 0;
+} */
+
+/* ------------------- TITLEPAGE -----------------------------*/
+
+section.titlepage {
+  justify-content: center;
+  padding: 70px;
+}
+
+/* Reset titlepage content padding since section.titlepage has its own */
+section.titlepage > * {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Titlepage made with <titlepage> */
+
+section.titlepage .title strong {
+  color: rgb(255, 52, 52);
+}
+
+section.titlepage .title {
+  /* border-bottom: 1px solid rgb(179, 176, 176); */
+  border-bottom: 2px solid #8c714c;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+section.titlepage .subtitle {
+  font-weight: 300;
+}
+
+section.titlepage .author {
+  font-weight: 600;
+}
+
+section.titlepage .author,
+section.titlepage .date,
+section.titlepage .organization {
+  font-size: 1.1em;
+  text-align: left;
+}
+
+/* Titlepage made with # */
+
+section.titlepage h1 {
+  background-color: transparent;
+  color: #2b2c2e;
+  border-left: none;
+  border-bottom: 1px solid rgb(179, 176, 176);
+
+  padding: 0;
+  margin: 0;
+}
+
+section.titlepage h1 + * {
+  margin-top: 0;
+}
+
+section.titlepage h2 {
+  font-weight: 300;
+}
+
+section.titlepage h3,
+section.titlepage h4,
+section.titlepage h5 {
+  text-align: right;
+}
+
+/* -------------------- TRANSITION ---------------------------------*/
+
+section.transition {
+  --transitionpage-color: rgb(23, 148, 197);
+  --transitionpage-color: rgb(129, 127, 127);
+  --transitionpage-color: rgb(155, 153, 153);
+
+  justify-content: flex-start;
+
+  font-weight: bold;
+  font-family: serif, sans-serif, "Libre Baskerville", serif;
+  font-family: 'Open Sans';
+  font-family: 'Segoe UI';
+
+  /* font-size: 200%; */
+  /* text-shadow: 4px 4px 0 rgb(77, 61, 61); */
+}
+
+/* ------------------- CITE -----------------------------*/
+
+section.cite p {
+  color: #fffbfe;
+
+  font-size: 36px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  line-height: 140%;
+}
+
+section.cite {
+  --background-color: rgb(92, 121, 163);
+  --background-color: rgb(116, 135, 161);
+  --strong-color:     #d3ff11;
+}
+
+section.cite strong {
+  font-weight: 100;
+}
+
+/* ------------------- CODE BLOCKS -----------------------------*/
+
+section pre {
+  margin: 1em 3em;
+  /* padding: 1.5em 2em; */
+  /* background-color: #f5f5f5; */
+  border-radius: 4px;
+  overflow: auto;
+}
+
+section code {
+  font-family: monospace;
+}
+
+/* Inline code */
+section p code,
+section li code {
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* Code blocks - ensure margin and padding */
+section pre code {
+  background-color: transparent;
+  padding: 0;
+  display: block;
+}
