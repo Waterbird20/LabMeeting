@@ -437,6 +437,7 @@ dependencies = [
     { name = "manimlib" },
     { name = "matplotlib" },
     { name = "pandas" },
+    { name = "qutip" },
     { name = "torch" },
 ]
 
@@ -446,6 +447,7 @@ requires-dist = [
     { name = "manimlib", specifier = ">=0.2.0" },
     { name = "matplotlib", specifier = ">=3.10.7" },
     { name = "pandas", specifier = ">=2.3.3" },
+    { name = "qutip", specifier = ">=5.2.1" },
     { name = "torch", specifier = ">=2.9.0" },
 ]
 
@@ -1226,6 +1228,27 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f8/bf/abbd3cdfb8fbc7fb3d4d38d320f2441b1e7cbe29be4f23797b4a2b5d8aac/pytz-2025.2.tar.gz", hash = "sha256:360b9e3dbb49a209c21ad61809c7fb453643e048b38924c765813546746e81c3", size = 320884, upload-time = "2025-03-25T02:25:00.538Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/81/c4/34e93fe5f5429d7570ec1fa436f1986fb1f00c3e0f43a589fe2bbcd22c3f/pytz-2025.2-py2.py3-none-any.whl", hash = "sha256:5ddf76296dd8c44c26eb8f4b6f35488f3ccbf6fbbd7adee0b7262d43f0ec2f00", size = 509225, upload-time = "2025-03-25T02:24:58.468Z" },
+]
+
+[[package]]
+name = "qutip"
+version = "5.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0a/dc/d728d8bac25055940ed178569b5d5947ae5987f59146a9de42db00d4988f/qutip-5.2.1.tar.gz", hash = "sha256:9fd02d52ddbc1611c6a6dcc92b69f09cabdd9c3252772619fb6208d2dbbcbba0", size = 7204873, upload-time = "2025-08-27T13:53:20.567Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4f/35/dc33816c96e7c8b0f3d5f503a1e63c0e7749201a28a1c76bf87bb22d857d/qutip-5.2.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:c930efe6a6586a7d5b1a66e0840283b266127b575c35fca17426292e869c4b48", size = 10991194, upload-time = "2025-08-27T13:53:03.556Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/ea/fb916a6ebce79d518f30e210f673dd3991b7600b7cc5fd764bbd3d1d05d9/qutip-5.2.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ba9348f01349dac1c5505a4caac2a5bbf45447ed030203eaf9a6c51efde8619b", size = 10673382, upload-time = "2025-08-27T13:53:05.194Z" },
+    { url = "https://files.pythonhosted.org/packages/b1/a8/d93a3ed174a17407904ba9c9930a82b02f928b6fed53a10d0f05797b2f38/qutip-5.2.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3dacb4af2148880d5b46962d024b26919849884481e4809f970052fffe2197d4", size = 31821473, upload-time = "2025-08-27T13:53:07.16Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/2f/2f97416f3485824a50e88388fb1ae3b77370063c2946090cc10f3629813b/qutip-5.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:4c9044f7b49244a2de6a00e42a33771cb6c680fe053eb32ae9611ba8941c01fb", size = 10486690, upload-time = "2025-08-27T13:53:09.654Z" },
+    { url = "https://files.pythonhosted.org/packages/05/21/95e56bf864db38a7d4cc6305ccc6232db7b12cdc89ea2d89635f25119f7d/qutip-5.2.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:893f7c523a75b09c5438269e710f4ada8621ba6da9f51fe3ed28d3399e41c1f3", size = 10948493, upload-time = "2025-08-27T13:53:11.758Z" },
+    { url = "https://files.pythonhosted.org/packages/c8/f4/c4e7218314e2b407d8104979432527998045e6edd9defeae4b2279714166/qutip-5.2.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:8549a1e14756e376b74eaa8be3ec68596667d25f17ebaad564c592bb36acc47c", size = 10637481, upload-time = "2025-08-27T13:53:13.445Z" },
+    { url = "https://files.pythonhosted.org/packages/03/df/4d440518a192372f743bf14572bf0af84b257d2be8f60d7ac6235ee8f121/qutip-5.2.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e920862b26f104f85a2e493d5cd2210b40aa97e4a6edfb763027ef830ea53ffa", size = 31526090, upload-time = "2025-08-27T13:53:15.859Z" },
+    { url = "https://files.pythonhosted.org/packages/39/78/2ca50711cf5b6102311f8ba4076521abbbf219543f8d5f97da62df1c19b7/qutip-5.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:a108fb89e077bf44368b27eede3914591ec71840bf6619debba437a59802c4fe", size = 10481599, upload-time = "2025-08-27T13:53:18.406Z" },
 ]
 
 [[package]]

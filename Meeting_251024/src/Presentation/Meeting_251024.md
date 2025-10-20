@@ -121,7 +121,7 @@ $$
 </div>
 <div style="width: 50%;">
 
-<!-- Figure: NV center system diagram -->
+<!-- Todo: Figure: NV center system diagram -->
 ![NV Center System](path/to/figure)
 
 </div>
@@ -247,6 +247,10 @@ $$
 
 (General idea of the Euler method)
 
+<!-- Todo: Simple simulation -->
+
+
+
 ---
 
 # Why Euler Method Fails
@@ -254,6 +258,8 @@ $$
 ## Norm Preserving Issue
 
 Error proportional to $O(dt^2)$
+
+<!-- Simple Simulation Plot -->
 
 ## Solution: Runge-Kutta 7th Order
 
@@ -400,7 +406,7 @@ def _adaptive_dt_safe(self, t: float) -> float:
 
 ## Original Purpose: Extending Coherence Time
 
-<!-- Space for figure -->
+<!-- Todo: Space for figure -->
 
 Can be used for many purposes, including implementing conditional gates
 
@@ -424,7 +430,7 @@ That is, nuclear spin evolves by $e^{-i H_{0(1)} t}$ when electron spin lies on 
 
 # CPMG Sequence
 
-<!-- Space for figure -->
+<!-- Todo: Space for figure -->
 
 
 ## Sequence Structure
