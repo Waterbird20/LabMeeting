@@ -3,7 +3,7 @@
 
 # Variables
 MARP := marp
-SOURCE := Meeting_251024.md
+SOURCE := src/Presentation/Meeting_251024.md
 THEME := ../KIST.css
 OUTPUT_DIR := .
 BASENAME := Meeting_251024
