@@ -71,7 +71,7 @@ Center for Quantum Technology QuiME Lab, Korea Institute of Science Technology
 </div>
 
 <div class="col-right">
-<img src="./media/images/KIST_CI.png" style="max-width: 100%; height: auto; object-fit: contain;">
+<img src="media/images/KIST_CI.png" style="max-width: 100%; height: auto; object-fit: contain;">
 </div>
 
 </div>
@@ -145,12 +145,12 @@ Spatially separated magnetic dipoles interact with each other via magnetic dipol
 </div>
 <div class="col-right-content">
 
-![rightside](media/NV_figure_on_axis.png)
+![rightside](Meeting_251024/src/Presentation/media/NV_figure_on_axis.png)
 <br>
 <br>
 <br>
 <em>
-Figure 1. Diagram for NV center system. The orange-colored arrow denotes the applied external magnetic field. Drawn by Jiwon.
+Figure. Diagram for NV center system. The orange-colored arrow denotes the applied external magnetic field. Drawn by Jiwon.
 </em>
 
 </div>
@@ -210,12 +210,12 @@ $$
 </div>
 <div class="col-right-content">
 
-![rightside](media/NV_figure_on_axis.png)
+![rightside](Meeting_251024/src/Presentation/media/NV_figure_on_axis.png)
 <br>
 <br>
 <br>
 <em>
-Figure 1. Diagram for NV center system. The orange-colored arrow denotes the applied external magnetic field. Drawn by Jiwon.
+Figure. Diagram for NV center system. The orange-colored arrow denotes the applied external magnetic field. Drawn by Jiwon.
 </em>
 
 </div>
@@ -358,7 +358,7 @@ $$
 ## Norm Preserving Issue
 
 Rightside figure: $dt = 10^{-2}$. Dotted result comes from Euler method.
-![width:100%](./Meeting_251024/src/media/Euler_example.png)
+![width:100%](Meeting_251024/src/media/Euler_example.png)
 Error proportional to $O(dt^2)$. 
 
 
@@ -413,7 +413,7 @@ I ported code from `qutip/solver/integrator/qutip_integrator.py` . The details o
 
 I ran the same toy model simulation.
 
-![width:100%](./Meeting_251024/src/media/RK_comparison.png)
+![width:100%](Meeting_251024/src/media/RK_comparison.png)
 
 
 ---
@@ -520,10 +520,10 @@ That is, nuclear spin evolves by $e^{-i H_{0(1)} t}$ when electron spin lies on 
 </div>
 <div class="col-right-content">
 
-![](media/CPMG_sequence.png)
+![](Meeting_251024/src/Presentation/media/CPMG_sequence.png)
 <br>
 <em>
-Figure 1. Diagram for CPMG sequence/ CPMG is a repetition of $(\tau - \pi - 2\tau - \pi - \tau)$ for $\frac{N}{2}$ times. The figure is extracted from `Phys. Rev. X 15, 021011`.
+Figure. Diagram for CPMG sequence/ CPMG is a repetition of $(\tau - \pi - 2\tau - \pi - \tau)$ for $\frac{N}{2}$ times. The figure is extracted from `Phys. Rev. X 15, 021011`.
 </em>
 
 </div>
@@ -600,7 +600,7 @@ With meticulous RF phase updates, we can derive a conditional operation. Here, f
 </div>
 <div class="col-right-content">
 
-![](media/DDrf_sequence.png)
+![rightside](Meeting_251024/src/Presentation/media/DDrf_sequence.png)
 <br>
 <em>
 </em>
