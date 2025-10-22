@@ -90,8 +90,8 @@ Center for Quantum Technology QuiME Lab, Korea Institute of Science Technology
 - Implementation of Runge-Kutta 7
     - Why Euler Method fails
     - Key features of RK7 implementation
-- Dynamic Decoupling & DDrf explanation
-- Examples & Simulations
+- CPMG & DDrf explanation
+- Numerical Simulations
 - TODO
 
 ---
