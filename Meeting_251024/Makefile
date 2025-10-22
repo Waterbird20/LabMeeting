@@ -23,6 +23,7 @@ html: $(HTML)
 
 $(HTML): $(SOURCE) $(THEME)
 	$(MARP) $(SOURCE) --html --theme-set $(THEME) -o $(HTML) --allow-local-files main.md
+	cp $(OUTPUT_DIR)/$(BASENAME).html ../index.html
 
 # PDF output
 .PHONY: pdf
