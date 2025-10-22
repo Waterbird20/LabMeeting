@@ -358,7 +358,7 @@ $$
 ## Norm Preserving Issue
 
 Rightside figure: $dt = 10^{-2}$. Dotted result comes from Euler method.
-![width:100%](Meeting_251024/src/media/Euler_example.png)
+![width:100%](Meeting_251024/src/Presentation/media/Euler_example.png)
 Error proportional to $O(dt^2)$. 
 
 
@@ -413,7 +413,7 @@ I ported code from `qutip/solver/integrator/qutip_integrator.py` . The details o
 
 I ran the same toy model simulation.
 
-![width:100%](Meeting_251024/src/media/RK_comparison.png)
+![width:100%](Meeting_251024/src/Presentation/media/RK_comparison.png)
 
 
 ---
@@ -584,7 +584,7 @@ $$
 
 
 <!-- GIF: Multi-qubit CPMG visualization -->
-![Multi-Qubit CPMG](Meeting_251024/src/media/CPMG_example.png)
+![Multi-Qubit CPMG](Meeting_251024/src/Presentation/media/CPMG_example.png)
 
 ---
 
