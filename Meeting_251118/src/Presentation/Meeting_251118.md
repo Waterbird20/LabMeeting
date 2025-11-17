@@ -98,46 +98,9 @@ Center for Quantum Technology QuiME Lab, Korea Institute of Science Technology
 
 # Motivation
 
-<style>
-.container{
-   display: flex;
-   align-items: center;
-   width: 100%;
-   height: 100%;
-}
-.col-left-content{
-   flex: 0 0 100%;
-   padding-right: 2rem;
-   padding-bottom: 3rem;
-   color: #000000;
-}
-
-.col-right-content{
-   flex: 0 0 40%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding-bottom: 5rem;
-}
-
-img[alt~="rightside"]{
-   position: absolute;
-   top: 6.5rem;
-   right: 2.5rem;
-   width: 12rem;
-}
-
-em {
-   font-size: 0.7rem;
-}
-
-</style>
-
-
 **Challenge:** Quantum entanglement is vital for quantum computing, yet its detection and quantification remains challenging.
 
 **Existing Methods:**
-- Bell inequalities, CGLMP tests require prior knowledge of target state
 - Quantum State Tomography (QST) exponential scaling with system size
 - Detection & quantification computationally expensive
 
@@ -233,7 +196,7 @@ The states $\{\ket{a_i ,b_i}\}$ form an overcomplete (non-orthonormal) basis. Un
 
 # Example: Bell State Under Partial Transpose
 
-Consider the two-qubit Bell state $\ket{\Phi^+} = (\ket{00} + \ket{11})/\sqrt{2}$.
+Consider the two-qubit Bell state $\ket{\Phi^+} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$.
 **Density matrix:**
 $$
 \rho_{AB} = \frac{1}{2}
@@ -242,7 +205,7 @@ $$
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 1 & 0 & 0 & 1
-\end{pmatrix} =  \frac{1}{2} ( \ket{0,0}\bra{0,0} +\ket{1,1}\bra{1,1} + \ket{+,+}\bra{+,+} +\ket{-,-}\bra{-,-} - \ket{i,i}\bra{i,i} - \ket{-i, -i}\bra{-i,-i} )
+\end{pmatrix} =  \ket{\Phi^+}\bra{\Phi^+}
 $$
 
 **After partial transpose:**
@@ -268,7 +231,7 @@ The quasi-probability coefficients remain unchanged, but the transformation of t
 
 3. **General $m\otimes n$ systems:** At most $(m-1)(n-1)$ negative eigenvalues
 
-**Conclusion:** Finding $\lambda_{\min}$ of $\mathcal{N}(\rho)$ is crucial for entanglement detection
+Finding $\lambda_{\min}$ of $\mathcal{N}(\rho)$ is crucial for entanglement detection
 
 ---
 
@@ -321,6 +284,45 @@ $$
 
 # VED: Quantum Implementation
 
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 50%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 35%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-bottom: 5rem;
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 10rem;
+   right: 3rem;
+   width: 15rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+
 Each expectation value can be computed as:
 $$
 \begin{align}
@@ -330,23 +332,101 @@ $$
 $$
 This can be implemented on a quantum circuit (see Fig. 1 in the original paper). The number of required circuits equals the number of non-zero coefficients $r_{\mathcal{O}}$ in the map decomposition. The implementation of $U_{\alpha}^{\dagger}$ depends on the chosen circuit ansatz.
 
-This simplified quantum circuit estimates the overlap $\bra{\psi}\mathcal{O}(\rho_{AB})\bra{\psi}$ for a given implementable operation $\mathcal{O}$, where $\ket{\psi} = U_{\alpha} \ket{0^{2N}}$ is the parameterized input state.
+
+</div>
+<div class="col-right-content">
+
+<!-- ![rightside](/Meeting_251118/src/Presentation/media/fig1.png) -->
+![rightside](Meeting_251118/src/Presentation/media/fig1.png)
+<br>
+<em>
+Figure
+</em>
+
+</div>
+</div> 
+
+---
+
+# VED: Quantum Implementation
+
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 50%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 35%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-bottom: 5rem;
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 10rem;
+   right: 3rem;
+   width: 15rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+This simplified quantum circuit estimates the overlap $\bra{\psi}\mathcal{O}(\rho_{AB})\ket{\psi}$ for a given implementable operation $\mathcal{O}$, where $\ket{\psi} = U_{\alpha} \ket{0^{2N}}$ is the parameterized input state.
 
 **Remark:** Since separable states always have positive eigenspectra under PNCP maps, there are no false positives—if the algorithm detects entanglement, the state is genuinely entangled.
+
+
+</div>
+<div class="col-right-content">
+
+<!-- ![rightside](/Meeting_251118/src/Presentation/media/fig1.png) -->
+![rightside](Meeting_251118/src/Presentation/media/fig1.png)
+<br>
+<br>
+<br>
+<em>
+
+</em>
+
+</div>
+</div> 
+
 
 ---
 
 # VED Algorithm
 
-1. **Input:** $2n$-qubit quantum state $\rho_{AB}$, decomposition $\mathcal{N} (\cdot) = \sum_{\mathcal{O}} r_{\mathcal{O}}\mathcal{O}(\cdot)$ of the PNCP map, parameterized quantum circuit $U_{\alpha}$ with initial parameters $\alpha$, and tolerance $\delta$
-2. Initialize loss function $L(\alpha) = 0$
-3. **for all** $\mathcal{O}$ with $r_{\mathcal{O}} \neq 0$ **do**
-   - Apply $U(\alpha)$ to $\ket{0^{2n}}$ to obtain test state $\ket{\psi(\alpha)}$
-   - Input $\rho_{AB}$ and compute the overlap using the quantum circuit
+1. **Input:** $2n$-qubit quantum state $\rho_{AB}$, decomposition $\mathcal{N} (\cdot) = \sum_{\mathcal{O}} r_{\mathcal{O}}\mathcal{O}(\cdot)$ of the PNCP map, parameterized quantum circuit $U_{\alpha}$ with initial parameters $\alpha$, and tolerance $\delta$. Initialize loss function $L(\alpha) = 0$
+2. **for all** $\mathcal{O}$ with $r_{\mathcal{O}} \neq 0$ **do**
+   - Apply $U(\alpha)$ to $\ket{0^{2n}}$ to obtain test state $\ket{\psi(\alpha)}$ and Input $\rho_{AB}$ and compute the overlap using the quantum circuit
    - Update the loss function: $L(\alpha) \leftarrow L(\alpha) + r_{\mathcal{O}} \bra{\psi(\alpha)}\mathcal{O}(\rho_{AB})\ket{\psi(\alpha)}$
-4. **end for**
-5. Perform classical optimization to minimize $L(\alpha)$; terminate when $L(\alpha) < -\delta$
-6. **Output** "Entangled" if the optimized $L(\alpha) < -\delta$
+3. **end for**
+4. Perform classical optimization to minimize $L(\alpha)$; terminate when $L(\alpha) < -\delta$
+5. **Output** "Entangled" if the optimized $L(\alpha) < -\delta$
+
+
+---
+
+# VED Algorithm
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![width:25em](./media/fig2.webp)
 
 **Complexity:** This algorithm requires at most $4^N$ circuit copies. The authors also propose Probabilistic VED, which uses probabilistic sampling of observables with a cutoff to reduce measurement overhead while maintaining estimation accuracy within $\delta$ and success probability above $1-\epsilon$.
 
@@ -405,6 +485,8 @@ $$
 \rho \rightarrow \frac{-\rho + X\rho X + Y \rho Y + Z\rho Z }{2}
 $$
 
+
+
 ---
 
 # Variational Entanglement Quantification
@@ -427,11 +509,301 @@ This formulation enables variational optimization similar to VED. The authors no
 
 # Outlook
 
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+Estimated minimum eigenvalue $\lambda_{\min}$ by VED using the reduction criterion on the Bell state $\ket{\Phi}$.
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig5.webp)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+
 
 
 ---
 
-# Summary
+# Outlook
+
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+Numerical results on the four-qubit isotropic states where
+$$
+\rho^{iso}_{AB}(p) = p\rho_{AB} + (1-p)\frac{I}{2^{N}}
+$$
+$\rho_{AB}$ is set to $N$-qubit maximally entangled state:
+$\rho_{AB} = \ket{\Phi}\bra{\Phi}$
+
+
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig6.webp)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+---
+
+# Outlook
+
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+Each line depicts the smallest eigenvalue of every isotropic state with parameter $p\in\left[0,1\right]$. This line of the smallest eigenvalues is a lower bound of the loss function $\mathcal{L}(\alpha)$. Each marker depicts the minimized loss value obtained by simulations on a chosen isotropic state, aligning with the theoretical line.
+
+
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig6.webp)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+
+---
+
+# Outlook
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+$\rho_{AB}$ is set to $N$-qubit Breuer state:
+$$
+
+$$
+
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig7.webp)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+---
+
+# Outlook
+
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+The simulations are carried out on two-qubit isotropic states, where $\rho_{AB}$ is set to 2-qubit maximully entangled state:
+
+
+
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig8.png)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+---
+
+# Remark
+
+
 
 
 
@@ -442,11 +814,4 @@ This formulation enables variational optimization similar to VED. The authors no
 
 **Main Paper:** [To be filled with actual paper reference]
 
-**Related Work:**
-- PPT Criterion: Peres (1996), Horodecki et al. (1996)
-- Logarithmic Negativity: Plenio (2005)
-- VQE: Peruzzo et al. (2014)
-
-**Suggested Reading:**
-- Nielsen & Chuang, "Quantum Computation and Quantum Information"
-- Horodecki et al., "Quantum entanglement" Rev. Mod. Phys. (2009)
+**Related Important Paper:**
