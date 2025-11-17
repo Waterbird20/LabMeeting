@@ -107,7 +107,7 @@ Center for Quantum Technology QuiME Lab, Korea Institute of Science Technology
 **Suggested Approach:**
 - Use **strategically sampled measurement bases** to avoid exponential cost
 - Extract statistical correlations without complete state information
-- **Hybrid variational method**: Quantum state preparation + Quantum Measurement + classical optimization
+- **Hybrid variational method**: Quantum state preparation + Quantum Measurement + Classical optimization
 
 
 ---
@@ -126,7 +126,6 @@ Otherwise, the state is **entangled**.
 **Problem:** Directly determining separability is **NP-hard**!
 
 
-**Key Insight:**
 Instead of direct verification, use **positive but not completely positive (PNCP) maps** to detect entanglement through negative eigenvalues.
 
 
@@ -150,8 +149,7 @@ $$
 Under partial transpose on subsystem B:
 $$
 \begin{align}
-\rho_{AB}^{T_{B}} &= (I_{A} \otimes T_{B})\rho_{AB} \\
-&= \sum_{ijkl} \alpha_{ijkl} \ket{i_{A}}\bra{j_{A}} \otimes (\ket{k_{B}}\bra{l_{B}})^{T} \\
+\rho_{AB}^{T_{B}} &= \sum_{ijkl} \alpha_{ijkl} \ket{i_{A}}\bra{j_{A}} \otimes (\ket{k_{B}}\bra{l_{B}})^{T} \\
 &= \sum_{ijkl} \alpha_{ijkl} \ket{i_{A}}\bra{j_{A}} \otimes \ket{l_{B}}\bra{k_{B}}
 \end{align}
 $$
@@ -196,8 +194,7 @@ The states $\{\ket{a_i ,b_i}\}$ form an overcomplete (non-orthonormal) basis. Un
 
 # Example: Bell State Under Partial Transpose
 
-Consider the two-qubit Bell state $\ket{\Phi^+} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$.
-**Density matrix:**
+**Density matrix of two-qubit Bell state $\ket{\Phi^+} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$:**
 $$
 \rho_{AB} = \frac{1}{2}
 \begin{pmatrix}
@@ -205,7 +202,8 @@ $$
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 1 & 0 & 0 & 1
-\end{pmatrix} =  \ket{\Phi^+}\bra{\Phi^+}
+\end{pmatrix} 
+= \frac{1}{2}\Big( \ket{0,0}\bra{0,0} +\ket{1,1}\bra{1,1} + \ket{+,+}\bra{+,+} +\ket{-,-}\bra{-,-} - \ket{i,i}\bra{i,i} - \ket{-i, -i}\bra{-i,-i} \Big)
 $$
 
 **After partial transpose:**
@@ -330,7 +328,7 @@ $$
 &= \text{Tr} \left[U^{\dagger}_{\alpha}\mathcal{O}(\rho_{AB})U_{\alpha}\ket{0^{2n}}\bra{0^{2n}} \right]
 \end{align}
 $$
-This can be implemented on a quantum circuit (see Fig. 1 in the original paper). The number of required circuits equals the number of non-zero coefficients $r_{\mathcal{O}}$ in the map decomposition. The implementation of $U_{\alpha}^{\dagger}$ depends on the chosen circuit ansatz.
+This can be implemented on a quantum circuit. The number of required circuits equals the number of non-zero coefficients $r_{\mathcal{O}}$ in the map decomposition. The implementation of $U_{\alpha}^{\dagger}$ depends on the chosen circuit ansatz.
 
 
 </div>
@@ -340,7 +338,6 @@ This can be implemented on a quantum circuit (see Fig. 1 in the original paper).
 ![rightside](Meeting_251118/src/Presentation/media/fig1.png)
 <br>
 <em>
-Figure
 </em>
 
 </div>
@@ -508,6 +505,7 @@ This formulation enables variational optimization similar to VED. The authors no
 ---
 
 # Outlook
+<!-- TODO: Polish English description -->
 
 <style scoped> 
 .container{
@@ -549,6 +547,8 @@ em {
 
 Estimated minimum eigenvalue $\lambda_{\min}$ by VED using the reduction criterion on the Bell state $\ket{\Phi}$.
 
+Due to the finite sampling restriction for measurements, the optimization procedure essentially falls into the regime of SGD. The optimized loss values converges to $\lambda_{\min}\simeq 0.43$. The gap between the experiment data and simulation result $\lambda_{\min} = 0.5$ is due to various hardware noises on the ibmq santiago processor.
+
 </div>
 <div class="col-right-content">
 
@@ -566,6 +566,7 @@ Estimated minimum eigenvalue $\lambda_{\min}$ by VED using the reduction criteri
 ---
 
 # Outlook
+<!-- TODO: Polish English description -->
 
 <style scoped> 
 .container{
@@ -609,9 +610,9 @@ Numerical results on the four-qubit isotropic states where
 $$
 \rho^{iso}_{AB}(p) = p\rho_{AB} + (1-p)\frac{I}{2^{N}}
 $$
-$\rho_{AB}$ is set to $N$-qubit maximally entangled state:
-$\rho_{AB} = \ket{\Phi}\bra{\Phi}$
+$\rho_{AB}$ is set to $N$-qubit maximally entangled state:$\rho_{AB} = \ket{\Phi}\bra{\Phi}$
 
+It has been shown that $\rho_{AB}$ is separable if and only if $p \leq \frac{1}{2^{N/2} + 1}$.
 
 
 </div>
@@ -628,6 +629,7 @@ $\rho_{AB} = \ket{\Phi}\bra{\Phi}$
 ---
 
 # Outlook
+<!-- TODO: Polish English description -->
 
 <style scoped> 
 .container{
@@ -686,6 +688,7 @@ Each line depicts the smallest eigenvalue of every isotropic state with paramete
 ---
 
 # Outlook
+<!-- TODO: Polish English description -->
 <style scoped> 
 .container{
    display: flex;
@@ -724,10 +727,18 @@ em {
 <div class="container">
 <div class="col-left-content">
 
-$\rho_{AB}$ is set to $N$-qubit Breuer state:
+The four-qubit Breuer state($N=4$) is 
 $$
-
+\rho_{AB}^{\text{Breuer}}(\lambda) = \lambda P_{0} + (1-\lambda)\rho_0
 $$
+where
+$$
+\begin{align}
+P_{j} &= \sum_{m=-j}^{j} \ket{J=j, m}\bra{J=j, m} \\ 
+\rho_0 &= \frac{2}{N+2}\sum_{J_{\text{odd}}} P_{J}
+\end{align}
+$$
+You can check clebsch gordan table entire matrix elements. Note that four-qubit Breuer state was regarded as two-spin-3/2 state, then mapped into four-qubit state.
 
 
 </div>
@@ -744,6 +755,72 @@ $$
 ---
 
 # Outlook
+<!-- TODO: Polish English description -->
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 40%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* padding-bottom: 0rem; */
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 5rem;
+   right: 3rem;
+   width: 20rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
+
+Breifly, two-qubit Breuer state($N=2$) is 
+$$
+\rho_{AB}^{\text{Breuer}} = \begin{pmatrix}
+\frac{1-\lambda}{3} & 0 & 0 & 0 \\
+0 & \frac{1+2\lambda}{6} & \frac{1-4\lambda}{6} & 0 \\
+0 & \frac{1-4\lambda}{6} & \frac{1+2\lambda}{6} & 0 \\
+0 & 0 & 0 & \frac{1-\lambda}{3} \\
+\end{pmatrix}
+$$
+
+
+</div>
+<div class="col-right-content">
+
+![rightside](Meeting_251118/src/Presentation/media/fig7.webp)
+<em>
+
+</em>
+
+</div>
+</div> 
+
+
+---
+
+# Outlook
+<!-- TODO: Polish English description -->
 
 <style scoped> 
 .container{
@@ -783,9 +860,11 @@ em {
 <div class="container">
 <div class="col-left-content">
 
-The simulations are carried out on two-qubit isotropic states, where $\rho_{AB}$ is set to 2-qubit maximully entangled state:
-
-
+The simulations are carried out on two-qubit isotropic states, where $\rho_{AB}$ is set to isotropic states.
+$$
+\rho_{AB}^{\text{iso}} = p \ket{\Phi}\bra{\Phi} + (1-p)\frac{I}{4}
+$$
+where $\ket{\Phi}$ is two-qubit maximally entangled state. The logarithmic negativity of a two-qubit isotropic state is positive if and only if its parameter $p > \frac{1}{3}$, which matches the range of $p$ where the corresponding isotropic states are entangled.
 
 
 </div>
@@ -802,16 +881,33 @@ The simulations are carried out on two-qubit isotropic states, where $\rho_{AB}$
 ---
 
 # Remark
+<!-- TODO: Polish English description -->
 
-
-
-
+The author used SGD method for parameter update where the analytical gradient is calculated via the following parameter-shift rule
+$$
+\frac{\partial \mathcal{L}}{\partial \theta_{i}} = \frac{1}{2}\left[ \mathcal{L}\left(\theta_i + \frac{\pi}{2} \right) - \mathcal{L}\left(\theta_i - \frac{\pi}{2} \right) \right]. 
+$$
+However, there exists a vast flat area on the loss/optimization landscape. This phenomenon is known as the barren plateau (BP) and is independent of the optimizer utilized, meaning that a gradientfree optimizer would not help in mitigating this phenomenon67. Furthermore, noise and entanglement could also induce BP.
 
 
 ---
 
 # References & Further Reading
 
-**Main Paper:** [To be filled with actual paper reference]
+**Main Paper**: Wang, Kun, et al. "Detecting and quantifying entanglement on near-term quantum devices." npj Quantum Information 8.1 (2022): 52.
 
-**Related Important Paper:**
+**Related Important Paper**:
+- Quasi-probability Decomposition: Pashayan, Hakop, Joel J. Wallman, and Stephen D. Bartlett. "Estimating outcome probabilities of quantum circuits using quasiprobabilities." Physical review letters 115.7 (2015): 070501.
+- Partial Transpose: Rana, Swapan. "Negative eigenvalues of partial transposition of arbitrary bipartite states." Physical Review A—Atomic, Molecular, and Optical Physics 87.5 (2013): 054301. (Related Remark)
+- Reduction Map: Cerf, Nicolas J., Chris Adami, and Robert M. Gingrich. "Reduction criterion for separability." Physical Review A 60.2 (1999): 898.
+- Breuer State, Enhanced Reduction Map: Breuer, Heinz-Peter. "Optimal entanglement criterion for mixed quantum states." Physical review letters 97.8 (2006): 080501.
+- Log Negativity Lemma: Chen, Ranyiliu, et al. "Variational quantum algorithms for trace distance and fidelity estimation." Quantum Science and Technology 7.1 (2021): 015019. (Corollary3)
+- Barren Plateaus: Zambrano, Leonardo, et al. "Avoiding barren plateaus in the variational determination of geometric entanglement." Quantum Science and Technology 9.2 (2024): 025016.
+- Parameter Shift Rule: Gidi, J., et al. "Stochastic optimization algorithms for quantum applications." Physical Review A 108.3 (2023): 032409.
+- Observable Sampling: Zhao, Xuanqiang, et al. "Power of quantum measurement in simulating unphysical operations." Physical Review Research 7.1 (2025): 013334.
+
+<style scoped>
+   li, p {
+      font-size: 13pt;
+   }
+</style>
