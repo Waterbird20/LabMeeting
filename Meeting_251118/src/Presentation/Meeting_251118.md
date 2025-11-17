@@ -423,7 +423,7 @@ This simplified quantum circuit estimates the overlap $\bra{\psi}\mathcal{O}(\rh
 
 # VED Algorithm
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![width:25em](/Meeting_251118/src/Presentation/media/fig2.webp)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![width:25em](Meeting_251118/src/Presentation/media/fig2.webp)
 
 **Complexity:** This algorithm requires at most $4^N$ circuit copies. The authors also propose Probabilistic VED, which uses probabilistic sampling of observables with a cutoff to reduce measurement overhead while maintaining estimation accuracy within $\delta$ and success probability above $1-\epsilon$.
 
