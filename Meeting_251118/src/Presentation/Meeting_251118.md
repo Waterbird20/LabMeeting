@@ -221,7 +221,7 @@ The quasi-probability coefficients remain unchanged, but the transformation of t
 
 ---
 
-# Important Remarks on Partial Transpose
+# Remarks on Partial Transpose
 
 1. **PPT Criterion:** Partial transpose detects entanglement for $2\times2$ and $2\times3$ systems (not all entangled states)
 
@@ -247,7 +247,7 @@ where trace norm: $\left\| A \right\| = \text{Tr} \sqrt{A^{\dagger}A}$ = sum of 
 
 ---
 
-# Example (Bell state)
+# Example: Logarithmic Negativity of Bell State
 For the Bell state with density matrix, the partial transpose yields:
 $$
 \rho_{AB}^{T_B} = \frac{1}{2}
@@ -504,10 +504,9 @@ This formulation enables variational optimization similar to VED. The authors no
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
+# Experimental Results: Bell State
 
-<style scoped> 
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -540,14 +539,18 @@ em {
    font-size: 0.7rem;
 }
 
+p {
+   font-size: 18pt;
+}
+
 </style>
 
 <div class="container">
 <div class="col-left-content">
 
-Estimated minimum eigenvalue $\lambda_{\min}$ by VED using the reduction criterion on the Bell state $\ket{\Phi}$.
+The figure shows the estimated minimum eigenvalue $\lambda_{\min}$ obtained by VED using the reduction map on the Bell state $\ket{\Phi}$.
 
-Due to the finite sampling restriction for measurements, the optimization procedure essentially falls into the regime of SGD. The optimized loss values converges to $\lambda_{\min}\simeq 0.43$. The gap between the experiment data and simulation result $\lambda_{\min} = 0.5$ is due to various hardware noises on the ibmq santiago processor.
+Due to finite sampling constraints in measurements, the optimization procedure operates in the stochastic gradient descent (SGD) regime. The optimized loss value converges to $\lambda_{\min}\simeq -0.43$. The discrepancy between the experimental data and the simulation result ($\lambda_{\min} = -0.5$) is attributed to various sources of hardware noise on the IBM Quantum Santiago processor.
 
 </div>
 <div class="col-right-content">
@@ -565,10 +568,9 @@ Due to the finite sampling restriction for measurements, the optimization proced
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
+# Numerical Results: Four-Qubit Isotropic States
 
-<style scoped> 
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -601,18 +603,23 @@ em {
    font-size: 0.7rem;
 }
 
+p {
+   font-size: 20pt;
+}
+
+
 </style>
 
 <div class="container">
 <div class="col-left-content">
 
-Numerical results on the four-qubit isotropic states where
+The figure presents numerical results for four-qubit isotropic states defined as
 $$
 \rho^{iso}_{AB}(p) = p\rho_{AB} + (1-p)\frac{I}{2^{N}}
 $$
-$\rho_{AB}$ is set to $N$-qubit maximally entangled state:$\rho_{AB} = \ket{\Phi}\bra{\Phi}$
+where $\rho_{AB}$ denotes the $N$-qubit maximally entangled state: $\rho_{AB} = \ket{\Phi}\bra{\Phi}$.
 
-It has been shown that $\rho_{AB}$ is separable if and only if $p \leq \frac{1}{2^{N/2} + 1}$.
+It has been shown that $\rho^{iso}_{AB}(p)$ is separable if and only if $p \leq \frac{1}{2^{N/2} + 1}$.
 
 
 </div>
@@ -628,10 +635,9 @@ It has been shown that $\rho_{AB}$ is separable if and only if $p \leq \frac{1}{
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
+# Loss Function Analysis: Isotropic States
 
-<style scoped> 
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -669,7 +675,7 @@ em {
 <div class="container">
 <div class="col-left-content">
 
-Each line depicts the smallest eigenvalue of every isotropic state with parameter $p\in\left[0,1\right]$. This line of the smallest eigenvalues is a lower bound of the loss function $\mathcal{L}(\alpha)$. Each marker depicts the minimized loss value obtained by simulations on a chosen isotropic state, aligning with the theoretical line.
+Each curve represents the smallest eigenvalue of the isotropic states as a function of the parameter $p\in\left[0,1\right]$ with respect to PNCP map. This curve of smallest eigenvalues provides a lower bound for the loss function $\mathcal{L}(\alpha)$. 
 
 
 
@@ -687,9 +693,8 @@ Each line depicts the smallest eigenvalue of every isotropic state with paramete
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
-<style scoped> 
+# Four-Qubit Breuer States
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -722,23 +727,28 @@ em {
    font-size: 0.7rem;
 }
 
+p {
+   font-size: 18pt;
+}
+
+
 </style>
 
 <div class="container">
 <div class="col-left-content">
 
-The four-qubit Breuer state($N=4$) is 
+The four-qubit Breuer state ($N=4$) is defined as
 $$
 \rho_{AB}^{\text{Breuer}}(\lambda) = \lambda P_{0} + (1-\lambda)\rho_0
 $$
 where
 $$
 \begin{align}
-P_{j} &= \sum_{m=-j}^{j} \ket{J=j, m}\bra{J=j, m} \\ 
+P_{j} &= \sum_{m=-j}^{j} \ket{J=j, m}\bra{J=j, m} \\
 \rho_0 &= \frac{2}{N+2}\sum_{J_{\text{odd}}} P_{J}
 \end{align}
 $$
-You can check clebsch gordan table entire matrix elements. Note that four-qubit Breuer state was regarded as two-spin-3/2 state, then mapped into four-qubit state.
+The complete matrix elements can be obtained from the Clebsch-Gordan coefficient table. Note that the four-qubit Breuer state is constructed by first treating it as a two-spin-3/2 system, then mapping it to a four-qubit representation.
 
 
 </div>
@@ -754,9 +764,8 @@ You can check clebsch gordan table entire matrix elements. Note that four-qubit 
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
-<style scoped> 
+# Two-Qubit Breuer States
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -794,7 +803,7 @@ em {
 <div class="container">
 <div class="col-left-content">
 
-Breifly, two-qubit Breuer state($N=2$) is 
+For the two-qubit case ($N=2$), the Breuer state is explicitly given by 
 $$
 \rho_{AB}^{\text{Breuer}} = \begin{pmatrix}
 \frac{1-\lambda}{3} & 0 & 0 & 0 \\
@@ -819,10 +828,9 @@ $$
 
 ---
 
-# Outlook
-<!-- TODO: Polish English description -->
+# Entanglement Quantification Results
 
-<style scoped> 
+<style scoped>
 .container{
    display: flex;
    align-items: center;
@@ -860,11 +868,11 @@ em {
 <div class="container">
 <div class="col-left-content">
 
-The simulations are carried out on two-qubit isotropic states, where $\rho_{AB}$ is set to isotropic states.
+The simulations are performed on two-qubit isotropic states defined as
 $$
 \rho_{AB}^{\text{iso}} = p \ket{\Phi}\bra{\Phi} + (1-p)\frac{I}{4}
 $$
-where $\ket{\Phi}$ is two-qubit maximally entangled state. The logarithmic negativity of a two-qubit isotropic state is positive if and only if its parameter $p > \frac{1}{3}$, which matches the range of $p$ where the corresponding isotropic states are entangled.
+where $\ket{\Phi}$ is the two-qubit maximally entangled state. The logarithmic negativity of a two-qubit isotropic state is positive if and only if $p > \frac{1}{3}$, which precisely corresponds to the parameter range where the state is entangled.
 
 
 </div>
@@ -880,15 +888,13 @@ where $\ket{\Phi}$ is two-qubit maximally entangled state. The logarithmic negat
 
 ---
 
-# Remark
-<!-- TODO: Polish English description -->
+# Optimization Challenges: Barren Plateaus
 
-The author used SGD method for parameter update where the analytical gradient is calculated via the following parameter-shift rule
+The authors employed the stochastic gradient descent (SGD) method for parameter updates, where the analytical gradient is calculated via the parameter-shift rule:
 $$
-\frac{\partial \mathcal{L}}{\partial \theta_{i}} = \frac{1}{2}\left[ \mathcal{L}\left(\theta_i + \frac{\pi}{2} \right) - \mathcal{L}\left(\theta_i - \frac{\pi}{2} \right) \right]. 
+\frac{\partial \mathcal{L}}{\partial \theta_{i}} = \frac{1}{2}\left[ \mathcal{L}\left(\theta_i + \frac{\pi}{2} \right) - \mathcal{L}\left(\theta_i - \frac{\pi}{2} \right) \right].
 $$
-However, there exists a vast flat area on the loss/optimization landscape. This phenomenon is known as the barren plateau (BP) and is independent of the optimizer utilized, meaning that a gradientfree optimizer would not help in mitigating this phenomenon67. Furthermore, noise and entanglement could also induce BP.
-
+However, vast flat regions exist in the loss landscape. This phenomenon, known as the barren plateau (BP), is independent of the optimizer used, meaning that gradient-free optimizers would not mitigate this issue. Furthermore, both noise and entanglement can induce barren plateaus.
 
 ---
 
