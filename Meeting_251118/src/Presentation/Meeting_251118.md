@@ -487,6 +487,43 @@ $$
 ---
 
 # Variational Entanglement Quantification
+<style scoped> 
+.container{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+.col-left-content{
+   flex: 0 0 70%;
+   padding-right: 2rem;
+   padding-bottom: 3rem;
+   color: #000000;
+}
+
+.col-right-content{
+   flex: 0 0 15%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-bottom: 5rem;
+}
+
+img[alt~="rightside"]{
+   position: absolute;
+   top: 10rem;
+   right: 1rem;
+   width: 15rem;
+}
+
+em {
+   font-size: 0.7rem;
+}
+
+</style>
+
+<div class="container">
+<div class="col-left-content">
 
 We can measure logarithmic negativity using ancillary qubit
 
@@ -501,6 +538,25 @@ where:
 - $Q_{ABR} = U (\rho_{AB}^{T_{B}} \otimes \ket{0}\bra{0}_{R}) U^{\dagger}$
 
 This formulation enables variational optimization similar to VED. The authors note that this framework can be extended to other entanglement measures based on sandwiched Rényi relative entropy.
+
+
+</div>
+<div class="col-right-content">
+
+<!-- ![rightside](/Meeting_251118/src/Presentation/media/fig1.png) -->
+![rightside](Meeting_251118/src/Presentation/media/fig9.png)
+<br>
+<br>
+<br>
+<em>
+
+</em>
+
+</div>
+</div> 
+
+
+
 
 ---
 
