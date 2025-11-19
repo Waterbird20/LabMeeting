@@ -419,6 +419,7 @@ Then, the number of repetitions of CPMG train is chosen meticulously to achieve 
 At a certain $\tau$, we observe a conditional operation. Red (Blue) arrow denotes the rotation axis when the initial electron spin state was $\ket{0}$ ($\ket{1}$).
 
 <!-- TODO: add figure -->
+![width:1100px](Meeting_251120/src/Presentation/media/CPMG_axis.png)
 
 
 ---
@@ -530,7 +531,9 @@ The following colormap shows how the $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}$ val
 
 $\tau$ shifts to shorter values as $\tau_{MW}$ increases. However, the amount of left-shift keeps the total time for CPMG train constant. 
 
-<!-- TODO: add figure -->
+
+![width:1200px](Meeting_251120/src/Presentation/media/CPMG_imshow.png)
+
 
 ---
 
@@ -538,7 +541,8 @@ $\tau$ shifts to shorter values as $\tau_{MW}$ increases. However, the amount of
 
 Varying $N$ and fixing $\tau_{\text{MW}}$, the value $\tau$ that makes total operation conditional, $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}=-1$, is unchanged. 
 
-<!-- TODO: add figure -->
+
+![width:1200px](Meeting_251120/src/Presentation/media/CPMG_N.png)
 
 
 --- 
@@ -559,12 +563,13 @@ $$
 $$
 
 
+
 ---
 
 # CPMG analysis: $\lambda_{i}$
 As expected, as $\tau_{\text{MW}}$ and $N$ increase, the singular value $\lambda_{i}$ deviates from 1. 
 
-<!-- TODO: add figure -->
+![width:1200px](Meeting_251120/src/Presentation/media/CPMG_singularV.png)
 
 ---
 
@@ -624,15 +629,9 @@ $$
 
 # Future Work
 
-## Analytical Study
-- Derive analytical expression for $P_x$ with non-negligible MW time
-- Determine optimal control parameters from analysis
+- Numerical/Analytical Study
+   - Derive analytical expression for $P_x$ with non-negligible MW time
 
-## Machine Learning
-- Run learning with optimized parameters
-- Validate learned parameters against analytical predictions
+- DDrf Study for GHZ study
 
-## Numerical Analysis
-- Complete singular value analysis for $P_x$ measurement
-- Investigate effect of multiple $^{13}$C spins
-
+- Further Entanglement study
