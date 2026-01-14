@@ -117,7 +117,7 @@ li {
 <div class="col-left-content">
 
 - What I did since last lab meeting (25/11/20)
-- What I'am doing now
+- What I'm doing now
    - Projects
    - Progress Update
 - Dynamic Decoupling
@@ -264,8 +264,8 @@ Figure. Diagram for CPMG sequence/ CPMG is a repetition of $(\tau - \pi - 2\tau 
    - if NV spin is 0-state: $e^{-i \phi \hat{I}\cdot\hat{\sigma^{0}}} = e^{-i H_{0} \tau}e^{-i H_{1} 2\tau}e^{-i H_{0} \tau}$
    - if NV spin is 1-state: $e^{-i \phi \hat{I}\cdot\hat{\sigma^{1}}} = e^{-i H_{1} \tau}e^{-i H_{0} 2\tau}e^{-i H_{1} \tau}$
 
-- When vectors $\sigma^0$ and $\sigma^1$ are anti-parallel → conditional gate
-- Directions are generally parallel, but become anti-parallel at specific $\tau$ values
+- When vectors $\sigma^0$ and $\sigma^1$ are anti-parallel, a conditional gate is achieved
+- The directions are generally parallel, but become anti-parallel at specific $\tau$ values
 
 **Note**: $\phi$ is the same regardless of whether the initial state is 0 or 1 in the CPMG train.
 
@@ -307,7 +307,7 @@ U_0^{ \frac{N}{2}} & 0 \\
 $$
 where off-diagonal components are zero.
 
-However, if the time for MW implementing $\pi$-pulse gate is not short enough, it can cause additional effects beyond those described below. 
+However, if the time for the MW pulse implementing the $\pi$-pulse gate is not short enough, it can cause additional effects beyond those described below. 
 
 
 ---
@@ -397,7 +397,7 @@ For this tentative simulation, I used the following parameters:
 
 The following colormap shows how the $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}$ value changes with $\tau$ and $\tau_{\text{MW}}$.
 
-$\tau$ shifts to shorter values as $\tau_{MW}$ increases. However, the amount of left-shift keeps the total time for CPMG train constant. 
+$\tau$ shifts to shorter values as $\tau_{MW}$ increases. However, the amount of this shift keeps the total time for the CPMG train constant. 
 
 
 ![width:1200px](Meeting_251120/src/Presentation/media/CPMG_imshow.png)
@@ -407,7 +407,7 @@ $\tau$ shifts to shorter values as $\tau_{MW}$ increases. However, the amount of
 
 # CPMG analysis: $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}$
 
-Varying $N$ and fixing $\tau_{\text{MW}}$, the value $\tau$ that makes total operation conditional, $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}=-1$, is unchanged. 
+When varying $N$ while fixing $\tau_{\text{MW}}$, the value of $\tau$ that makes the total operation conditional, $\vec{\sigma_{0}}\cdot\vec{\sigma_{1}}=-1$, remains unchanged. 
 
 
 ![width:1200px](Meeting_251120/src/Presentation/media/CPMG_N.png)
@@ -435,7 +435,7 @@ $$
 ---
 
 # CPMG analysis: $\lambda_{i}$
-As expected, as $\tau_{\text{MW}}$ and $N$ increase, the singular value $\lambda_{i}$ deviates from 1. 
+As expected, when $\tau_{\text{MW}}$ and $N$ increase, the singular value $\lambda_{i}$ deviates from 1. 
 
 ![width:1200px](Meeting_251120/src/Presentation/media/CPMG_singularV.png)
 
@@ -497,7 +497,7 @@ $$
 
 # [Update] CPMG analysis: $\lambda_{i}$
 
-But, its effect seems not that critical.
+However, its effect does not seem to be critical.
 $$
 \begin{align}
 \sigma_{00} + \sigma_{11} &\simeq 2 \\
@@ -543,12 +543,12 @@ $$
 
 ## Strategy
 
-1. Using three of $N$ for fitting data, while remaining is used for validation data.  
-2. Cost fuction is based on Mean Squared Error(MSE). Cost function can be adjusted so that peak data could be regarded more crucially. For example, $\frac{(y_{\text{data}} - y_{\text{fit}})^2}{y_{\text{data}}}$, here, $0<y_{\text{data}}<1$.
+1. Using three values of $N$ for fitting data, while the remaining are used for validation data.
+2. The cost function is based on Mean Squared Error (MSE). The cost function can be adjusted so that peak data could be regarded more crucially. For example, $\frac{(y_{\text{data}} - y_{\text{fit}})^2}{y_{\text{data}}}$, where $0<y_{\text{data}}<1$.
 3. By assuming the number of $^{13}$C spins, perform fitting and check validation. It was expected that training error would decrease while validation error increases. In this process, one might choose the desired number of $^{13}$C spins. 
 
 ## Problem $\rightarrow$ Failed!
-However, every time I performed fitting, I derived different hyperfine coupling parameters. 
+However, every time I performed fitting, I obtained different hyperfine coupling parameters. 
 
 
 ---
@@ -620,7 +620,7 @@ U_{1}=& R_{1}(4N\tau)^{\dagger} e^{-i H_{1}^{\prime}\tau} R_{1}((2N-1)\tau)R_{0}
 \end{align}
 $$
 
-It is worth to mention that
+It is worth mentioning that
 - $\Omega_{\text{RF}} \rightarrow 0 , \omega_{\text{RF}} = \omega_1$: CPMG at a certain $\tau \simeq \frac{(2k-1)\pi}{2\omega_0 + A_{\parallel}}$
 - $\beta\rightarrow 0, \omega_{\text{RF}} = \omega_1 > \omega_0$: DDrf(2019)
 - $\Omega_{\text{RF}} \rightarrow \frac{\Omega_{\text{RF}}}{\cos\beta}$: Jiwon's idea
@@ -631,18 +631,18 @@ It is worth to mention that
 # DDrf Spectroscopy
 
 <!-- Main Idea: (M+1)/2 -->
-The paper, `Physical Review X 9.3 (2019): 031045`, suggested DDrf gate provides additional benefit that spins with small $A_{\perp}$ can also be detected. 
+The paper, `Physical Review X 9.3 (2019): 031045`, suggested that the DDrf gate provides the additional benefit that spins with small $A_{\perp}$ can also be detected. 
 
 Procedure:
-1. $\frac{\pi}{2}$-pulse rotate electorn spin to $\ket{+}$.
+1. $\frac{\pi}{2}$-pulse rotates electron spin to $\ket{+}$.
 2. DDrf Gate with fixed $N$ and $\tau$.
-3. $\frac{\pi}{2}$-pulse is applied to electron spin with varying phase $\phi$. 
+3. $\frac{\pi}{2}$-pulse is applied to electron spin with varying phase $\phi$.
 
-Then, on the resonanse frequency, peaks are observed. 
+Then, at the resonant frequency, peaks are observed. 
 $$
 \omega_{\text{RF}} = \omega_{1} + \frac{2\pi m}{\tau}
 $$
-where $m$ is integer. 
+where $m$ is an integer. 
 
 ---
 
@@ -703,13 +703,13 @@ em {
 
 ## Problems
 
-1. Peak was not observed for all resonant frequency. 
-2. The peak corresponds to $\omega_{+1}$ and $\omega_{-1}$ must be different.
+1. Peaks were not observed for all resonant frequencies.
+2. The peaks corresponding to $\omega_{+1}$ and $\omega_{-1}$ must be different.
 
-## Potential Issue
+## Potential Issues
 
 1. Incorrect coding.
-2. Additional implementation sweeping phase $\phi$ for electron spin. 
+2. Additional implementation required for sweeping phase $\phi$ of the electron spin. 
 
 ---
 
@@ -717,10 +717,10 @@ em {
 
 ## Problems
 
-1. Data stored in Slack chat is not conserved more than 90 days.
-2. As we are not using Notion or others, the management of lab resources is contingent on individual's ability. 
-$\rightarrow$ We have craved systemic and integrated management system. 
-Based on the following clone coding, I'm working on building slack and going to integrate notion features. Possibly we are likely to record lab note here. Of course, before this, we must reach agreement on writing lab note. 
+1. Data stored in Slack chat is not retained for more than 90 days.
+2. As we are not using Notion or other tools, the management of lab resources is contingent on each individual's ability.
+$\rightarrow$ We have craved a systemic and integrated management system.
+Based on the following clone coding, I'm working on building a Slack alternative and integrating Notion features. We will potentially be able to record lab notes here. Of course, before this, we must reach an agreement on writing lab notes. 
 
 ![](Meeting_260114/src/Presentation/media/CodeWithAntonio.png)
 
@@ -741,4 +741,4 @@ Based on the following clone coding, I'm working on building slack and going to 
 5. [Ongoing] Slack + Notion
 
 
-## I'm going to be "FAT" person! 
+## I'm going to be a "FAT" person! 
