@@ -685,12 +685,11 @@ em {
 
 <div class="container">
 <div class="col-left-content">
-<img src="/Meeting_260114/src/Presentation/media/Taminiau.png" style="max-width: 100%; height: auto; object-fit: contain;">
-
+<img src="Meeting_260114/src/Presentation/media/Taminiau.png" style="max-width: 100%; height: auto; object-fit: contain;">
 
 </div>
 <div class="col-right-content">
-<img src="/Meeting_260114/src/Presentation/media/DDrf_simulation.png" style="max-width: 100%; height: auto; object-fit: contain;">
+<img src="Meeting_260114/src/Presentation/media/DDrf_simulation.png" style="max-width: 100%; height: auto; object-fit: contain;">
 
 <br>
 <em>
@@ -729,8 +728,7 @@ Based on the following clone coding, I'm working on building slack and going to 
 
 # Slack + Notion
 
-
-![](Meeting_260114/src/Presentation/media/image.png)
+![](Meeting_260114/src/Presentation/media/slack_demo.png)
 
 ---
 
