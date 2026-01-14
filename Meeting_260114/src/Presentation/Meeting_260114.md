@@ -515,18 +515,56 @@ where $p_0 , p_1$ are average of eigenvalues, $\phi$ is conditional rotation ang
 
 ---
 
+# CPMG Fitting
+<!-- TODO: Add Figure -->
+
+---
+
+# CPMG Fitting
+
+We measure the probability, $P_x$, that the initial state of electron spin is preserved.
+$$
+\begin{align} 
+M &= \Re (\text{Tr } U_{0}U_{1}^{\dagger}) = 1 - \left( 1 - \hat{n}_{0}\cdot\hat{n}_{1}  \right)\sin^{2} \frac{N\phi}{2}  && \cos \phi &= \cos\alpha \cos\beta - \cos\beta \sin\alpha \sin\beta \\
+P_x &= \frac{M e^{-\frac{2N\tau}{T_\alpha}}}{2} + \frac{1}{3} + \frac{e^{-\frac{-2N\tau}{T_{\beta}}}}{6} && 1 - \hat{n}_{0}\cdot\hat{n}_{1} &= \sin^2 \beta \frac{(1-\cos\alpha)(1 - \cos\beta)}{1 + \cos\phi}
+\end{align}
+$$
+where 
+$$
+\begin{align}
+\cos\beta &= \frac{\omega_L - \omega_{\parallel}}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} \\
+\sin\beta &= \frac{A_\perp}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} 
+\end{align}
+$$
+
+---
+
+# CPMG Fitting
+
+## Strategy
+
+1. Using three of $N$ for fitting data, while remaining is used for validation data.  
+2. Cost fuction is based on Mean Squared Error(MSE). Cost function can be adjusted so that peak data could be regarded more crucially. For example, $\frac{(y_{\text{data}} - y_{\text{fit}})^2}{y_{\text{data}}}$, here, $0<y_{\text{data}}<1$.
+3. By assuming the number of $^{13}$C spins, perform fitting and check validation. It was expected that training error would decrease while validation error increases. In this process, one might choose the desired number of $^{13}$C spins. 
+
+## Problem $\rightarrow$ Failed!
+However, every time I performed fitting, I derived different hyperfine coupling parameters. 
+
+
+---
+
 # DDrf Milestone
 
 1. DDrf Spectroscopy (Experiment) <- (Eunsang Lee/ Donghun Jung)
--> Output: $\omega_1$ of 13C spins
+$\rightarrow$ Output: $\omega_1$ of 13C spins
 
 2. DDrf Spectroscopy (Experiment) 
--> Output: $\sin\beta$, $A_{\perp}$
+$\rightarrow$ Output: $\sin\beta$, $A_{\perp}$
 
 3. DDrf/DD comparative study (Theory)
 
 4. Hybrid DDrf Gate (Theory) <- (Jiwon Jeon/ Donghun Jung)
--> Further faster conditional gate implementation
+$\rightarrow$ Further faster conditional gate implementation
 
 ---
 
@@ -686,6 +724,13 @@ $\rightarrow$ We have craved systemic and integrated management system.
 Based on the following clone coding, I'm working on building slack and going to integrate notion features. Possibly we are likely to record lab note here. Of course, before this, we must reach agreement on writing lab note. 
 
 ![](Meeting_260114/src/Presentation/media/CodeWithAntonio.png)
+
+---
+
+# Slack + Notion
+
+
+![](Meeting_260114/src/Presentation/media/image.png)
 
 ---
 
