@@ -518,6 +518,8 @@ where $p_0 , p_1$ are average of eigenvalues, $\phi$ is conditional rotation ang
 # CPMG Fitting
 <!-- TODO: Add Figure -->
 
+![](Meeting_260114/src/Presentation/media/CPMG_experiment.png)
+
 ---
 
 # CPMG Fitting
@@ -533,7 +535,7 @@ where
 $$
 \begin{align}
 \cos\beta &= \frac{\omega_L - \omega_{\parallel}}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} \\
-\sin\beta &= \frac{A_\perp}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} 
+\sin\beta &= \frac{A_\perp}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \beta = \omega_L \tau
 \end{align}
 $$
 
