@@ -535,8 +535,8 @@ $$
 where 
 $$
 \begin{align}
-\cos\beta &= \frac{\omega_L - \omega_{\parallel}}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} \\
-\sin\beta &= \frac{A_\perp}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2}} && \beta = \omega_L \tau
+\cos\beta &= \frac{\omega_L - \omega_{\parallel}}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\parallel}^2}} && \alpha = \tau\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\perp}^2} \\
+\sin\beta &= \frac{A_\perp}{\sqrt{(\omega_L - \omega_{\parallel})^2 + A_{\parallel}^2}} && \beta = \omega_L \tau
 \end{align}
 $$
 
