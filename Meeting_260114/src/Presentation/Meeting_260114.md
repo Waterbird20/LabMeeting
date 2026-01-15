@@ -125,6 +125,7 @@ li {
    - Finding $\tau$ Analytically
    - Conditional Operation
    - CPMG analysis
+   - CPMG Fitting
 </div>
 
 <div class="col-right-content">
