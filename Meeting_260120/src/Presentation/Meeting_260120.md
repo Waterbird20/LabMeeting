@@ -326,7 +326,7 @@ p {
 
 $$
 \begin{align}
-\mathcal{H} =& \underbrace{\gamma_c B_z I_z^i + A_{||}^i S_z I_z^i + A_{\perp} S_z I_x^i}_{\text{Drift Hamiltonian}} + \underbrace{\frac{1}{\sqrt{2}} \Omega_{\text{MW}} S_x}_{\text{NV electron spin control}} + \underbrace{\frac{1}{2}\Omega_{\text{rf}}I_x}_{\text{$^{13}$C spin control}}  \\
+\mathcal{H} =& \underbrace{\gamma_c B_z I_z^i + A_{||}^i S_z I_z^i + A_{\perp} S_z I_x^i}_{\text{Drift Hamiltonian}} + \underbrace{\frac{1}{\sqrt{2}} \Omega_{\text{MW}} S_x}_{\text{NV electron spin control}} + \underbrace{2\Omega_{\text{rf}}I_x}_{\text{$^{13}$C spin control}}  \\
 \rightarrow \mathcal{H} =& \ket{0}\bra{0} \otimes \omega_0 I_z + 
 \ket{-1}\bra{-1} \otimes \left( \omega_L I_z -  A_{||}I_z - A_{\perp}I_x  \right) \\
 \rightarrow \mathcal{H} =& \ket{0}\bra{0} \otimes H_0 + 
