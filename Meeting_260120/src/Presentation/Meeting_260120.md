@@ -140,8 +140,8 @@ $\eta_0$, $\eta_1$:  the probability of **failing** to detect a signal from the 
 <br>
 $$
 \begin{align}
-\Pi_{0} &= \eta_{0} \ket{0}\bra{0} + \eta_{1}\ket{1}\bra{1} && \text{a detection event} \\
-\Pi_{1} &= (1-\eta_{0}) \ket{0}\bra{0} + (1-\eta_{1})\ket{1}\bra{1} && \text{no detection}
+\Pi_{0} &= \eta_{0} \ket{0}\bra{0} + \eta_{1}\ket{1}\bra{1} && \text{no detection} \\
+\Pi_{1} &= (1-\eta_{0}) \ket{0}\bra{0} + (1-\eta_{1})\ket{1}\bra{1} && \text{a detection event}
 \end{align}
 $$
 <br>
