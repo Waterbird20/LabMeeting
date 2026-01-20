@@ -1,6 +1,6 @@
 ---
 
-title       : 
+title       : Yale AP PhD Interview
 author      : Donghun Jung
 # description : This is an example of how to use my themes.
 # keywords    falserp, Slides, Themes.
