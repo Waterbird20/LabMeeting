@@ -101,7 +101,8 @@ p, li {
 ### Key Contributions:
 - Efficient criterion for **genuine multipartite entanglement (GME)** via PPT mixtures
 - **Semidefinite programming (SDP)** formulation for practical detection
-- Fully decomposable entanglement witnesses
+- **Fully decomposable entanglement witnesses**
+- **Entanglement Quantification**
 
 ---
 
@@ -153,9 +154,6 @@ li {
 # Motivation
 
 <style scoped>
-section h1 {
-  font-size: 26pt;
-}
 
 p, li {
    font-size: 22pt;
@@ -172,7 +170,7 @@ p, li {
 }
 </style>
 
-**The Challenge:** How do we efficiently verify that a state has *genuine* multipartite entanglement that cannot be reduced to bipartite correlations?
+**The Challenge:** How do we efficiently verify that a state has *genuine* multipartite entanglement that cannot be reduced to bipartite states?
 
 ### Separability and Entanglement
 
@@ -191,12 +189,9 @@ where $\sum_i p_i = 1$ and $p_i > 0$.
 
 ---
 
-# Examples of Multiparticle Entangled States
+# [Motivation] Examples of Multiparticle Entangled States
 
 <style scoped>
-section h1 {
-  font-size: 26pt;
-}
 p, li {
    font-size: 18pt;
    line-height: 1rem;
@@ -223,7 +218,7 @@ $$
 
 <!-- TODO change Title -->
 
-# Examples of Multiparticle Entangled States
+# [Motivation] Verification of Entangled States
 
 For pure state, SVD is the most effective way to quantify entanglement. For example, consider two-qubit bell state (though it is trivial example).
 
@@ -267,9 +262,7 @@ $$
 
 ---
 
-<!-- TODO change Title -->
-
-# Challenges for Entanglement Detection and Quantification; pure state
+# [Motivation] Challenges for Entanglement Detection; pure state
 
 Exponential cost is inevitalbe. For an $m \times n$ matrix:
 | Resource | Complexity |
@@ -282,9 +275,7 @@ For $N$ qubits with bipartition $k | (N-k)$, the size of matrix becomes $2^k \ti
 
 ---
 
-<!-- TODO change Title -->
-
-# Challenges for Entanglement Detection and Quantification; mixed state
+# [Motivation] Challenges for Entanglement Detection; mixed state
 
 
 Even worse, For mixed states, there's no "canonical form" like Schmidt decomposition. The same $\rho$ can be written as:
@@ -294,7 +285,7 @@ with completely different ensembles! One might use only product states (separabl
 
 ---
 
-# Biseparable States: Definition
+# [Definition] Biseparable States, Genuine Multipartite Entanglement
 
 
 To generalize, a state is separable with respect with to bipartition $M|\bar{M}$, if:
@@ -307,18 +298,6 @@ $$
 $$
 where $\sum_i p_i = 1$. Note that non-trivial form, (at least two $p_i\neq 0$), must be mixed sate.
 
----
-
-# Main Idea: Checking whether PPT mixture exists
-
-It is well-known that separable states are also Positive Partial Transpose (PPT). We denote such states by $\rho^{\text{ppt}}_{M|\bar{M}}$. Thus, we ask whether a state can be written as
-$$
-\rho^{\text{pmix}} = \sum_{i} p_i \rho^{\text{ppt}}_{M_{i}|\bar{M}_{i}}
-$$
-We call states of this form **PPT mixtures**.
-
-Clearly, any biseparable state is a PPT mixture, so proving that a state is no PPT mixture implies **genuine multipartite entanglement**. 
-
 ### Genuine Multipartite Entanglement (GME)
 A state is **genuinely multipartite entangled** if and only if it is **NOT biseparable**.
 
@@ -328,7 +307,31 @@ $$
 
 ---
 
-# Recap: Positive Partial Transpose
+# [Example] Biseparable States
+
+To generalize, a state is separable with respect with to bipartition $M|\bar{M}$, if:
+For example, consider three-qubit system (each named ABC), then there are three possible bipartition, $A|BC$, $B|CA$, and $C|AB$. Then, $M|\bar{M}\in\{A|BC , B|CA, C|AB\}$. Accordingly, we have
+$$
+\rho^{\text{bs}} = p_{A|BC} \rho^{\text{sep}}_{A|BC} + p_{B|CA} \rho^{\text{sep}}_{B|CA} + p_{C|AB} \rho^{\text{sep}}_{C|AB}
+$$
+
+---
+
+# [Main Idea] Checking whether PPT mixture exists
+
+It is well-known that separable states are also Positive Partial Transpose (PPT). We denote such states by $\rho^{\text{ppt}}_{M|\bar{M}}$. Thus, we ask whether a state can be written as
+$$
+\rho^{\text{pmix}} = \sum_{i} p_i \rho^{\text{ppt}}_{M_{i}|\bar{M}_{i}}
+$$
+We call states of this form **PPT mixtures**.
+
+Clearly, any biseparable state is a PPT mixture, so proving that a state is no PPT mixture implies **genuine multipartite entanglement**. 
+
+
+
+---
+
+# [Recap] Positive Partial Transpose
 
 For a bipartite state $\rho_{AB}$ with matrix elements $\rho_{ij,kl} = \langle i,j | \rho | k,l \rangle$:
 
@@ -364,12 +367,10 @@ The **negative eigenvalue** proves the Bell state is entangled!
 
 ---
 
-# Strategy: Characterization via entanglement witnesses
+# [Main Idea] Characterization via entanglement witnesses
 
 <style scoped>
-section h1 {
-  font-size: 26pt;
-}
+
 p, li {
    font-size: 17pt;
    color: #000000;
@@ -397,13 +398,13 @@ $$
 
 ---
 
-# Fully Decomposable Witnesses
+# [Main Idea] Fully Decomposable Witnesses
 
 <style scoped>
 
 </style>
 
-### Theorem (Main Result)
+### Theorem
 Fully decomposable witnesses detect **exactly** the states that are **not PPT mixtures**.
 $$
 \text{
@@ -421,48 +422,43 @@ This suggests that **if we find a fully decomposable $W$ with $\text{Tr}(W\rho) 
 
 ---
 
-# Example: Fully Decomposable Witnesses
+# [Example] Fully Decomposable Witnesses
 
-Let's return to Bell state in two-qubit system. There's only one bipartition, $A|B$. The natural candidate for the Bell state is the **projector witness**: $W = \frac{1}{2}I - |\Phi^+\rangle\langle\Phi^+|$.
+Let's return to Bell state in two-qubit system. There's only one bipartition, $A|B$. The natural candidate for the Bell state is the **projector witness**: $W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}$.
 
-We need to check if $W = P + Q^{T_A}$ for some $P, Q \geq 0$. 
-
-$W$ is decomposable if and only if $W^{T_A} \geq 0$. Computing the partial transpose:
-$$(|\Phi^+\rangle\langle\Phi^+|)^{T_A} = 
+$$W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}= 
 \frac{1}{2}
 \begin{pmatrix}
- 1 & 0 & 0 & 0 \\
- 0 & 0 & 1 & 0 \\ 
+ 0 & 0 & 0 & -1 \\
  0 & 1 & 0 & 0 \\ 
- 0 & 0 & 0 & 1 
+ 0 & 0 & 1 & 0 \\ 
+-1 & 0 & 0 & 0 
 \end{pmatrix} 
-\rightarrow 
-W^{T_A} = 
-\frac{1}{2}I - (\ket{\Phi^+}\bra{\Phi^+}|)^{T_A} 
-= \frac{1}{2}\begin{pmatrix} 0 & 0 & 0 & 0 \\ 0 & 1 & -1 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}$$
+$$
 
-The eigenvalues are $\{0, 0, 0, 1\}$. So $W^{T_A} \geq 0$. 
+This entanglement witness detects entanglement when the Bell state is given. 
+
+$$
+\text{Tr} W\ket{\Phi^+}\bra{\Phi^+} = -\frac{1}{2}
+$$
 
 ---
 
-# Example: Fully Decomposable Witnesses
+# [Example] Fully Decomposable Witnesses
+
+We need to check if $W = P + Q^{T_A}$ for some $P, Q \geq 0$. 
 
 We can simply choose:
-$$P = 0, \qquad Q = W^{T_A}$$
+$$P = 0, \qquad Q = W^{T_A} = \frac{1}{2}I - (\ket{\Phi^+}\bra{\Phi^+})^{T_A} 
+= \frac{1}{2}\begin{pmatrix} 0 & 0 & 0 & 0 \\ 0 & 1 & -1 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}$$
 
 Trivially, we see $\text{Tr}W =1$, and $P,Q \geq 0$.
 
 Unfortunately, its derivation is non-trivial. 
 
-
 ---
 
-# Strategy: SDP Formulation
-
-<style scoped>
-
-
-</style>
+# [Strategy] SDP Formulation
 
 ## Semidefinite Program for GME Detection
 
@@ -476,7 +472,7 @@ $$
 
 The free parameters are given by W and the operators $P_M$ for every subset $M$ . If the minimum of $\text{Tr}(W\rho)$ is negative, $\rho$ is not a PPT mixture and hence **GME**. 
 
-The given eqution takes the form of a semidefinite program. The global optimality of an SDP can be certified and the solution can efficiently be computed via interior-point methods.
+The given eqution takes the form of a semidefinite program(SDP). The global optimality of an SDP can be certified and the solution can efficiently be computed via interior-point methods.
 
 ## Additional Strategy:
 - fully PPT witnesses; Let $P_{M} = 0$ so that $W^{T_M}\geq0$.
@@ -484,37 +480,47 @@ The given eqution takes the form of a semidefinite program. The global optimalit
 
 ---
 
-# Numerical Results: White Noise Tolerance
+# [Results] White noise torerance
 
 <style scoped>
-
+table {
+   align: center;
+   margin: 0rem 15rem;
+}
 </style>
 
-Consider mixed states: $\rho(p) = p \cdot \frac{I}{2^N} + (1-p) \cdot |\psi\rangle\langle\psi|$
+Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p) \cdot |\psi\rangle\langle\psi|$
 
-**Critical noise tolerance $p_{\text{tol}}$**: Maximum $p$ where GME is still detected.
+**Critical noise tolerance $p_{\text{tol}}$**: Maximum $p$ where GME is still detected. $p_{\text{tol}}$ can be regarded as a strength of entanglement. 
 
-| State $\ket{\psi}$ | PPT mixtures | Previous best | 
-|-------|-------------|---------------|
-| GHZ₃ | **0.571** | 0.571 | 
-| W₃ | **0.521** | 0.421 | 
-| Cluster₄ | **0.615** | 0.533 | 
-| Dicke₄ | **0.539** | 0.471 | 
-| GHZ₄ | **0.500** | 0.429 | 
 
+
+| State $\ket{\psi}$ | PPT mixtures | 
+|-------|-------------|
+| GHZ₃ | **0.571** | 
+| W₃ | **0.521** |
+| Cluster₄ | **0.615** | 
+| Dicke₄ | **0.539** | 
+| GHZ₄ | **0.500** |
 
 ---
 
-# Strategy: Modified SDP for Quantification
+# [Numerical Simulation] White Noise Tolerance
+
+![width:1500px](./media/images/Numerical_Result.svg)
+
+---
+
+# [Strategy] Modified SDP for Quantifying GME
 
 <style scoped>
 
 </style> 
 
-This approach can also be used to quantify GME. If the trace normalization $\text{Tr}(W ) = 1$ is replaced by $0\leq P_M \leq 1$, and $0\leq Q_M \leq 1$, the negative witness expectation value is a multipartite entanglement monotone.
+This approach can also be used to quantify GME. If the trace normalization $\text{Tr}(W ) = 1$ is replaced by $0\leq P_M \leq 1$, and $0\leq Q_M \leq 1$, the negative witness expectation value is a multipartite entanglement monotone. Note that this quantity is equal to the **negativity** for the bipartite case. 
 $$
 \begin{aligned}
-\min_{W, P_M, Q_M} \quad & \text{Tr}(W\rho) \\
+-\min_{W, P_M, Q_M} \quad & \text{Tr}(W\rho) \\
 \text{subject to} \quad & \text{Tr}(W) = 1 \\
 & W = P_M + Q_M^{T_M}, 0 \leq P_M , Q_M \leq I  \quad \forall M
 \end{aligned}
@@ -524,166 +530,37 @@ $$
 
 - **Vanishes on biseparable states:** $\mathcal{N}(\rho^{\text{bs}}) = 0$
 - **Convex:** $\mathcal{N}(\sum_i p_i \rho_i) \leq \sum_i p_i \mathcal{N}(\rho_i)$
-- **LOCC monotone:** Doesn't increase under local operations
-- **Reduces to negativity** in the bipartite case
-
+- **LOCC monotone:** Doesn't change under local operations
 
 ---
 
-# Python Implementation: Overview
+# [Numerical Result] $\mathcal{N}(\rho)$ on the two-qubit isotropic state
 
-<style scoped>
-section h1 {
-  font-size: 26pt;
-}
-p, li {
-   font-size: 16pt;
-   color: #000000;
-}
-code {
-   font-size: 14pt;
-   margin: 10px 10px;
-}
-</style>
-
-## PPTMixer: A Python Package for GME Detection
-
-```python
-import numpy as np
-import cvxpy as cp
-
-def partial_transpose(rho, dims, axis):
-    """Compute partial transpose of density matrix."""
-    # Reshape, transpose subsystem, reshape back
-    ...
-
-def fdecwit(rho, dims):
-    """Find optimal fully decomposable witness via SDP."""
-    n = rho.shape[0]
-    W = cp.Variable((n, n), hermitian=True)
-    # Constraints for all bipartitions M
-    constraints = [cp.trace(W) == 1]
-    for M in bipartitions:
-        P_M = cp.Variable((n, n), PSD=True)
-        Q_M = cp.Variable((n, n), PSD=True)
-        constraints += [W == P_M + partial_transpose(Q_M, dims, M)]
-
-    prob = cp.Problem(cp.Minimize(cp.trace(W @ rho)), constraints)
-    return prob.solve()
-```
+![width:1500px](./media/images/Bell_Entanglement_vs_Noise.svg)
 
 ---
 
-# Python Demo: GHZ and W States
+# [Numerical Result] Quantifying GME
 
-<style scoped>
-section h1 {
-  font-size: 26pt;
-}
-p, li {
-   font-size: 16pt;
-   color: #000000;
-}
-code {
-   font-size: 14pt;
-}
-</style>
-
-## State Definitions
-
-```python
-def ghz_state(n):
-    """n-qubit GHZ state: (|00...0⟩ + |11...1⟩)/√2"""
-    d = 2**n
-    psi = np.zeros(d, dtype=complex)
-    psi[0] = psi[-1] = 1/np.sqrt(2)
-    return np.outer(psi, psi.conj())
-
-def w_state():
-    """3-qubit W state: (|001⟩ + |010⟩ + |100⟩)/√3"""
-    psi = np.array([0, 1, 1, 0, 1, 0, 0, 0], dtype=complex) / np.sqrt(3)
-    return np.outer(psi, psi.conj())
-```
-
-
----
-
-# Python Demo: White Noise Tolerance
-
-<style scoped>
-section h1 {
-  font-size: 26pt;
-}
-p, li {
-   font-size: 16pt;
-   color: #000000;
-}
-</style>
-
-## Noise Model
-
-$$
-\rho(p) = p \cdot \frac{\mathbb{1}}{d} + (1-p) \cdot |\psi\rangle\langle\psi|
-$$
-
-## Scanning for Critical $p_{\text{tol}}$
-
-```python
-def find_noise_tolerance(pure_state, dims, p_values):
-    """Find critical noise level where GME is lost."""
-    d = pure_state.shape[0]
-    noise = np.eye(d) / d
-
-    for p in p_values:
-        rho = p * noise + (1-p) * pure_state
-        min_val = fdecwit(rho, dims)
-        if min_val >= 0:
-            return p  # GME lost at this noise level
-    return 1.0
-```
-
-
----
-
-# Python Demo: Entanglement Monotone
-
-<style scoped>
-section h1 {
-  font-size: 26pt;
-}
-p, li {
-   font-size: 17pt;
-   color: #000000;
-}
-code {
-   font-size: 14pt;
-}
-</style>
-
-## Modified SDP with Bounded Operators
-
-```python
-def entmon(rho, dims):
-    """Compute entanglement monotone via bounded SDP."""
-    n = rho.shape[0]
-    W = cp.Variable((n, n), hermitian=True)
-    constraints = [cp.trace(W) == 1]
-
-    for M in bipartitions:
-        P_M = cp.Variable((n, n), hermitian=True)
-        Q_M = cp.Variable((n, n), hermitian=True)
-        # Bounded constraints: 0 ≤ P, Q ≤ I
-        constraints += [P_M >> 0, P_M << np.eye(n)]
-        constraints += [Q_M >> 0, Q_M << np.eye(n)]
-        constraints += [W == P_M + partial_transpose(Q_M, dims, M)]
-
-    prob = cp.Problem(cp.Minimize(cp.trace(W @ rho)), constraints)
-    return -prob.solve()  # Return positive value as monotone
-```
+![width:1500px](./media/images/Entanglement_Monotone_Scaling.svg)
 
 ---
 
 # Summary
+
+## Pros
+- The framework itself is systemic and completed. 
+- It Provides a unified SDP-based approach for detecting GME.
+- No false negatives within this class.
+- The entanglement monotone not only detects but also quantifies GME.
+
+## Cons
+
+- Tomography is required.
+- SDP based optimization (Convex Optimization) is required every step. 
+   - Time Complexity: $\mathcal{O}(\sqrt{m} D^3 (m+D^2))$ 
+   - Space Complexity: $\mathcal{O}(mD^2 + D^4)$
+   where $D$ is dimension of Hilbert space and $m$ is the number of constraints. 
 
 
 ---
