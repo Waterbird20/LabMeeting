@@ -99,7 +99,7 @@ p, li {
 
 
 ### Key Contributions:
-- Efficient criterion for **genuine multipartite entanglement (GME)** via PPT mixtures
+- Efficient criterion for **genuine multipartite entanglement (GME)** via **PPT mixtures**
 - **Semidefinite programming (SDP)** formulation for practical detection
 - **Fully decomposable entanglement witnesses**
 - **Entanglement Quantification**
@@ -121,7 +121,6 @@ p, li {
    padding-right: 0rem;
    padding-left: -3rem;
    padding-bottom: 5.5rem;
-   color: #000000;
 }
 
 .col-right-content{
@@ -130,7 +129,7 @@ p, li {
    display: flex;
    align-items: center;
    justify-content: center;
-   padding-bottom: 10rem;
+   padding-bottom: 3rem;
 }
 
 li {
@@ -142,9 +141,29 @@ li {
 <div class="container">
 <div class="col-left-content">
 
+1. **Motivation**
+   - Separability & entanglement
+   - Examples of multipartite states
+   - Challenges in detection
+
+2. **Definitions**
+   - Biseparable states
+   - Genuine multipartite entanglement (GME)
+
 </div>
 
 <div class="col-right-content">
+
+3. **Main Idea**
+   - PPT mixtures
+   - Fully decomposable witnesses
+   - SDP formulation
+
+4. **Results**
+   - White noise tolerance
+   - Entanglement monotone
+
+5. **Summary**
 
 </div>
 </div>
@@ -184,8 +203,8 @@ $$
 where $\sum_i p_i = 1$ and $p_i > 0$.
 
 **Problem:** Directly determining separability is **NP-hard**!
-- How can we split the system into two subsystem? 
-- It is costy operation!
+- How should we split the system into subsystems?
+- It is a costly operation!
 
 ---
 
@@ -216,11 +235,9 @@ $$
 
 ---
 
-<!-- TODO change Title -->
-
 # [Motivation] Verification of Entangled States
 
-For pure state, SVD is the most effective way to quantify entanglement. For example, consider two-qubit bell state (though it is trivial example).
+For pure states, SVD is the most effective way to quantify entanglement. For example, consider the two-qubit Bell state (though this is a trivial example).
 
 **Step 1.** Write the state. $\ket{\Phi^{+}} = \frac{1}{\sqrt{2}} \ket{00} + 0\ket{01} + 0\ket{10} + \frac{1}{\sqrt{2}}\ket{11} = \sum_{i,j} c_{ij} \ket{i}_{A}\ket{j}_{B}$
 **Step 2.** Form Coefficient Matrix. 
@@ -257,28 +274,28 @@ C = \frac{1}{\sqrt{2}}
 0 & 1 
 \end{pmatrix}
 $$
-**Step 4.** So two Schmidt coefficient, suggesting it is entangled state. Try for remaining Bell states!
+**Step 4.** Two Schmidt coefficients $\Rightarrow$ entangled state. Try the other Bell states!
  
 
 ---
 
-# [Motivation] Challenges for Entanglement Detection; pure state
+# [Motivation] Challenges for Entanglement Detection: Pure States
 
-Exponential cost is inevitalbe. For an $m \times n$ matrix:
+Exponential cost is inevitable. For an $m \times n$ matrix:
 | Resource | Complexity |
 |----------|------------|
 | **Time** | $\mathcal{O}(\min(mn^2, m^2n))$ $\simeq$ $\mathcal{O}(mn \cdot \min(m,n))$ |
 | **Memory** | $\mathcal{O}(mn)$ for matrix + $\mathcal{O}(m^2 + n^2)$ for $U, V$ |
 
-For $N$ qubits with bipartition $k | (N-k)$, the size of matrix becomes $2^k \times 2^{N-k}$. Thing goes worse if we have to try every possible combination of bipartition, $2^{N-1}$. 
+For $N$ qubits with bipartition $k | (N-k)$, the matrix size becomes $2^k \times 2^{N-k}$. Things get worse if we must try every possible bipartition, of which there are $2^{N-1}$. 
 
 
 ---
 
-# [Motivation] Challenges for Entanglement Detection; mixed state
+# [Motivation] Challenges for Entanglement Detection: Mixed States
 
 
-Even worse, For mixed states, there's no "canonical form" like Schmidt decomposition. The same $\rho$ can be written as:
+Even worse, for mixed states there is no "canonical form" like the Schmidt decomposition. The same $\rho$ can be written as:
 $$\rho = \sum_k p_k |\psi_k\rangle\langle\psi_k| = \sum_j q_j |\phi_j\rangle\langle\phi_j|$$
 with completely different ensembles! One might use only product states (separable), another might not (entangled representation), while the **physical state is the same**.
 
@@ -288,7 +305,7 @@ with completely different ensembles! One might use only product states (separabl
 # [Definition] Biseparable States, Genuine Multipartite Entanglement
 
 
-To generalize, a state is separable with respect with to bipartition $M|\bar{M}$, if:
+A state is separable with respect to the bipartition $M|\bar{M}$ if:
 $$
 \rho^{\text{sep}}_{M|\bar{M}} = \sum_i p_i \, \rho_M^{(i)} \otimes \rho_{\bar{M}}^{(i)}
 $$
@@ -296,7 +313,7 @@ A state is **biseparable** if it can be written as a mixture:
 $$
 \rho^{\text{bs}} = \sum_{i} p_i \rho^{\text{sep}}_{M_{i}|\bar{M}_{i}}
 $$
-where $\sum_i p_i = 1$. Note that non-trivial form, (at least two $p_i\neq 0$), must be mixed sate.
+where $\sum_i p_i = 1$. Note that a non-trivial form (with at least two $p_i\neq 0$) must be a mixed state.
 
 ### Genuine Multipartite Entanglement (GME)
 A state is **genuinely multipartite entangled** if and only if it is **NOT biseparable**.
@@ -309,8 +326,7 @@ $$
 
 # [Example] Biseparable States
 
-To generalize, a state is separable with respect with to bipartition $M|\bar{M}$, if:
-For example, consider three-qubit system (each named ABC), then there are three possible bipartition, $A|BC$, $B|CA$, and $C|AB$. Then, $M|\bar{M}\in\{A|BC , B|CA, C|AB\}$. Accordingly, we have
+Consider a three-qubit system (labeled A, B, C). There are three possible bipartitions: $A|BC$, $B|CA$, and $C|AB$, i.e., $M|\bar{M}\in\{A|BC , B|CA, C|AB\}$. A biseparable state can be written as:
 $$
 \rho^{\text{bs}} = p_{A|BC} \rho^{\text{sep}}_{A|BC} + p_{B|CA} \rho^{\text{sep}}_{B|CA} + p_{C|AB} \rho^{\text{sep}}_{C|AB}
 $$
@@ -319,13 +335,13 @@ $$
 
 # [Main Idea] Checking whether PPT mixture exists
 
-It is well-known that separable states are also Positive Partial Transpose (PPT). We denote such states by $\rho^{\text{ppt}}_{M|\bar{M}}$. Thus, we ask whether a state can be written as
+It is well-known that separable states have Positive Partial Transpose (PPT). We denote such PPT states by $\rho^{\text{ppt}}_{M|\bar{M}}$. Thus, we ask whether a state can be written as
 $$
 \rho^{\text{pmix}} = \sum_{i} p_i \rho^{\text{ppt}}_{M_{i}|\bar{M}_{i}}
 $$
 We call states of this form **PPT mixtures**.
 
-Clearly, any biseparable state is a PPT mixture, so proving that a state is no PPT mixture implies **genuine multipartite entanglement**. 
+Clearly, any biseparable state is a PPT mixture, so proving that a state is *not* a PPT mixture implies **genuine multipartite entanglement**. 
 
 
 
@@ -416,7 +432,7 @@ $$
 where 
 - $\mathcal{S}_{\text{PPT-mix}}$ = set of PPT mixtures
 - $\mathcal{W}_{\text{fd}}$ = set of fully decomposable witnesses
-- $\text{Tr}(W\rho) < 0$ = "W detects ρ"
+- $\text{Tr}(W\rho) < 0$ = "W detects $\rho$"
 
 This suggests that **if we find a fully decomposable $W$ with $\text{Tr}(W\rho) < 0$, the state is GME!**
 
@@ -424,7 +440,7 @@ This suggests that **if we find a fully decomposable $W$ with $\text{Tr}(W\rho) 
 
 # [Example] Fully Decomposable Witnesses
 
-Let's return to Bell state in two-qubit system. There's only one bipartition, $A|B$. The natural candidate for the Bell state is the **projector witness**: $W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}$.
+Let's return to the Bell state in a two-qubit system. There is only one bipartition, $A|B$. A natural candidate witness for the Bell state is the **projector witness**: $W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}$.
 
 $$W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}= 
 \frac{1}{2}
@@ -436,7 +452,7 @@ $$W = \frac{1}{2}I - \ket{\Phi^+}\bra{\Phi^+}=
 \end{pmatrix} 
 $$
 
-This entanglement witness detects entanglement when the Bell state is given. 
+This entanglement witness detects the Bell state: 
 
 $$
 \text{Tr} W\ket{\Phi^+}\bra{\Phi^+} = -\frac{1}{2}
@@ -452,9 +468,9 @@ We can simply choose:
 $$P = 0, \qquad Q = W^{T_A} = \frac{1}{2}I - (\ket{\Phi^+}\bra{\Phi^+})^{T_A} 
 = \frac{1}{2}\begin{pmatrix} 0 & 0 & 0 & 0 \\ 0 & 1 & -1 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}$$
 
-Trivially, we see $\text{Tr}W =1$, and $P,Q \geq 0$.
+One can verify that $\text{Tr}(W) = 1$, and $P, Q \geq 0$, confirming $W$ is fully decomposable.
 
-Unfortunately, its derivation is non-trivial. 
+In general, finding such decompositions is non-trivial. 
 
 ---
 
@@ -470,17 +486,17 @@ $$
 \end{aligned}
 $$
 
-The free parameters are given by W and the operators $P_M$ for every subset $M$ . If the minimum of $\text{Tr}(W\rho)$ is negative, $\rho$ is not a PPT mixture and hence **GME**. 
+The free parameters are $W$ and the operators $P_M$, $Q_M$ for every bipartition $M$. If the minimum of $\text{Tr}(W\rho)$ is negative, then $\rho$ is not a PPT mixture and hence is **GME**.
 
-The given eqution takes the form of a semidefinite program(SDP). The global optimality of an SDP can be certified and the solution can efficiently be computed via interior-point methods.
+This optimization takes the form of a semidefinite program (SDP). The global optimality of an SDP can be certified and the solution can be efficiently computed via interior-point methods.
 
-## Additional Strategy:
-- fully PPT witnesses; Let $P_{M} = 0$ so that $W^{T_M}\geq0$.
-- Let $O = \{O_1 , \cdots, O_k \}$ be such a set of observables. Then, let $W = \sum_i \lambda_i O_i$.
+## Additional Strategies
+- **Fully PPT witnesses:** Set $P_{M} = 0$ so that $W^{T_M}\geq0$ for all $M$.
+- **Observable basis:** Let $O = \{O_1 , \cdots, O_k \}$ be a set of observables. Then parameterize $W = \sum_i \lambda_i O_i$.
 
 ---
 
-# [Results] White noise torerance
+# [Results] White Noise Tolerance
 
 <style scoped>
 table {
@@ -491,7 +507,7 @@ table {
 
 Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p) \cdot |\psi\rangle\langle\psi|$
 
-**Critical noise tolerance $p_{\text{tol}}$**: Maximum $p$ where GME is still detected. $p_{\text{tol}}$ can be regarded as a strength of entanglement. 
+**Critical noise tolerance $p_{\text{tol}}$**: Maximum $p$ for which GME is still detected. A higher $p_{\text{tol}}$ indicates stronger entanglement. 
 
 
 
@@ -507,7 +523,7 @@ Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p)
 
 # [Numerical Simulation] White Noise Tolerance
 
-![width:1500px](./media/images/Numerical_Result.svg)
+![width:1500px](Meeting_260127/src/Presentation/media/images/Numerical_Result.svg)
 
 ---
 
@@ -517,7 +533,7 @@ Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p)
 
 </style> 
 
-This approach can also be used to quantify GME. If the trace normalization $\text{Tr}(W ) = 1$ is replaced by $0\leq P_M \leq 1$, and $0\leq Q_M \leq 1$, the negative witness expectation value is a multipartite entanglement monotone. Note that this quantity is equal to the **negativity** for the bipartite case. 
+This approach can also be used to quantify GME. If the trace normalization $\text{Tr}(W) = 1$ is replaced by $0\leq P_M \leq I$ and $0\leq Q_M \leq I$, the negative witness expectation value becomes a multipartite entanglement monotone. Note that this quantity equals the **negativity** in the bipartite case. 
 $$
 \begin{aligned}
 -\min_{W, P_M, Q_M} \quad & \text{Tr}(W\rho) \\
@@ -530,37 +546,43 @@ $$
 
 - **Vanishes on biseparable states:** $\mathcal{N}(\rho^{\text{bs}}) = 0$
 - **Convex:** $\mathcal{N}(\sum_i p_i \rho_i) \leq \sum_i p_i \mathcal{N}(\rho_i)$
-- **LOCC monotone:** Doesn't change under local operations
+- **LOCC monotone:** Does not increase under local operations and classical communication
 
 ---
 
 # [Numerical Result] $\mathcal{N}(\rho)$ on the two-qubit isotropic state
 
-![width:1500px](./media/images/Bell_Entanglement_vs_Noise.svg)
+![width:1500px](Meeting_260127/src/Presentation/media/images/Bell_Entanglement_vs_Noise.svg)
 
 ---
 
 # [Numerical Result] Quantifying GME
 
-![width:1500px](./media/images/Entanglement_Monotone_Scaling.svg)
+![width:1500px](Meeting_260127/src/Presentation/media/images/Entanglement_Monotone_Scaling.svg)
 
 ---
 
 # Summary
 
 ## Pros
-- The framework itself is systemic and completed. 
-- It Provides a unified SDP-based approach for detecting GME.
-- No false negatives within this class.
+- The framework is systematic and complete.
+- It provides a unified SDP-based approach for detecting GME.
+- No false negatives within the PPT mixture class.
 - The entanglement monotone not only detects but also quantifies GME.
+
+---
+
+# Summary
 
 ## Cons
 
-- Tomography is required.
-- SDP based optimization (Convex Optimization) is required every step. 
-   - Time Complexity: $\mathcal{O}(\sqrt{m} D^3 (m+D^2))$ 
+- Generally needs full density matrix $\rho$ — expensive quantum state tomography required
+- No Closed-Form Solution. SDP optimization (convex optimization) is required for each state.
+   - Time Complexity: $\mathcal{O}(\sqrt{m} D^3 (m+D^2))$
    - Space Complexity: $\mathcal{O}(mD^2 + D^4)$
-   where $D$ is dimension of Hilbert space and $m$ is the number of constraints. 
+
+   where $D$ is the Hilbert space dimension and $m$ is the number of constraints. 
+- Not Complete for All Entanglement. Only detects states outside PPT mixtures; PPT entangled states are missed
 
 
 ---
