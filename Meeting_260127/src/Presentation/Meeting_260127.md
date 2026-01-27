@@ -190,14 +190,14 @@ p, li {
 }
 </style>
 
-**The Challenge:** How do we efficiently verify that a state has *genuine* multipartite entanglement that cannot be reduced to bipartite states?
+**The Challenge:** How do we efficiently verify that a state has *genuine* multipartite entanglement that cannot be reduced to separable states?
 
 ### Separability and Entanglement
 
-A bipartite state $\rho$ is **separable** if:
+A state $\rho$ is **separable** if:
 $$
 \begin{align}
-\ket{\psi} &= \sum_i \lambda_i \ket{u_i}_{A} \otimes \ket{v_i}_B\\
+\ket{\psi} &= \ket{\psi_{A}} \otimes \ket{\psi_B}\\
 \rho &= \sum_{i} p_i \rho^{A}_{i} \otimes \rho^{B}_{i} \\
 \end{align}
 $$
@@ -295,7 +295,7 @@ $$
 where $\sum_i p_i = 1$. Note that a non-trivial form (with at least two $p_i\neq 0$) must be a mixed state.
 
 ### Genuine Multipartite Entanglement (GME)
-A state is **genuinely multipartite entangled** if and only if it is **NOT biseparable**.
+A state is **genuine multipartite entangled** if and only if it is **NOT biseparable**.
 
 $$
 \text{GME} = \text{NOT biseparable}
@@ -339,7 +339,7 @@ A state has **Positive Partial Transpose (PPT)** if $\rho^{T_A} \geq 0$.
 
 **Quick Example: Bell state**
 $$
-\rho = |\phi^+\rangle\langle\phi^+| 
+\rho = \ket{\Phi^+}\bra{\Phi^+} 
 = \frac{1}{2}\begin{pmatrix} 
 1 & 0 & 0 & 1 \\
 0 & 0 & 0 & 0 \\
@@ -509,7 +509,7 @@ Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p)
 
 # [Numerical Simulation] White Noise Tolerance
 
-![width:1500px](Meeting_260127/src/Presentation/media/images/Numerical_Result.svg)
+![width:1500px](media/images/Numerical_Result.svg)
 
 ---
 
@@ -525,8 +525,7 @@ This approach can also be used to quantify GME. If the trace normalization $\tex
 $$
 \begin{aligned}
 -\min_{W, P_M, Q_M} \quad & \text{Tr}(W\rho) \\
-\text{subject to} \quad & \text{Tr}(W) = 1 \\
-& W = P_M + Q_M^{T_M}, 0 \leq P_M , Q_M \leq I  \quad \forall M
+\text{subject to} \quad & W = P_M + Q_M^{T_M}, 0 \leq P_M , Q_M \leq I  \quad \forall M
 \end{aligned}
 $$
 
@@ -540,13 +539,13 @@ $$
 
 # [Numerical Result] $\mathcal{N}(\rho)$ on the two-qubit isotropic state
 
-![width:1500px](Meeting_260127/src/Presentation/media/images/Bell_Entanglement_vs_Noise.svg)
+![width:1500px](media/images/Bell_Entanglement_vs_Noise.svg)
 
 ---
 
 # [Numerical Result] Quantifying GME
 
-![width:1500px](Meeting_260127/src/Presentation/media/images/Entanglement_Monotone_Scaling.svg)
+![width:1500px](media/images/Entanglement_Monotone_Scaling.svg)
 
 ---
 

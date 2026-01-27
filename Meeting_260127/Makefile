@@ -3,9 +3,10 @@
 
 # Variables
 MARP := marp
-SOURCE := src/Presentation/Meeting_260127.md
-THEME := ../KIST.css
-OUTPUT_DIR := .
+SOURCE_DIR := src/Presentation
+SOURCE_FILE := Meeting_260127.md
+THEME := ../../../KIST.css
+OUTPUT_DIR := $(CURDIR)
 BASENAME := Meeting_260127
 
 # Output files
@@ -21,16 +22,16 @@ all: html pdf
 .PHONY: html
 html: $(HTML)
 
-$(HTML): $(SOURCE) $(THEME)
-	$(MARP) $(SOURCE) --html --theme-set $(THEME) -o $(HTML) --allow-local-files main.md
+$(HTML): $(SOURCE_DIR)/$(SOURCE_FILE)
+	cd $(SOURCE_DIR) && $(MARP) $(SOURCE_FILE) --html --theme-set $(THEME) -o $(HTML) --allow-local-files
 	cp $(OUTPUT_DIR)/$(BASENAME).html ../index.html
 
 # PDF output
 .PHONY: pdf
 pdf: $(PDF)
 
-$(PDF): $(SOURCE) $(THEME)
-	$(MARP) $(SOURCE) --html --theme-set $(THEME) --pdf -o $(PDF) --allow-local-files main.md
+$(PDF): $(SOURCE_DIR)/$(SOURCE_FILE)
+	cd $(SOURCE_DIR) && $(MARP) $(SOURCE_FILE) --html --theme-set $(THEME) --pdf -o $(PDF) --allow-local-files
 
 # Clean generated files
 .PHONY: clean
@@ -40,12 +41,12 @@ clean:
 # Watch mode for development (HTML only)
 .PHONY: watch
 watch:
-	$(MARP) -w $(SOURCE) --html --theme-set $(THEME) -o $(HTML)
+	cd $(SOURCE_DIR) && $(MARP) -w $(SOURCE_FILE) --html --theme-set $(THEME) -o $(HTML)
 
 # Serve presentation locally
 .PHONY: serve
 serve:
-	$(MARP) -s $(SOURCE) --html --theme-set $(THEME)
+	cd $(SOURCE_DIR) && $(MARP) -s $(SOURCE_FILE) --html --theme-set $(THEME)
 
 # Help
 .PHONY: help
