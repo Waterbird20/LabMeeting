@@ -34,7 +34,7 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 }
 .col-left .title{
    color: #00356B;
-   font-size: 36pt;
+   font-size: 32pt;
 }
 
 .col-right{
@@ -124,7 +124,7 @@ p, li {
 }
 
 .col-right-content{
-   margin-left: -150px;
+   margin-left: -100px;
    flex: 0 0 50%;
    display: flex;
    align-items: center;
@@ -304,6 +304,11 @@ with completely different ensembles! One might use only product states (separabl
 
 # [Definition] Biseparable States, Genuine Multipartite Entanglement
 
+<style scoped>
+p {
+   font-size: 20pt;
+}
+</style>
 
 A state is separable with respect to the bipartition $M|\bar{M}$ if:
 $$
@@ -476,6 +481,13 @@ In general, finding such decompositions is non-trivial.
 
 # [Strategy] SDP Formulation
 
+<style scoped>
+p, li {
+   font-size: 18pt;
+
+}
+</style>
+
 ## Semidefinite Program for GME Detection
 
 $$
@@ -530,8 +542,10 @@ Consider mixed states(isotropic state): $\rho(p) = p \cdot \frac{I}{2^N} + (1-p)
 # [Strategy] Modified SDP for Quantifying GME
 
 <style scoped>
-
-</style> 
+p {
+   font-size: 18pt;
+}
+</style>
 
 This approach can also be used to quantify GME. If the trace normalization $\text{Tr}(W) = 1$ is replaced by $0\leq P_M \leq I$ and $0\leq Q_M \leq I$, the negative witness expectation value becomes a multipartite entanglement monotone. Note that this quantity equals the **negativity** in the bipartite case. 
 $$
