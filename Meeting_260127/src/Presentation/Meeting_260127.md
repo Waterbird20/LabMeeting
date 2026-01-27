@@ -98,7 +98,8 @@ p, li {
 **arXiv:** 1010.6049
 
 
-### Key Contributions:
+### Keywords:
+- **Biseparable States**
 - Efficient criterion for **genuine multipartite entanglement (GME)** via **PPT mixtures**
 - **Semidefinite programming (SDP)** formulation for practical detection
 - **Fully decomposable entanglement witnesses**
@@ -205,33 +206,6 @@ where $\sum_i p_i = 1$ and $p_i > 0$.
 **Problem:** Directly determining separability is **NP-hard**!
 - How should we split the system into subsystems?
 - It is a costly operation!
-
----
-
-# [Motivation] Examples of Multiparticle Entangled States
-
-<style scoped>
-p, li {
-   font-size: 18pt;
-   line-height: 1rem;
-   color: #000000;
-}
-</style>
-
-#### GHZ State (Greenberger-Horne-Zeilinger)
-$$
-|GHZ_n\rangle = \frac{1}{\sqrt{2}}\left(|00\cdots0\rangle + |11\cdots1\rangle\right)
-$$
-
-#### W State
-$$
-|W_3\rangle = \frac{1}{\sqrt{3}}\left(|001\rangle + |010\rangle + |100\rangle\right)
-$$
-
-#### Cluster State (4-qubit linear)
-$$
-|Cl_4\rangle = \frac{1}{2}\left(|0000\rangle + |0011\rangle + |1100\rangle - |1111\rangle\right)
-$$
 
 ---
 
