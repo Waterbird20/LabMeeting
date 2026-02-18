@@ -550,19 +550,19 @@ The dataset is a **synthetic 9-dimensional clustered binary classification** pro
 
 # Distributed Quantum Machine Learning: Data Set
 
-<img src="Meeting_260219/src/Presentation/media/fig1.png" style="max-width: 100%; height: 60%; object-fit: contain;">
+<img src="Meeting_260219/src/Presentation/media/Fig1.png" style="max-width: 100%; height: 60%; object-fit: contain;">
 
 ---
 
 # Distributed Quantum Machine Learning: Data Set
 
-<img src="Meeting_260219/src/Presentation/media/fig2.png" style="max-width: 100%; height: 60%; object-fit: contain;">
+<img src="Meeting_260219/src/Presentation/media/Fig2.png" style="max-width: 100%; height: 60%; object-fit: contain;">
 
 ---
 
 # Distributed Quantum Machine Learning: Data Set
 
-<img src="Meeting_260219/src/Presentation/media/fig3.png" style="max-width: 100%; height: 60%; object-fit: contain;">
+<img src="Meeting_260219/src/Presentation/media/Fig3.png" style="max-width: 100%; height: 60%; object-fit: contain;">
 
 ---
 
