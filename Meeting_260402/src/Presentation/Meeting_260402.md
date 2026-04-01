@@ -145,7 +145,7 @@ li {
 
 # Entanglement: Reference
 
-![](/Meeting_260402/src/Presentation/media/Ryu.png)
+![](Meeting_260402/src/Presentation/media/Ryu.png)
 
 The entanglement spectrum of partial transpose in conformal field theory (CFT) was also recently studied. Among other useful numerical methods, tree tensor network, Monte Carlo simulations, and rational interpolations are notable.
 
@@ -172,8 +172,16 @@ For spin systems at fixed spatial locations, partial transposition of the densit
 # Distributed Quantum Machine Learning: Dataset Concerns
 
 Our current dataset, originally constructed for a nonlinear classification problem, is not well-defined, may not be physically meaningful, and is not widely used. Moreover, these datasets have well-known solutions, from the perceptron to CNNs. 
+![width:400px](Meeting_260402/src/Presentation/media/Fig3.png)
 
-![width:1200px](/Meeting_260402/src/Presentation/media/BetterThanClassical.png)
+---
+
+# Distributed Quantum Machine Learning: Dataset Concerns
+
+Our current dataset, originally constructed for a nonlinear classification problem, is not well-defined, may not be physically meaningful, and is not widely used. Moreover, these datasets have well-known solutions, from the perceptron to CNNs. 
+
+
+![width:1200px](Meeting_260402/src/Presentation/media/BetterThanClassical.png)
 
 
 ---
@@ -186,11 +194,11 @@ li{
 
 # Distributed Quantum Machine Learning: Issues with MNIST
 
-![width:1200px](/Meeting_260402/src/Presentation/media/whyMNIST.png)
+![width:1200px](Meeting_260402/src/Presentation/media/whyMNIST.png)
 
-* Due to the input size limitations of quantum simulators, preprocessing MNIST via PCA or resolution reduction fundamentally changes the nature of the learning problem, rendering classical benchmarks meaningless.
-* Most studies simplify the task to binary classification between two digits rather than the full 10-class problem, effectively reporting high accuracy on trivially easy tasks that a linear classifier could nearly solve.
-* As a result, reported accuracies vary widely from 70% to 99.6% across studies with no consistent interpretation, providing no reliable evidence for the genuine performance of quantum models.
+- Due to the input size limitations of quantum simulators, preprocessing MNIST via PCA or resolution reduction fundamentally changes the nature of the learning problem, rendering classical benchmarks meaningless.
+- Most studies simplify the task to binary classification between two digits rather than the full 10-class problem, effectively reporting high accuracy on trivially easy tasks that a linear classifier could nearly solve.
+- As a result, reported accuracies vary widely from 70% to 99.6% across studies with no consistent interpretation, providing no reliable evidence for the genuine performance of quantum models.
 
 ---
 
@@ -257,7 +265,7 @@ If `m=(m_i, m_{i+1}) ∈ {0, 1}`, the score function defines a Boolean logic gat
 
 # Compressive QST
 
-![](/Meeting_260402/src/Presentation/media/CQST.png)
+![](Meeting_260402/src/Presentation/media/CQST.png)
 
 
 ---
@@ -399,7 +407,7 @@ Since quantum Fisher information is additive, a two-qubit separable state is (tw
 
 In this sense, we hypothesize that adding a post-selection procedure might be advantageous. Intuitively, the information on the $B$-field is encoded in the phase, and through post-selection we may discard unnecessary information to the ancillary qubit (or the other energy level). 
 
-![](/Meeting_260402/src/Presentation/media/PS_diagram.png)
+![](Meeting_260402/src/Presentation/media/PS_diagram.png)
 
 <!-- Post-Selection process is not described by unitary operation but Kraus operation and it can change QFI. While analytical approach is challenging (although I keep trying), we tried numerical optimization to find optimal post-selection strength, state preparation, measurement basis and the corresponding maximum QFI.  -->
 
@@ -409,7 +417,7 @@ In this sense, we hypothesize that adding a post-selection procedure might be ad
 
 In this sense, we hypothesize that adding a post-selection procedure might be advantageous. Intuitively, the information on the $B$-field is encoded in the phase, and through post-selection we may discard unnecessary information to the ancillary qubit (or the other energy level). 
 
-![width:1200px](/Meeting_260402/src/Presentation/media/PS_NV.png)
+![width:1200px](Meeting_260402/src/Presentation/media/PS_NV.png)
 
 
 ---
@@ -418,7 +426,7 @@ In this sense, we hypothesize that adding a post-selection procedure might be ad
 
 We prepared the following circuit ansatz.
 
-![width:1050px](/Meeting_260402/src/Presentation/media/sep_ps.svg)
+![width:1050px](Meeting_260402/src/Presentation/media/sep_ps.svg)
 
 - State Preparation (Red): To prepare an arbitrary two-qubit state, we employ one CNOT gate.
 
@@ -433,7 +441,7 @@ We prepared the following circuit ansatz.
 
 Given the learning curve, the optimization appears to have saturated. However, the saturated value was twice the QFI of the post-selected single-qubit system.
 
-![](/Meeting_260402/src/Presentation/media/learning_curves_sep_ps.png)
+![](Meeting_260402/src/Presentation/media/learning_curves_sep_ps.png)
 
 ---
 
@@ -441,7 +449,7 @@ Given the learning curve, the optimization appears to have saturated. However, t
 
 The prepared state turns out to be separable, as verified by the negativity of the prepared state.
 
-![](/Meeting_260402/src/Presentation/media/negativity_trajectory.png)
+![](Meeting_260402/src/Presentation/media/negativity_trajectory.png)
 
 ---
 
@@ -453,7 +461,7 @@ K_{\text{eff}} = U (K_1 \otimes K_2) U^{\dagger}
 $$
 Here, we employ the KAK decomposition (equivalent to using 3 CNOT gates per two-qubit gate) for $U$, $V$, in order to explore the full SU(4) space.
 
-![width:1050px](/Meeting_260402/src/Presentation/media/ent_ps.svg)
+![width:1050px](Meeting_260402/src/Presentation/media/ent_ps.svg)
 
 ---
 
@@ -461,7 +469,7 @@ Here, we employ the KAK decomposition (equivalent to using 3 CNOT gates per two-
 
 Interestingly, the optimized QFI (CFI) exceeds that of the post-selected separable state by a factor of two. 
 
-![](/Meeting_260402/src/Presentation/media/learning_curves_ent_ps_b.png)
+![](Meeting_260402/src/Presentation/media/learning_curves_ent_ps_b.png)
 
 ---
 
@@ -469,7 +477,7 @@ Interestingly, the optimized QFI (CFI) exceeds that of the post-selected separab
 
 The prepared state was separable, but entanglement was recovered after post-selection. Note that the entanglement strength was not maximal; the negativity of a Bell state is 0.5. 
 
-![](/Meeting_260402/src/Presentation/media/negativity_trajectory.png)
+![](Meeting_260402/src/Presentation/media/negativity_trajectory.png)
 
 
 ---
@@ -478,7 +486,7 @@ The prepared state was separable, but entanglement was recovered after post-sele
 
 Furthermore, the filter strengths become asymmetric, with one post-selection strength $\gamma$ approaching 1, indicating a strong measurement. 
 
-![](/Meeting_260402/src/Presentation/media/ps_gamma_params.png)
+![](Meeting_260402/src/Presentation/media/ps_gamma_params.png)
 
 ---
 
@@ -486,7 +494,7 @@ Furthermore, the filter strengths become asymmetric, with one post-selection str
 
 I am currently investigating optimal filter design. Under the guidance of Dr. Lee, I fixed the post-selection filter as $K=\sqrt{1-\gamma}\ket{00}\bra{00} + \ket{11}\bra{11}$. The poor performance is attributed to $\left[ \mathcal{H}_B , K \right] =0$.
 
-![](/Meeting_260402/src/Presentation/media/learning_curves_fixed_gamma.png)
+![](Meeting_260402/src/Presentation/media/learning_curves_fixed_gamma.png)
 
 ---
 
@@ -494,7 +502,7 @@ I am currently investigating optimal filter design. Under the guidance of Dr. Le
 
 Next, I tried to maximize the Frobenius norm of the commutator. $\left[ \mathcal{H}_B , K \right] =0$, $K=\sqrt{1-\gamma}\ket{++}\bra{++} + \ket{--}\bra{--}$ .
 
-![](/Meeting_260402/src/Presentation/media/learning_curves_xbasis_ps.png)
+![](Meeting_260402/src/Presentation/media/learning_curves_xbasis_ps.png)
 
 ---
 
@@ -535,7 +543,7 @@ Next, I tried to maximize the Frobenius norm of the commutator. $\left[ \mathcal
 
 I managed to finish the QISK Poster Presentation (26/02/25). ✌️
 
-![bg right:45%](/Meeting_260402/src/Presentation/media/QISK.jpg)
+![bg right:45%](Meeting_260402/src/Presentation/media/QISK.jpg)
 
 ---
 
@@ -572,7 +580,7 @@ Generally, $U_0 \neq U_1$, hence it is a conditional gate!
 
 # DDrf: Pulse Sequence
 
-![](/Meeting_260402/src/Presentation/media/DDrf_pulse.png)
+![](Meeting_260402/src/Presentation/media/DDrf_pulse.png)
 
 ---
 
@@ -676,7 +684,7 @@ Procedure:
 3. $\frac{\pi}{2}$-pulse is applied to electron spin with varying phase $\phi$.
    - In our experiment, we measure $P_x$, the projection onto $\ket{+}$ ($\phi=\frac{\pi}{2}$).
 
-![height:200px](/Meeting_260402/src/Presentation/media/spectroscopy_sequence.png)
+![height:200px](Meeting_260402/src/Presentation/media/spectroscopy_sequence.png)
 
 ---
 
@@ -695,7 +703,7 @@ $$\text{Tr} U_0 U_1^{\dagger} = \prod_{i=1}^N \text{Tr}U_0^i {U_1^i}^{\dagger} .
 # DDrf Spectroscopy: Taminiau Results
 
 
-![](/Meeting_260402/src/Presentation/media/Taminiau_spectroscopy.png)
+![](Meeting_260402/src/Presentation/media/Taminiau_spectroscopy.png)
 
 
 
@@ -705,7 +713,7 @@ $$\text{Tr} U_0 U_1^{\dagger} = \prod_{i=1}^N \text{Tr}U_0^i {U_1^i}^{\dagger} .
 
 
 
-![](/Meeting_260402/src/Presentation/media/Reproduce.png)
+![](Meeting_260402/src/Presentation/media/Reproduce.png)
 
 --- 
 
@@ -756,7 +764,7 @@ $$
 V^{(k)} = \ket{0}\bra{0} \otimes V_0^{(k)} + \ket{1}\bra{1} \otimes V_1^{(k)}
 $$
 
-![width:500px](/Meeting_260402/src/Presentation/media/DDrf_pulse_cell.png)
+![width:500px](Meeting_260402/src/Presentation/media/DDrf_pulse_cell.png)
 
 ---
 
@@ -867,20 +875,20 @@ where $R_{z}(\theta)=e^{-i\theta I_z}$ and $R_\phi (\theta) = e^{-i\theta (\cos\
 
 # DDrf Spectroscopy: Side-Peak Problem
 
-<img src="/Meeting_260402/src/Presentation/media/unconditional.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="Meeting_260402/src/Presentation/media/unconditional.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
 # DDrf Spectroscopy: Side-Peak Problem
 
-<img src="/Meeting_260402/src/Presentation/media/unconditional_focus.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="Meeting_260402/src/Presentation/media/unconditional_focus.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
 # DDrf Spectroscopy: Side-Peak Problem
 
 <!-- TODO: Side peak is also detected in large $\Omega_{\text{RF}}$ -->
-<img src="/Meeting_260402/src/Presentation/media/sidepeak.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="Meeting_260402/src/Presentation/media/sidepeak.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
@@ -1010,7 +1018,7 @@ $$
 }
 $$
 
-![width:800px](/Meeting_260402/src/Presentation/media/unconditional_focus.png)
+![width:800px](Meeting_260402/src/Presentation/media/unconditional_focus.png)
 
 ---
 
@@ -1020,7 +1028,7 @@ $$
 
 Although it may be unrealistic, the idea is to use apodized pulse RF driving like this...
 
-![](/Meeting_260402/src/Presentation/media/Adodizied.jpeg)
+![](Meeting_260402/src/Presentation/media/Adodizied.jpeg)
 
 ---
 
@@ -1029,13 +1037,13 @@ Although it may be unrealistic, the idea is to use apodized pulse RF driving lik
 
 And it works(?).
 
-![width:1000px](/Meeting_260402/src/Presentation/media/DDrf_Apodization.png)
+![width:1000px](Meeting_260402/src/Presentation/media/DDrf_Apodization.png)
 
 ---
 
 # DDrf: Apodized Pulse Shaping
 
-![](/Meeting_260402/src/Presentation/media/Apodization_paper.png)
+![](Meeting_260402/src/Presentation/media/Apodization_paper.png)
 
 
 ---
