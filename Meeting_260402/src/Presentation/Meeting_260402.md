@@ -139,9 +139,20 @@ li {
 </div>
 </div>
 
+
 ---
 
-# Entanglement
+# Entanglement: Reference
+
+![](./media/Ryu.png)
+
+The entanglement spectrum of partial transpose in conformal field theory (CFT) was also recently studied. Among other useful numerical methods, tree tensor network, Monte Carlo simulations, and rational interpolations are notable.
+
+---
+
+# Entanglement: Partial transpose as partial time reversal in spin systems
+
+For spin systems at fixed spatial locations, partial transposition of the density matrix is unitarily equivalent to partial time reversal, differing only by a local rotation $U_T = e^{-i\pi \sigma_y}$ on the transposed subsystem.
 
 ---
 
@@ -151,10 +162,103 @@ li {
 
 # Distributed Quantum Machine Learning
 
+Agenda:
+1. Which data are we going to use? $\rightarrow$ Controversial
+2. How to investigate correlation between data(data imbedding)? $\rightarrow$ Need some studies
+3. Inter-Processor Communication $\rightarrow$ Doable/Straightforward
+
+---
+
+# Distributed Quantum Machine Learning
+
+Our current dataset, actually constructed to implement nonlinear classification problem, is not clear, seemingly (physically) might not be that meaningful, not widely used. And these dataset has well-known solutions, from perceptron to CNN. 
+
+![width:1200px](./media/BetterThanClassical.png)
+
+
+---
+
+<style scoped>
+li{
+   font-size: 18pt;
+}
+</style>
+
+# Distributed Quantum Machine Learning
+
+![width:1200px](./media/whyMNIST.png)
+
+* Due to the input size limitations of quantum simulators, preprocessing MNIST via PCA or resolution reduction fundamentally changes the nature of the learning problem, rendering the well-established baselines set by classical benchmarks meaningless.
+* Most studies simplify the task to binary classification between two digits rather than the full 10-class problem, effectively reporting high accuracy on trivially easy tasks that a linear classifier could nearly solve perfectly.
+* As a result, reported accuracies vary widely from 70% to 99.6% across studies with no consistent interpretation, failing to provide any reliable evidence for the genuine performance of quantum models.
+
+---
+
+# Distributed Quantum Machine Learning
+
+**One-way cyclic** (`cyclic`):
+```
+    P₀ ──measure──► P₁ ──measure──► P₂
+     ▲                                │
+     └────────────measure─────────────┘
+```
+Each processor measures a qubit and sends the classical outcome to the next processor in the ring. The receiving processor applies conditional gates based on the single measurement outcome.
+
+---
+
+# Distributed Quantum Machine Learning
+
+
+**Joint cyclic feedback** (`multi_fixed`, current default):
+```
+         P₀
+        ▲ ▲ 
+  m₀,m₂/   \m₀,m₁
+      /     \
+     ▼       ▼
+    P₂ ◄───► P₁
+       m₁,m₂
+```
+Each pair of processors sends their joint measurement outcomes to the third. The decision function `score = a·m_i + b·m_{i+1} + c·m_i·m_{i+1}` combines both measurements to determine which gate to apply on the target processor.
+
+---
+
+# Distributed Quantum Machine Learning
+
+the cross-processor pooling layer uses a **classical decision function** to determine which quantum gate to apply on a target qubit, based on mid-circuit measurement outcomes from two source processors:
+
+```
+score = a · m_i  +  b · m_{i+1}  +  c · m_i · m_{i+1}
+
+if score >= d:
+    apply RX(w₀), RZ(w₁) to target qubit on processor (i+2)
+else:
+    apply RX(w₂), RZ(w₃) to target qubit on processor (i+2)
+```
+
+where `m_i ∈ {0, 1}` is the measurement outcome from processor *i*, and `m_{i+1} ∈ {0, 1}` from processor *(i+1)*.
+
+
+---
+
+# Distributed Quantum Machine Learning
+
+If `m=(m_i, m_{i+1}) ∈ {0, 1}`, the score function defines a Boolean logic gate. If different $(a, b, c, d)$ settings satisfies the following table, we might implement classical gates:
+
+|m=(0,0)|m=(1,0)|m=(0,1)| =m=(1,1)| Gate |
+|-------|-------|-------|-------|------|
+| 0 < d | a < d | b < d | a+b+c ≥ d | AND |
+| 0 ≥ d | a < d | b < d | a+b+c ≥ d | XNOR |
+| 0 < d | a ≥ d | b ≥ d | a+b+c ≥ d | OR |
+| 0 < d | a ≥ d | b < d | a+b+c ≥ d | COPY |
+
 
 ---
 
 # Compressive QST
+
+![](./media/CQST.png)
+
 
 ---
 
@@ -169,7 +273,58 @@ li {
 
 # Post-Selection
 
-In estimating Quantum Fisher Information, 
+Whatever we are sensing on, it requires interaction between the system and the something we are measuring on. In our NV-center system, we can perform quantum sensing on the external magnetic field. In the quantum area, such interaction lives in the Hamiltonian.
+
+$$
+\mathcal{H}_B = \gamma B S_z
+$$
+where $\gamma$ is gyromagnetic ratio, related to magnetic sensitivity. Through this interaction term and time evolution, $e^{-i\mathcal{H}}$, the information on $B$-field is imbedded on the state. 
+$$
+\ket{\psi} \rightarrow e^{-i\mathcal{H}_B} \ket\psi .
+$$
+
+---
+
+# Post-Selection
+
+In this sense, the quantum fisher information(QFI) is how quickly a quantum state, represented by a density matrix, changes with respect to $B$-field. The faster, the more sensitivity. 
+$$
+F_Q = 2\sum_{k,l} \frac{(\lambda_k - \lambda_l)^2}{\lambda_k + \lambda_l} \left| \bra{k}\mathcal{H}_{B}\ket{l}\right|
+$$
+where $\rho = \sum_k \lambda_k \ket{k}\bra{k}$. 
+
+---
+
+# Post-Selection
+
+The information on quantum system can be obtained through actual measurement. That is, the quantum system is sampled into probability distribution $\{p_i\}$. 
+
+In statistics, log-likelihood shows how plausible is it that $B$ is the true parameter given the data observed. 
+$$
+L(B) = \sum_i \ln p_i
+$$
+we can see how the log-likelihood is to a small change in the parameter $\delta B$. The variance of this score across different data samples tells us how wildly the slope fluctuates around that peak. 
+
+---
+
+# Post-Selection
+
+- If the variance is large, it means the slope changes rapidly around the maximum. A sharp peak means that even a tiny shift away from the true parameter $\theta$ causes a massive drop in the likelihood of observing the data.
+- Otherwise, the log-likelihood function is flat and wide. A flat log-likelihood means that many different values of $\theta$ are roughly equally likely to have produced the data you observed. 
+
+In this sense, the classical fisher information (CFI) is a measure of how quickly a probability distribution changes with respect to $B$. 
+
+$$
+F_C = \sum_i p_i \left(\frac{\partial}{\partial B} \ln p_i\right)^2
+$$
+
+Note that $F_C < F_Q$.
+
+---
+
+# Post-Selection
+
+Here is how to calculate QFI $F_Q$ in two-qubit system. 
 
 $
 \frac{\partial \rho}{\partial B} = \ket{\partial_B \psi}\bra{\psi} + \ket{\psi}\bra{\partial_B \psi}
@@ -191,11 +346,13 @@ $
 F_Q = \text{Tr} \rho L^2 = 4 t_s^2 ( \text{Tr} G^2  - (\text{Tr}G)^2 ) = 4\gamma^2 t_s^2 
 $
 
+At here, $G = \gamma (S_z \otimes I + I \otimes S_z )$, which has non-zero eigenvalue on the eigenbasis $\ket{00}, \ket{11}$.
+
 ---
 
 # Post-Selection
 
-For a certain density matrix, which only depends on $\ket{00} , \ket{11}$ basis,
+So, consider density matrix under the subsystem of $\ket{00} , \ket{11}$ basis,
 $
 \rho = \ket{\psi}\bra{\psi} =
 \begin{pmatrix}
@@ -215,7 +372,7 @@ and phase accumulation
 $
 \phi = \theta + 2\gamma B t_s
 $
-Under this subsystem of $\ket{00} , \ket{11}$, we can treat it as single qubit system so that density matrix can be decomposed into 
+Under this subsystem, we can treat it as single qubit system so that density matrix can be decomposed into 
 $
 \vec{r} = (2ab\eta\cos\phi , 2ab\eta\sin\phi , a^2 - b^2)
 $
@@ -223,16 +380,16 @@ $
 F_Q^B = \left|\partial_B r \right|^2 = 16\gamma^2 t_s^2 e^{-4\tau} a^2 b^2 \leq 4\gamma^2 t_s^2 e^{-4\tau}
 $
 
-Note that in sinlge qubit system the maximum QFI is 4\gamma^2 t_s^2 e^{-2\tau}. 
+Note that in sinlge qubit system the maximum QFI is $4\gamma^2 t_s^2 e^{-2\tau}$. 
 Given Quantum Fisher Information is addictive, two-qubit separable state is (twice) better than preparing entangled state.
 
 ---
 
 # Post-Selection
 
-In this sense, we have thought that adding Post-selection procedure might be advantageous. Intuitively speaking, the information of $B$-field is encoded in phase and via post-selection we may discard unnecessary information to ancillary qubit(or the other energy level). 
+In this sense, we have thought that adding Post-selection procedure might be advantageous. Intuitively speaking, the information of $B$-field is encoded in phase and through post-selection we may discard unnecessary information to ancillary qubit(or the other energy level). 
 
-Post-Selection process is not described by unitary operation but Kraus operation and it can change QFI. While analytical approach is challenging (although I keep trying), we tried numerical optimization to find optimal post-selection strength, state preparation, measurement basis and the corresponding maximum QFI. 
+<!-- Post-Selection process is not described by unitary operation but Kraus operation and it can change QFI. While analytical approach is challenging (although I keep trying), we tried numerical optimization to find optimal post-selection strength, state preparation, measurement basis and the corresponding maximum QFI.  -->
 
 ---
 
@@ -240,19 +397,22 @@ Post-Selection process is not described by unitary operation but Kraus operation
 
 We prepared the following circuit ansatz.
 
-In order to prepare arbitrary two-qubit state, we employed one CNOT gate.
+![width:1050px](./media/sep_ps.svg)
 
-The system interact with (purturbed) magnetic field $\delta B$ during sensing time $t_s$ and noise channel is imbedded. 
+- State Preparation (RED): In order to prepare arbitrary two-qubit state, we employed one CNOT gate.
 
-Then perform Post Selection and measurement. 
+- Sensing (Orange): The system interact with (purturbed) magnetic field $\delta B$ during sensing time $t_s$ and noise channel is imbedded. 
+
+- Then perform Post Selection and measurement (Purple): Unitary operation $U$, $V$ changes post-selection basis and measurement basis. 
 
 
 ---
 
 # Post-Selection
 
-Given Learning curve, optimization seems saturated well. 
-However, the value it saturated was twice of QFI of Post-selected single-qubit system. 
+Given Learning curve, optimization seems saturated well. However, the value it saturated was twice of QFI of Post-selected single-qubit system.
+
+![](./media/learning_curves_sep_ps.png)
 
 ---
 
@@ -260,21 +420,27 @@ However, the value it saturated was twice of QFI of Post-selected single-qubit s
 
 The prepared state turns out to be separable state, by investivating negativity of prepared state.
 
+![](./media/negativity_trajectory.png)
+
 ---
 
 # Post-Selection
 
 GH suggested to enable entangled filter and entangled basis measurement. So we modified circuit ansatz. Two-qubit gate is added as if we are performing Post-selection on entangled basis.
-$
+$$
 K_{\text{eff}} = U (K_1 \otimes K_2) U^{\dagger}
-$
-At here, we employed KAK decomposition(equivalent using 3 CNOT gate per two-qubit gate) to explore full SU(4) space.
+$$
+At here, we employed KAK decomposition(equivalent using 3 CNOT gate per two-qubit gate) for $U$, $V$, in order to explore full SU(4) space.
+
+![width:1050px](./media/ent_ps.svg)
 
 ---
 
 # Post-Selection
 
-Interestingly, optimized QFI exceeds one of Post-selected separable state with order twice. 
+Interestingly, optimized QFI(CFI) exceeds one of Post-selected separable state with order twice. 
+
+![](./media/learning_curves_ent_ps_b.png)
 
 ---
 
@@ -282,11 +448,32 @@ Interestingly, optimized QFI exceeds one of Post-selected separable state with o
 
 But the prepared state was separable state but entanglement was retrieved at the end of Post-selection. Note that the strength of entanglement was not the stongest where negativity of Bell state is 0.5. 
 
+![](./media/negativity_trajectory.png)
+
+
 ---
 
 # Post-Selection
 
 Further the filter strength also becomes asymmetric, and even one of post-selection strength $\gamma$ became almost 1, meaning that strong measurement. 
+
+![](./media/ps_gamma_params.png)
+
+---
+
+# Post-Selection
+
+I'm currently investigating optimal filter design. Under the guidance, Dr. Lee, I fixed Post-selection filter as $K=\sqrt{1-\gamma}\ket{00}\bra{00} + \ket{11}\bra{11}$. The poor performance is thought to be $\left[ \mathcal{H}_B , K \right] =0$.
+
+![](./media/learning_curves_fixed_gamma.png)
+
+---
+
+# Post-Selection
+
+Next, I tried to maximize frobenius norm of commutator relation. $\left[ \mathcal{H}_B , K \right] =0$, $K=\sqrt{1-\gamma}\ket{++}\bra{++} + \ket{--}\bra{--}$ .
+
+![](./media/learning_curves_xbasis_ps.png)
 
 ---
 
@@ -298,6 +485,12 @@ Further the filter strength also becomes asymmetric, and even one of post-select
 - Based on obtained insight, I'm trying to build analytical analysis framework.  
 
 ---
+
+<style scoped>
+   li{
+      font-size: 18pt;
+   }
+</style>
 
 # DDrf
 
@@ -319,12 +512,60 @@ Further the filter strength also becomes asymmetric, and even one of post-select
 
 # DDrf
 
+I managed to finish QISK Poster Presentation (26/02/25). ✌️
+
+![bg right:45%](./media/QISK.jpg)
+
+---
+
+# DDrf
+
+DDrf refers selective phase-controlled radio-frequency(rf) driving of nuclear spins interleaved with dynamic decoupling(DD) sequences on an electron spin.
+
+I would like explain DDrf in terms of Hamiltonian engineering. 
+If we can write Hamiltonian separately, 
+$$
+H = \ket{0}\bra{0} \otimes H_0 + \ket{1}\bra{1} \otimes H_1
+$$
+then, the time evolution of second qubit becomes contingent on the first qubit. For example, if we prepare first qubit into $\ket{+}$ state and perform time evolution for $t_1$, we have
+$$
+\ket{\psi} = \frac{1}{\sqrt{2}} \left( \ket{00} + \ket{10} \right) \underbrace{\rightarrow}_{t_1}\frac{1}{\sqrt{2}} \left( \ket{0} \otimes e^{-iH_0 t_1} \ket{0} + \ket{1} \otimes e^{-iH_1 t_1} \ket{0} \right)
+$$
+
+---
+
+# DDrf
+
+If we change first qubit state using $\pi$-pulse ($\ket{0(1)} \rightarrow \ket{1(0)}$) and time-evolution $t_2$, then
+$$
+\begin{align}
+\ket{\psi} = \frac{1}{\sqrt{2}} \left( \ket{00} + \ket{10} \right) &\underbrace{\rightarrow}_{t_1} \frac{1}{\sqrt{2}} \left( \ket{0} \otimes e^{-iH_0 t_1} \ket{0} + \ket{1} \otimes e^{-iH_1 t_1} \ket{0} \right) \\
+&\underbrace{\rightarrow}_{\pi}\frac{1}{\sqrt{2}} \left( \ket{0} \otimes e^{-iH_1 t_1} \ket{0} + \ket{1} \otimes e^{-iH_0 t_1} \ket{0} \right) \\
+&\underbrace{\rightarrow}_{t_2}\frac{1}{\sqrt{2}} \left( \ket{0} \otimes \underbrace{e^{-iH_0 t_2}e^{-iH_1 t_1}}_{=U_0} \ket{0} + \ket{1} \otimes \underbrace{e^{-iH_1 t_2}e^{-iH_0 t_1}}_{=U_1} \ket{0} \right)
+\end{align}
+$$
+Generally, $U_0 \neq U_1$, hence, it is conditional gate!
 
 
 ---
 
+# DDrf
+
+![](./media/DDrf_pulse.png)
+
+---
+
 # Numerical Simulation based on Taminiau Paper
-As the nuclear spin quantization axis is dependent on the electron spin state, the Hamiltonian becomes
+
+Given NV-${}^{13}$C Hamiltonian, we have
+$$
+\begin{aligned}
+\mathcal{H} =& \gamma_c B_z I_z^i + A_{||}^i S_z I_z^i + A_{\perp} S_z I_x^i \\
+\rightarrow \mathcal{H} =& \ket{0}\bra{0} \otimes \omega_0 I_z + 
+\ket{-1}\bra{-1} \otimes \left( \omega_0 I_z -  A_{||}I_z - A_{\perp}I_x  \right) 
+\end{aligned} 
+$$
+Then, with additional rf driving, we have
 $$
 \begin{align}
 H &= \ket{0}\bra{0}\otimes H_0 + \ket{1}\bra{1}\otimes H_1 \\
@@ -332,11 +573,11 @@ H_{0} &= \omega_{0} I_z + 2\Omega_{\text{RF}}\cos(\omega_{\text{RF}}t +\phi) I_{
 H_{1} &= \omega_{1} \tilde{I}_z + 2\Omega_{\text{RF}}\cos\beta \cos(\omega_{\text{RF}}t +\phi) \tilde{I}_{x} + 2\Omega_{\text{RF}}\sin\beta\cos(\omega_{\text{RF}}t +\phi) \tilde{I}_{z} 
 \end{align}
 $$
-where 
+where
 $$
 \begin{align}
-\cos\beta   &= \frac{\omega_0 - A_{\perp}}{\omega_1} & \tilde{I}_z &= \cos\beta I_z + \sin \beta I_x \\
-\sin\beta   &= \frac{A_{\perp}}{\omega_1} & \tilde{I}_x &= \cos\beta I_x - \sin \beta I_z .
+\omega_0 &= \gamma_c B_z                                    & \cos\beta   &= \frac{\omega_0 - A_{\perp}}{\omega_1} & \tilde{I}_z &= \cos\beta I_z + \sin \beta I_x \\
+\omega_1 &= \sqrt{(\omega_0 - A_{\parallel}) + A_\perp^2}   & \sin\beta   &= \frac{A_{\perp}}{\omega_1} & \tilde{I}_x &= \cos\beta I_x - \sin \beta I_z
 \end{align}
 $$
 
@@ -414,7 +655,7 @@ Procedure:
 3. $\frac{\pi}{2}$-pulse is applied to electron spin with varying phase $\phi$.
    - In our experiment, we measure $P_x$, the projection onto $\ket{+}$ ($\phi=\frac{\pi}{2}$).
 
-![height:200px](Meeting_260219/src/Presentation/media/spectroscopy_sequence.png)
+![height:200px](./media/spectroscopy_sequence.png)
 
 ---
 
@@ -433,75 +674,17 @@ $$\text{Tr} U_0 U_1^{\dagger} = \prod_{i=1}^N \text{Tr}U_0^i {U_1^i}^{\dagger} .
 # Numerical Simulation based on Taminiau Paper
 
 
-<style scoped> 
-.container{
-   display: flex;
-   align-items: center;
-   width: 100%;
-   height: 100%;
-}
-.col-left-content{
-   flex: 0 0 25%;
-   padding-right: 2rem;
-   padding-bottom: 3rem;
-   color: #000000;
-}
+<img src="./media/Taminiau_spectroscopy.png" style="max-width: 100%; height: 25%; object-fit: contain;">
 
-.col-right-content{
-   flex: 0 0 70%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding-bottom: 5rem;
-}
 
-img[alt~="rightside"]{
-   position: absolute;
-   top: 10rem;
-   right: 3rem;
-   width: 15rem;
-}
-
-em {
-   font-size: 0.7rem;
-}
-
-</style>
-<!-- TODO: Edit Taminiau Figure -->
-<div class="container">
-<div class="col-left-content">
-<img src="Meeting_260219/src/Presentation/media/Taminiau.png" style="max-width: 100%; height: 80%; object-fit: contain;">
-
-</div>
-<div class="col-right-content">
-<img src="Meeting_260219/src/Presentation/media/DDrf_simulation_wrong.png" style="max-width: 100%; height: 80%; object-fit: contain;">
-
-<br>
-<em>
-</em>
-
-</div>
 
 ---
 
 # Numerical Simulation based on Taminiau Paper
 
 
-<img src="Meeting_260219/src/Presentation/media/Taminiau_spectroscopy.png" style="max-width: 100%; height: 25%; object-fit: contain;">
 
-
-<img src="Meeting_260219/src/Presentation/media/Reproduce.png" style="max-width: 100%; height: 45%; object-fit: contain;">
-
----
-
-# Numerical Simulation based on Taminiau Paper
-
-
-<img src="Meeting_260219/src/Presentation/media/Taminiau_spectroscopy.png" style="max-width: 100%; height: 25%; object-fit: contain;">
-
-
-<img src="Meeting_260219/src/Presentation/media/Reproduce_ext.png" style="max-width: 100%; height: 45%; object-fit: contain;">
-
+<img src="./media/Reproduce.png" style="max-width: 100%; height: 45%; object-fit: contain;">
 
 --- 
 
@@ -551,11 +734,20 @@ Note that DDrf sequence is recursive build up MW and RF pulses. Each build up(tr
 $$
 V^{(k)} = \ket{0}\bra{0} \otimes V_0^{(k)} + \ket{1}\bra{1} \otimes V_1^{(k)}
 $$
+
+![width:500px](./media/DDrf_pulse_cell.png)
+
+---
+
+# DDrf
+
+
+
 Then, the total unitary operation becomes: 
 $$
 U = \ket{0}\bra{0} \otimes \prod_{k=1}^{N/2} V_0^{(k)} + \ket{1}\bra{1} \otimes \prod_{k=1}^{N/2} V_1^{(k)}.
 $$
-This equation is itself equivalent to the previous one, but imply this strategy. The idea is that any unitary operation can be written as $\textcolor{}{e^{-iA}}$ for arbitrary Hermitian operator $A$. At the same time, it can be decomposed into $\textcolor{}{e^{-iA_1}e^{-iA_2}}$ but this decomposition is non-trivial and not unique. This means we can choose a favorable form to calculate the equation above without fully calculating previous equation. 
+This equation is itself equivalent to the previous one, but imply the following strategy. The idea is that any unitary operation can be written as $\textcolor{red}{e^{-iA}}$ for arbitrary Hermitian operator $A$. At the same time, it can be decomposed into $\textcolor{orange}{e^{-iA_1}e^{-iA_2}}$ but this decomposition is non-trivial and not unique. This means we can choose a favorable form to calculate the equation above without fully calculating previous equation. 
 
 ---
 
@@ -571,6 +763,11 @@ V_0^{k} &= e^{-iH_0 \tau}e^{-iH_1 2\tau}e^{-iH_0 \tau} \\
 \end{align}
 $$
 where $\hat{\phi} = \cos\phi I_x + \sin\phi I_y$ and $\hat\phi_{2k}^{\prime} = \cos(\phi - \delta\tau) I_x + \sin(\phi - \delta\tau) I_y$.
+
+---
+
+# DDrf
+
 In a successive product, we can keep using such trick.
 $$
 \begin{align}
@@ -600,7 +797,7 @@ V_0^{(k)} &\simeq  \left. V_0^{(k)}\right|_{\beta=0} + \beta \frac{\partial}{\pa
 V_1^{(k)} &\simeq  \left. V_1^{(k)}\right|_{\beta=0} + \beta \frac{\partial}{\partial\beta}\left. V_1^{(k)}\right|_{\beta=0} + \mathcal{O}(\beta^2)\\
 \end{align}
 $$
-Under such operation, we expect to find a form $e^{-i\alpha I_z} e^{-i \theta_{\beta}\hat\sigma_{\beta}}$ where $\alpha, \theta_{\beta}, \hat\sigma_{\beta}$ are arbitrary parameter and axis and $\beta$ denotes $\beta$ dependence. Further we can verify this approximation by testing its limit onto $\beta\rightarrow0$ and $\Omega\rightarrow0$, for each corresponds to Taminiau DDrf and CPMG. 
+Under such operation, we expect to find a form $e^{-i\alpha I_z} e^{-i \theta_{\beta}\hat\sigma_{\beta}}$ where $\alpha, \theta_{\beta}, \hat\sigma_{\beta}$ are arbitrary parameter and axis and $\beta$ denotes $\beta$ dependence. Further we can **verify this approximation by testing its limit onto $\beta\rightarrow0$ and $\Omega\rightarrow0$**, for each corresponds to Taminiau DDrf and CPMG. 
 
 ---
 
@@ -649,20 +846,20 @@ where $R_{z}(\theta)=e^{-i\theta I_z}$ and $R_\phi (\theta) = e^{-i\theta (\cos\
 
 # Numerical Simulation; side-peak problem
 
-<img src="Meeting_260219/src/Presentation/media/unconditional.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="./media/unconditional.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
 # Numerical Simulation; side-peak problem
 
-<img src="Meeting_260219/src/Presentation/media/unconditional_focus.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="./media/unconditional_focus.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
 # Numerical Simulation; side-peak problem
 
 <!-- TODO: Side peak is also detected in large $\Omega_{\text{RF}}$ -->
-<img src="Meeting_260219/src/Presentation/media/sidepeak.png" style="max-width: 100%; height: 80%; object-fit: contain;">
+<img src="./media/sidepeak.png" style="max-width: 100%; height: 80%; object-fit: contain;">
 
 ---
 
@@ -681,7 +878,7 @@ $$
 
 # DDrf
 
-Side peak problem arises near resonant peak $\omega_{\text{RF}}\simeq \omega_1$. Let's retrun to rotating frame Hamiltonian. 
+We have observed that side peak problem arises near resonant peak $\omega_{\text{RF}}\simeq \omega_1$. Let's retrun to rotating frame Hamiltonian. 
 
 $$
 \begin{align}
@@ -689,7 +886,7 @@ H_0 \rightarrow H_{0}^{\prime} &= R_{0}(t) (H_{0} - \omega_{\text{RF}}I_z) R_0 (
 H_1 \rightarrow H_{1}^{\prime} &= R_{1}(t) (H_{1} - \omega_{\text{RF}}I_z) R_1 (t)^{\dagger} &\\ &= \delta_1 \tilde{I}_z + \Omega_{RF} \cos\beta (\cos\phi \tilde{I}_x + \sin\phi \tilde{I}_y ) 
 \end{align}
 $$
-where $(\omega_{0(1)} - \omega_{\text{RF}})$. At here lets assume $\hat{\tilde{I}} = \hat{I}$ for simplicity, that is $A_\perp \simeq 0$ and $\beta\rightarrow 0$.
+where $\delta_{(0,1)} = \omega_{0(1)} - \omega_{\text{RF}}$. At here lets assume $\hat{\tilde{I}} = \hat{I}$ for simplicity, that is $A_\perp \simeq 0$ and $\beta\rightarrow 0$.
 
 Previously, we have assumed $\delta_1 \ll \Omega \ll \delta_0$. To see dutuned effect, lets make $\delta_1$ small but not negligible.
 
@@ -697,28 +894,23 @@ Previously, we have assumed $\delta_1 \ll \Omega \ll \delta_0$. To see dutuned e
 
 # DDrf
 
-This is a great question. The nice thing is that the algebraic structure of the DDrf sequence survives intact when $\delta_1 \neq 0$ — the corrections enter in a clean, geometrically transparent way.
-
-## Setup with $\delta_1 \neq 0$
-
 With $H_1(\phi) = \delta_1 I_z + \Omega\hat\phi\cdot\vec{I}$, the propagator $e^{-iH_1 t}$ is now a rotation about a **tilted** axis. Define
 
-$$\Omega_{\mathrm{eff}} = \sqrt{\Omega^2 + \delta_1^2}, \qquad \sin\beta = \frac{\delta_1}{\Omega_{\mathrm{eff}}}, \qquad \cos\beta = \frac{\Omega}{\Omega_{\mathrm{eff}}}$$
+$$\Omega_{\mathrm{eff}} = \sqrt{\Omega^2 + \delta_1^2}, \qquad \sin\gamma = \frac{\delta_1}{\Omega_{\mathrm{eff}}}, \qquad \cos\gamma = \frac{\Omega}{\Omega_{\mathrm{eff}}}$$
 
 so that
 
-$$H_1(\phi) = \Omega_{\mathrm{eff}}\,\hat{n}(\phi)\cdot\vec{I}, \qquad \hat{n}(\phi) = (\cos\beta\cos\phi,\;\cos\beta\sin\phi,\;\sin\beta).$$
+$$H_1(\phi) = \Omega_{\mathrm{eff}}\,\hat{n}(\phi)\cdot\vec{I}, \qquad \hat{n}(\phi) = (\cos\gamma\cos\phi,\;\cos\gamma\sin\phi,\;\sin\gamma).$$
 
-The axis $\hat{n}(\phi)$ is tilted out of the $xy$-plane by angle $\beta$.
+The axis $\hat{n}(\phi)$ is tilted out of the $xy$-plane by angle $\gamma$.
 
 ---
 
 # DDrf
 
 
-## Per-cell propagators
 
-The conjugation trick still works, since $e^{i\alpha I_z}(\hat{n}\cdot\vec{I})e^{-i\alpha I_z}$ only rotates the azimuthal angle by $-\alpha$ and leaves the $z$-component ($\sin\beta$) invariant. So exactly the same manipulations you wrote give:
+The conjugation trick still works, since $e^{i\alpha I_z}(\hat{n}\cdot\vec{I})e^{-i\alpha I_z}$ only rotates the azimuthal angle by $-\alpha$ and leaves the $z$-component ($\sin\gamma$) invariant. So exactly the same manipulations you wrote give:
 
 $$V_0^{(k)} = e^{-i2\delta_0\tau I_z}\;e^{-i\Omega_{\mathrm{eff}}\,2\tau\;\hat{n}(\phi_{2k}')\cdot\vec{I}}$$
 
@@ -733,87 +925,19 @@ with $\phi_{2k-1} = (2k-2)\delta_0\tau + \pi$. The phase protocol ensures the tw
 # DDrf
 
 
-## Telescoping still works
+Composing over $N/2$ cells, each factor of $e^{-i2\delta_0\tau I_z}$ shifts subsequent azimuthal angles by $2\delta_0\tau$, which exactly compensates the $k$-dependent phase stepping. The tilt angle $\gamma$ is $k$-independent, so it passes through the telescoping unchanged:
 
-Composing over $N/2$ cells, each factor of $e^{-i2\delta_0\tau I_z}$ shifts subsequent azimuthal angles by $2\delta_0\tau$, which exactly compensates the $k$-dependent phase stepping. The tilt angle $\beta$ is $k$-independent, so it passes through the telescoping unchanged:
+$$V_0^{\mathrm{tot}} = e^{-iN\delta_0\tau I_z}\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{n}_0\cdot\vec{I}}, \qquad \hat{n}_0 = (\cos\gamma,\;0,\;\sin\gamma)$$
 
-$$V_0^{\mathrm{tot}} = e^{-iN\delta_0\tau I_z}\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{n}_0\cdot\vec{I}}, \qquad \hat{n}_0 = (\cos\beta,\;0,\;\sin\beta)$$
+$$V_1^{\mathrm{tot}} = e^{-iN\delta_0\tau I_z}\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{m}_0\cdot\vec{I}}, \qquad \hat{m}_0 = (-\cos\gamma,\;0,\;\sin\gamma)$$
 
-$$V_1^{\mathrm{tot}} = e^{-iN\delta_0\tau I_z}\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{m}_0\cdot\vec{I}}, \qquad \hat{m}_0 = (-\cos\beta,\;0,\;\sin\beta)$$
+The RZ factor $e^{-iN\delta_0\tau I_z}$ is the same as the $\delta_1=0$ case, so the interesting physics is in the rotations. Comparing the two axes:
 
----
-
-# DDrf
-
-
-## What changes: the conditional gate structure
-
-The common factor $e^{-iN\delta_0\tau I_z}$ is the same as the $\delta_1=0$ case, so the interesting physics is in the rotations. Comparing the two axes:
-
-$$\hat{n}_0 = \cos\beta\,\hat{x} + \sin\beta\,\hat{z}, \qquad \hat{m}_0 = -\cos\beta\,\hat{x} + \sin\beta\,\hat{z}$$
-
-In the ideal case $\beta=0$, these are antiparallel ($\hat{n}_0 = -\hat{m}_0$), giving a perfect conditional rotation: the nuclear spin rotates in opposite senses depending on the electron state. With $\beta\neq 0$, the axes share a common $\hat{z}$ projection but differ only in the transverse part. This means the total gate decomposes (conceptually) into:
-
-- **Conditional part** (electron-state-dependent): rotation about $\pm\hat{x}$, with effective angle $\Omega_{\mathrm{eff}}N\tau\cos\beta = \Omega N\tau$. This is actually unchanged from the $\delta_1=0$ case in terms of the transverse rotation angle.
-- **Unconditional part** (same for both electron states): rotation about $\hat{z}$, with effective angle $\Omega_{\mathrm{eff}}N\tau\sin\beta = \delta_1 N\tau$. This is a parasitic $I_z$ rotation that does not create entanglement.
-
+$$\hat{n}_0 = \cos\gamma\,\hat{x} + \sin\gamma\,\hat{z}, \qquad \hat{m}_0 = -\cos\gamma\,\hat{x} + \sin\gamma\,\hat{z} .$$
 
 ---
 
 # DDrf
-
-## Telescoping the product
-
-Define shorthand:
-
-$$\mathcal{Z} \equiv e^{-i2\delta_0\tau I_z}, \qquad R_\alpha^{(k)} \equiv e^{-i\Omega_{\mathrm{eff}}\,2\tau\;\hat{n}(\varphi_k)\cdot\vec{I}}$$
-
-where $\hat{n}(\varphi) = (\cos\beta\cos\varphi,\;\cos\beta\sin\varphi,\;\sin\beta)$ with $\sin\beta = \delta_1/\Omega_{\mathrm{eff}}$.
-
-With the standard phase protocol, the per-cell propagators reduce to:
-
-$$V_0^{(k)} = \mathcal{Z}\cdot R_0^{(k)}, \qquad \varphi_k^{(0)} = (2k-2)\delta_0\tau$$
-
-$$V_1^{(k)} = \mathcal{Z}\cdot R_1^{(k)}, \qquad \varphi_k^{(1)} = (2k-2)\delta_0\tau + \pi$$
-
----
-
-# DDrf
-
-
-### Key identity for telescoping
-
-Since $e^{i\alpha I_z}(\hat{n}(\varphi)\cdot\vec{I})e^{-i\alpha I_z} = \hat{n}(\varphi - \alpha)\cdot\vec{I}$ (the tilt angle $\beta$ is invariant under $z$-rotations), we have
-
-$$R^{(k)}\cdot\mathcal{Z} = \mathcal{Z}\cdot R^{(k-1)}$$
-
-because commuting $\mathcal{Z}$ through shifts the azimuthal phase by $-2\delta_0\tau$, which is exactly the step between consecutive $k$ labels.
-
----
-
-# DDrf
-
-
-### Inductive product
-
-For $V_0$, writing the time-ordered product (cell 1 rightmost):
-
-$$\prod_{k=1}^{N/2} V_0^{(k)} = \bigl[\mathcal{Z}\,R_0^{(N/2)}\bigr]\cdots\bigl[\mathcal{Z}\,R_0^{(2)}\bigr]\bigl[\mathcal{Z}\,R_0^{(1)}\bigr]$$
-
-**By induction:**
-
-$$\boxed{\prod_{k=1}^{N/2} V_0^{(k)} = e^{-iN\delta_0\tau\,I_z}\;\cdot\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{n}(0)\cdot\vec{I}}}$$
-
-$$\boxed{\prod_{k=1}^{N/2} V_1^{(k)} = e^{-iN\delta_0\tau\,I_z}\;\cdot\;e^{-i\Omega_{\mathrm{eff}}\,N\tau\;\hat{n}(\pi)\cdot\vec{I}}}$$
-
-where
-
-$$\hat{n}(0) = (\cos\beta,\;0,\;\sin\beta), \qquad \hat{n}(\pi) = (-\cos\beta,\;0,\;\sin\beta)$$
-
----
-
-# DDrf
-
 
 ## Full unitary
 
@@ -828,30 +952,58 @@ The first factor is an **unconditional** nuclear $z$-rotation (identical for bot
 # DDrf
 
 
-Substituting $\Omega_{\mathrm{eff}}^2 = \Omega^2 + \delta_1^2$ and $\sin^2\beta = \delta_1^2/(\Omega^2 + \delta_1^2)$:
+Substituting $\Omega_{\mathrm{eff}}^2 = \Omega^2 + \delta_1^2$ and $\sin^2\gamma = \delta_1^2/(\Omega^2 + \delta_1^2)$:
 
 $$
-\mathrm{tr}(U_0 U_1^\dagger) = 2\cos\!\Big(\!\sqrt{\Omega^2 + \delta_1^2}\;N\tau\Big) + \frac{4\delta_1^2}{\Omega^2 + \delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\;N\tau}{2}\right)
+\mathrm{Tr}(U_0 U_1^\dagger) = 2\cos\!\Big(\!\sqrt{\Omega^2 + \delta_1^2}\;N\tau\Big) + \frac{4\delta_1^2}{\Omega^2 + \delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\;N\tau}{2}\right)
 $$
 
----
-
-# DDrf
 
 Using $2\cos\theta = 2 - 4\sin^2(\theta/2)$:
 
-$$\frac{1}{2}\mathrm{tr}(U_0 U_1^\dagger) = 1 - \frac{2\Omega^2}{\Omega^2 + \delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\;N\tau}{2}\right)$$
+$$\frac{1}{2}\mathrm{Tr}(U_0 U_1^\dagger) = 1 - \frac{2\Omega^2}{\Omega^2 + \delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\;N\tau}{2}\right)$$
 
-This is exactly the **detuned Rabi formula**. 
+This is exactly the **detuned Rabi formula**. Yay!
 
+---
+
+# DDrf 
+
+Given $\frac{\delta_0}{\Omega} \ll 1$, applying Taylor expansion upto first order, we have,
+$$
+\frac{1}{2}\mathrm{Tr}(U_0 U_1^\dagger) = 1 - \underbrace{2\Omega^2 \left( 1 - \frac{\delta_0^2}{\Omega^2} \right)}_{\text{Lorentzian envelope}} \underbrace{\sin^2 \left(N\tau \delta_0^2 + \frac{N\Omega\tau}{2}  \right)}_{\text{sidelobe}}
+$$
+We can see:
+- Lorentzian envelope takes quadratic form. 
+- The osillation makes sidelobe in a period $\frac{2\pi}{N\tau}$.
+
+
+---
+
+# DDrf 
+
+It seems that this equation explains this curve very well!
+$$
+\boxed{
+   \frac{1}{2}\mathrm{Tr}(U_0 U_1^\dagger) = 1 - 2\Omega^2 \left( 1 - \frac{\delta_0^2}{\Omega^2} \right)\sin^2 \left(N\Omega \delta_0^2 + \frac{N\Omega\tau}{2}  \right)
+}
+$$
+
+![width:800px](./media/unconditional_focus.png)
 
 ---
 
 # DDrf
 
-## Step 1: Per-cell propagators with $\Omega_k = \Omega f(k)$
+## Per-cell propagators with $\Omega_k = \Omega f(k)$
 
-The phase protocol $\phi_{2k} = (2k-1)\delta_0\tau$, $\phi_{2k-1} = (2k-2)\delta_0\tau + \pi$ depends only on $\delta_0\tau$ and $k$, **not on $\Omega$**. So it is unchanged by apodization. The conjugation trick $e^{i\alpha I_z}(\hat{n}\cdot\vec{I})e^{-i\alpha I_z}$ rotates the azimuthal angle while leaving the tilt angle invariant. Since apodization only modifies the tilt angle $\beta_k$ and the effective frequency $\Omega_{\mathrm{eff},k}$, **the phase protocol still collapses all azimuthal angles to a common value**. Verified.
+Although it might be unrealistic, the idea is using apodizied pulse RF driving like this...
+
+![](./media/Adodizied.jpeg)
+
+---
+
+# DDrf
 
 The per-cell propagators are:
 
@@ -859,49 +1011,30 @@ $$V_0^{(k)} = e^{-i2\delta_0\tau I_z}\;e^{-i\theta_k\,\hat{n}_k(0)\cdot\vec{I}},
 
 with $k$-dependent quantities:
 
-$$\theta_k = 2\Omega_{\mathrm{eff},k}\,\tau, \qquad \Omega_{\mathrm{eff},k} = \sqrt{\Omega_k^2 + \delta_1^2}, \qquad \sin\beta_k = \frac{\delta_1}{\Omega_{\mathrm{eff},k}}, \qquad \cos\beta_k = \frac{\Omega_k}{\Omega_{\mathrm{eff},k}}$$
+$$\theta_k = 2\Omega_{\mathrm{eff},k}\,\tau, \qquad \Omega_{\mathrm{eff},k} = \sqrt{\Omega_k^2 + \delta_1^2}, \qquad \sin\gamma_k = \frac{\delta_1}{\Omega_{\mathrm{eff},k}}, \qquad \cos\gamma_k = \frac{\Omega_k}{\Omega_{\mathrm{eff},k}}$$
 
-$$\hat{n}_k(0) = (\cos\beta_k,\;0,\;\sin\beta_k), \qquad \hat{n}_k(\pi) = (-\cos\beta_k,\;0,\;\sin\beta_k)$$
+$$\hat{n}_k(0) = (\cos\gamma_k,\;0,\;\sin\gamma_k), \qquad \hat{n}_k(\pi) = (-\cos\gamma_k,\;0,\;\sin\gamma_k)$$
 
-Note: the tilt angle $\beta_k$ now **varies with $k$** because $\Omega_k$ does.
+Note: the tilt angle $\gamma_k$ now **varies with $k$** because $\Omega_k$ does.
 
 ---
 
-## Step 2: Telescoped product
+# DDrf
 
-The same telescoping identity holds: commuting $\mathcal{Z} = e^{-i2\delta_0\tau I_z}$ through $R_k$ shifts the azimuthal angle by $-2\delta_0\tau$ while preserving $\beta_k$ and $\theta_k$. By induction (exactly as before):
+Commuting $e^{-i2\delta_0\tau I_z}$ through $R_k$ shifts the azimuthal angle by $-2\delta_0\tau$ while preserving $\gamma_k$ and $\theta_k$. By induction (exactly as before):
 
-$$\prod_{k=1}^{N/2} V_0^{(k)} = e^{-iN\delta_0\tau I_z}\;\prod_{k=N/2}^{1} e^{-i\theta_k\,\hat{n}_k(0)\cdot\vec{I}}$$
+$$\prod_{k=1}^{N/2} V_0^{(k)} = e^{-iN\delta_0\tau I_z}\;\prod_{k=N/2}^{1} e^{-i\theta_k\,\hat{n}_k(0)\cdot\vec{I}}, ~~~~~~~~~~~~~~ \prod_{k=1}^{N/2} V_1^{(k)} = e^{-iN\delta_0\tau I_z}\;\prod_{k=N/2}^{1} e^{-i\theta_k\,\hat{n}_k(\pi)\cdot\vec{I}}$$
 
-$$\prod_{k=1}^{N/2} V_1^{(k)} = e^{-iN\delta_0\tau I_z}\;\prod_{k=N/2}^{1} e^{-i\theta_k\,\hat{n}_k(\pi)\cdot\vec{I}}$$
+**Crucial difference from the constant-$\Omega$ case**: the ordered product does **not** collapse into a single rotation, because $\hat{n}_k(0)$ has $k$-dependent tilt $\gamma_k$, and rotations about different axes in the $xz$-plane do not commute and are not aligned anymore. 
 
-**Crucial difference from the constant-$\Omega$ case**: the ordered product does **not** collapse into a single rotation, because $\hat{n}_k(0)$ has $k$-dependent tilt $\beta_k$, and rotations about different axes in the $xz$-plane do not commute.
-
-**Exception — $\delta_1 = 0$**: all $\beta_k = 0$, all axes align ($\hat{x}$ or $-\hat{x}$), and the products do collapse:
+**Exception — $\delta_1 = 0$**: all $\gamma_k = 0$, all axes align ($\hat{x}$ or $-\hat{x}$), and the products do collapse:
 
 $$\prod_{k=N/2}^{1} e^{-i\cdot 2\Omega_k\tau\,I_x} = e^{-i\Theta\,I_x}, \qquad \Theta \equiv 2\Omega\tau\sum_{k=1}^{N/2} f(k)$$
 
----
-
-## Step 3: Full unitary
-
-$$\boxed{U = \bigl(\mathbb{1}_e\otimes e^{-iN\delta_0\tau I_z}\bigr)\cdot\left[\lvert 0\rangle\langle 0\rvert\otimes\prod_{k=N/2}^{1}e^{-i\theta_k\hat{n}_k(0)\cdot\vec{I}}\;+\;\lvert 1\rangle\langle 1\rvert\otimes\prod_{k=N/2}^{1}e^{-i\theta_k\hat{n}_k(\pi)\cdot\vec{I}}\right]}$$
-
-For $\delta_1 = 0$, this simplifies to:
-
-$$U\big|_{\delta_1=0} = \bigl(\mathbb{1}_e\otimes e^{-iN\delta_0\tau I_z}\bigr)\cdot\left[\lvert 0\rangle\langle 0\rvert\otimes e^{-i\Theta I_x}\;+\;\lvert 1\rangle\langle 1\rvert\otimes e^{+i\Theta I_x}\right]$$
 
 ---
 
-## Step 4: $\mathrm{tr}(U_0 U_1^\dagger)$
-
-The common $e^{-iN\delta_0\tau I_z}$ cancels as before:
-
-$$\mathrm{tr}(U_0 U_1^\dagger) = \mathrm{tr}\!\left(\prod_{k=N/2}^{1}e^{-i\theta_k\hat{n}_k(0)\cdot\vec{I}}\;\cdot\;\prod_{k=1}^{N/2}e^{+i\theta_k\hat{n}_k(\pi)\cdot\vec{I}}\right)$$
-
-
----
-
+# DDrf
 
 ### Case $\delta_1 = 0$: clean windowed result
 
@@ -911,9 +1044,11 @@ $$\mathrm{tr}(U_0 U_1^\dagger)\big|_{\delta_1=0} = \mathrm{tr}\!\left(e^{-i\Thet
 
 $$\boxed{\mathrm{tr}(U_0 U_1^\dagger)\big|_{\delta_1=0} = 2\cos\!\left(2\Omega\tau\sum_{k=1}^{N/2}f(k)\right)}$$
 
-The $\pi$-gate condition becomes $2\Omega\tau\sum_k f(k) = \pi$, which just rescales the required $\Omega$ to compensate for the reduced total pulse area of the window.
+
 
 ---
+
+# DDrf
 
 
 ### Case $\delta_1 \neq 0$: perturbative result
@@ -922,20 +1057,22 @@ For small $\delta_1$, define the zeroth-order (unperturbed, $\delta_1=0$) rotati
 
 $$e^{-i\theta_k\hat{n}_k(0)\cdot\vec{I}} = e^{-i(2\Omega_k\tau\,I_x\;+\;2\delta_1\tau\,I_z)\;+\;\mathcal{O}(\delta_1^2)}$$
 
-where I used $\theta_k\cos\beta_k = 2\Omega_k\tau + \mathcal{O}(\delta_1^2)$ and $\theta_k\sin\beta_k = 2\delta_1\tau$ (exactly, independent of $k$).
+where I used $\theta_k\cos\gamma_k = 2\Omega_k\tau + \mathcal{O}(\delta_1^2)$ and $\theta_k\sin\gamma_k = 2\delta_1\tau$ (exactly, independent of $k$).
 
-Going to the **interaction picture** with respect to the $I_x$ rotations, define the cumulative angle after cell $j$:
+Going to the interaction picture with respect to the $I_x$ rotations, define the cumulative angle after cell $j$:
 
 $$\Phi_j \equiv 2\Omega\tau\sum_{m=1}^{j}f(m)$$
+
+
+---
+
+# DDrf
 
 The $I_z$ perturbation in cell $k$ is rotated into the frame where cells $1,\ldots,k-1$ have already been applied:
 
 $$I_z \;\longrightarrow\; \cos\Phi_{k-1}\;I_z \;-\; \sin\Phi_{k-1}\;I_y$$
 
----
-
-
-Summing the first-order Magnus contribution over all cells:
+Summing the first-order contribution over all cells:
 
 $$\prod_{k=N/2}^{1}e^{-i\theta_k\hat{n}_k(0)\cdot\vec{I}} \;\approx\; e^{-i\Theta I_x}\;\exp\!\left(-i2\delta_1\tau\sum_{k=1}^{N/2}\bigl[\cos\Phi_{k-1}\;I_z - \sin\Phi_{k-1}\;I_y\bigr]\right)$$
 
@@ -943,41 +1080,76 @@ Similarly for the $V_1$ branch (with $I_x \to -I_x$). When we form $U_0 U_1^\dag
 
 $$\boxed{\frac{1}{2}\mathrm{tr}(U_0 U_1^\dagger) \;\approx\; \cos\Theta \;-\; \frac{2\delta_1^2\tau^2}{\sin^2(\Theta/2)}\;\sin^2(\Theta/2)\;\left|\sum_{k=1}^{N/2}f_k\,e^{i\Phi_{k-1}}\right|^2\;\cdot(\ldots)}$$
 
-This is getting notationally heavy, so let me give the cleaner **physical result**. 
-
 ---
 
+# DDrf
 
 Defining the normalized window:
 
 $$F(\delta_1) \equiv \sum_{k=1}^{N/2} f(k)\,e^{i\Phi_{k-1}(\delta_1)}$$
 
-the spectral response near resonance takes the form of a **windowed discrete Fourier transform**:
+the spectral response near resonance takes the form of a (windowed) discrete Fourier transform:
 
 $$\frac{1}{2}\mathrm{tr}(U_0 U_1^\dagger) \approx -1 + \text{const}\times\left|\frac{F(\delta_1)}{F(0)}\right|^2 \cdot \delta_1^2$$
 
-where $F(0) = \sum_k f(k)$ is just the normalization. The key result:
+where $F(0) = \sum_k f(k)$ is just the normalization. 
 
-- **Rectangular window** $f(k) = 1$: $|F|^2$ gives the **Fejér kernel** (sinc-squared), recovering the detuned Rabi lineshape with prominent sidelobes.
-- **Hanning/Hamming/Blackman**: the sidelobes are suppressed at the cost of a broader main lobe, exactly as in classical spectral analysis.
+---
+
+# DDrf
+
+Each window $f(k)$ has a continuous counterpart $w(t)$, and the spectral response is the normalized Fourier transform squared. All windows in the cosine family can be written as $w(t) = a_0 - a_1\cos(2\pi t/T) + a_2\cos(4\pi t/T)$. The normalized spectral response has the universal form:
+
+$$\left|\frac{F(\delta_1)}{F(0)}\right|^2 = \mathrm{sinc}^2(u)\cdot\left|G(u)\right|^2$$
+
+where $\mathrm{sinc}(u) = \sin(\pi u)/(\pi u)$ and the **window kernel** $G(u)$ depends on the coefficients.
+
+**Rectangular** ($a_0 = 1$, $a_1 = a_2 = 0$):$\left|\frac{F}{F(0)}\right|^2_{\mathrm{rect}} = \mathrm{sinc}^2(u)$
+
+---
+
+# DDrf
+
+- **Hanning** ($a_0 = a_1 = 1/2$, $a_2 = 0$):$\left|\frac{F}{F(0)}\right|^2_{\mathrm{Hann}} = \frac{\mathrm{sinc}^2(u)}{(1-u^2)^2}$
+The factor $(1-u^2)^{-2}$ kills the sinc sidelobes: each sinc zero at integer $u$ is now cancelled by the denominator zero at $u = \pm 1$, leaving only the zero structure at $u = \pm 2, \pm 3, \ldots$
+
+- **Hamming** ($a_0 = 0.54$, $a_1 = 0.46$, $a_2 = 0$):$\left|\frac{F}{F(0)}\right|^2_{\mathrm{Hamm}} = \mathrm{sinc}^2(u)\cdot\left(\frac{50u^2 - 27}{27(u^2 - 1)}\right)^2$
+The numerator $50u^2 - 27$ has a zero at $u = \sqrt{27/50} \approx 0.735$, which partially cancels the first sinc sidelobe. The imperfect cancellation at $u = 1$ (unlike Hann) gives a small residual, but the first sidelobe is pushed down to $-42.7$ dB.
+
+- **Blackman** ($a_0 = 0.42$, $a_1 = 0.5$, $a_2 = 0.08$):$\left|\frac{F}{F(0)}\right|^2_{\mathrm{Black}} = \mathrm{sinc}^2(u)\cdot\left(\frac{50u^4 - 209u^2 + 84}{21(u^2-1)(u^2 - 4)}\right)^2$ 
+The extra $\cos(4\pi t/T)$ harmonic introduces the $(u^2 - 4)$ denominator, cancelling the sinc zeros at both $u = \pm 1$ and $u = \pm 2$, pushing the first nonzero sidelobe out to $u \approx 3$.
+
+---
+
+# DDrf 
+
+Using the $\pi$-gate condition $2\Omega\tau\sum_k f(k) = \pi$ with $\sum_k f(k) = M\bar{f}$:
+
+$$u = \frac{\delta_1}{2\Omega\bar{f}}$$
+
+where $\bar{f}$ is the mean of the window. The FWHM in physical units:
+
+
+| Window | $\bar{f}$ | FWHM ($u$) | FWHM ($\delta_1$) |
+|---|---|---|---|
+| Rectangular | 1.00 | 0.89 | $1.77\,\Omega$ |
+| Hanning | 0.50 | 1.44 | $1.44\,\Omega$ |
+| Hamming | 0.54 | 1.30 | $1.41\,\Omega$ |
+| Blackman | 0.42 | 1.68 | $1.41\,\Omega$ |
+
 
 ---
 
 
-The FWHM broadens by a factor that depends on the window (roughly $\times 1.5$ for Hanning, $\times 1.7$ for Blackman), but the sidelobe rejection improves dramatically (from $-13$ dB for rectangular to $-31$ dB for Hanning to $-58$ dB for Blackman). This is the standard **resolution–sidelobe tradeoff** from signal processing, now appearing in the DDrf gate's spectral selectivity.
-
----
-
-The root cause is clear: the rotation axis $\hat{n}_k(0) = (\cos\beta_k, 0, \sin\beta_k)$ lives in the $xz$-plane, and $\beta_k = \arctan(\delta_1/\Omega_k)$. Whenever both $\delta_1$ and the $k$-dependence of $\Omega_k$ are present simultaneously, $\beta_k$ wanders from cell to cell. Rotations about different axes in the $xz$-plane don't commute, so the product $\prod_k e^{-i\theta_k \hat{n}_k \cdot \vec{I}}$ cannot be collapsed into a single exponential.
+# DDrf
 
 ## How badly is it broken?
 
 The mismatch between consecutive axes is
 
-$$\Delta\beta_k \equiv \beta_{k+1} - \beta_k \approx -\frac{\delta_1}{\Omega^2}\,\Omega\,\Delta f_k$$
+$$\Delta\gamma_k \equiv \gamma_{k+1} - \gamma_k \approx -\frac{\delta_1}{\Omega^2}\,\Omega\,\Delta f_k$$
 
-where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\delta_1 \cdot \Delta f_k$, which is small when either $\delta_1$ is small or the window varies slowly. This is reassuring: smooth windows (Hanning, Blackman) have small $\Delta f_k$ everywhere except near the edges where $f(k) \approx 0$ anyway, so the damage is doubly suppressed.
-
+where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\delta_1 \cdot \Delta f_k$, which is small when either $\delta_1$ is small or the window varies slowly. 
 
 ---
 
@@ -1055,7 +1227,7 @@ $$
 
 Generally, we try to find solution in the form of series
 $$
-\Omega(t) = \sum_{n=1}^\inf \Omega_n (t)
+\Omega(t) = \sum_{n=1}^{\inf} \Omega_n (t)
 $$
 In such form, there is well known solution.
 $$
