@@ -349,13 +349,58 @@ All these methods generally require **full density matrix** $\rho$ — expensive
 
 <style scoped>
 table {
-   font-size: 16pt;
+   font-size: 15pt;
    margin: 0 auto;
 }
-p {
-   font-size: 18pt;
+p, li {
+   font-size: 16pt;
 }
 </style>
+
+<!--
+================================================================================
+FIGURE 1 — STATE-SPACE HIERARCHY DIAGRAM
+================================================================================
+CONTEXT FOR IMAGE GENERATOR:
+In quantum information, the set of all bipartite density matrices ρ on
+H_A ⊗ H_B has a nested structure. The innermost set is "separable states"
+(ρ = Σ p_i ρ^A_i ⊗ ρ^B_i). Containing it is the set of "PPT states" (states
+whose partial transpose ρ^{T_B} is positive semidefinite). Surrounding that
+is the set of all density matrices. The region between PPT and all-states is
+"NPT entangled" (detectable by the partial transpose). The region between
+separable and PPT is "bound entangled" / "PPT entangled" (NOT detectable by
+PPT — requires witnesses). Different entanglement-detection techniques cover
+different regions. This is one of the most iconic diagrams in the field.
+
+WHAT TO DRAW:
+- Three nested rounded rectangles (or ellipses) — NOT a Venn diagram, but
+  strict containment (one fully inside the other).
+- Outermost rectangle: light gray fill. Label inside near its top edge:
+  "All density matrices ρ ∈ D(H_A ⊗ H_B)".
+- Middle rectangle: light blue fill. Label near top: "PPT states
+  (ρ^{T_B} ≥ 0)".
+- Innermost rectangle: light green fill. Label inside center: "Separable
+  states   ρ = Σ p_i ρ^A_i ⊗ ρ^B_i".
+- In the gray "NPT entangled" annulus between outer and middle: italic label
+  "NPT entangled — detected by PPT, negativity, p_n-PPT, p_n-OPPT".
+- In the blue "bound entangled" annulus between middle and inner: italic
+  label "PPT-entangled (bound) — requires entanglement witnesses".
+- Four arrows drawn from OUTSIDE the outer rectangle pointing at the regions
+  they detect, each with a small text label at its base:
+    (1) "PPT / Negativity"  →  NPT annulus
+    (2) "p_n-OPPT (Paper 1)"  →  NPT annulus (draw to a different spot)
+    (3) "Witnesses"  →  a cut plane slicing across the separable boundary
+        (draw as a straight dashed line tangent to the inner rectangle)
+    (4) "SDP hierarchy"  →  bound-entangled annulus
+
+STYLE:
+- Flat academic diagram, sans-serif, pastel fills, thin black borders.
+- No 3D, no shading, no gradients. Clean and publication-ready.
+- Approximate aspect ratio 4:3. Text legible at 14pt minimum.
+================================================================================
+-->
+
+![width:560px](media/images/fig1_state_hierarchy.png)
 
 | Method | Detects | Requires | Limitation |
 |--------|---------|----------|------------|
@@ -365,7 +410,6 @@ p {
 | **SDP (GME)** | Genuine multipartite | Full $\rho$ | Exponential scaling |
 
 **Question:** Can we certify entanglement **without full state tomography**?
-
 $\Rightarrow$ **Paper 1:** Use only the *moments* of $\rho^{T_A}$ — accessible via randomized measurements.
 
 ---
@@ -530,10 +574,56 @@ $$
 
 <style scoped>
 p, li {
-   font-size: 17pt;
+   font-size: 15pt;
    color: #000000;
 }
 </style>
+
+<!--
+================================================================================
+FIGURE 2 — HANKEL MATRIX ANATOMY
+================================================================================
+CONTEXT FOR IMAGE GENERATOR:
+A Hankel matrix is a square matrix whose anti-diagonals are constant — that is,
+the (i, j) entry depends only on the SUM i+j. When the entries are the moments
+p_0, p_1, p_2, ... of a probability measure on the real line (in our case, the
+moments of the partial transpose), the positive semidefiniteness (PSD) of this
+matrix characterizes whether the sequence could have come from a legitimate
+probability distribution. A separable quantum state always produces a PSD
+Hankel matrix; if the Hankel matrix is NOT PSD, then the state must be
+entangled. This diagram should make the "anti-diagonal structure" visually
+obvious — that is the entire point of calling it a Hankel matrix.
+
+WHAT TO DRAW:
+- A 4×4 square matrix drawn as a grid with thin black borders.
+- Entries from top-left, reading row by row:
+    Row 0:  p_0   p_1   p_2   p_3
+    Row 1:  p_1   p_2   p_3   p_4
+    Row 2:  p_2   p_3   p_4   p_5
+    Row 3:  p_3   p_4   p_5   p_6
+- CRUCIAL: color each anti-diagonal (cells sharing the same i+j) with the
+  SAME soft pastel color. There are 7 anti-diagonals (i+j = 0 through 6).
+  Use 7 distinct pastel hues — e.g., pale yellow (i+j=0), peach, pink,
+  lavender, mint, sky blue, pale teal (i+j=6). The visual repetition is
+  the pedagogical point.
+- Draw a curved arrow outside the matrix pointing to one anti-diagonal
+  (say, the one filled with p_2 entries in positions (0,2),(1,1),(2,0))
+  with a label: "Anti-diagonal: constant entry p_{i+j}".
+- Below the matrix, centered, write in italic:
+    "H ≥ 0  ⟺  moments come from a valid measure on ℝ"
+- To the right of the matrix, a callout box:
+    "Violation of H ≥ 0  ⟹  state is entangled"
+- Top-left corner: small label "H_3 (order-3 Hankel matrix)"
+
+STYLE:
+- Clean academic schematic. Matrix cells roughly 60×60 px. Entry text in
+  serif math font (LaTeX-like), at least 18pt. Annotations in italic
+  sans-serif. No 3D, no shadows, no gradients on cells — just flat fills.
+- Approximate canvas 4:3 aspect ratio.
+================================================================================
+-->
+
+![width:500px](media/images/fig2_hankel_anatomy.png)
 
 Define the **Hankel matrices** from a moment sequence $m^{(n)} = (m_0, m_1, \ldots, m_n)$:
 $$
@@ -667,10 +757,64 @@ $$
 
 <style scoped>
 p, li {
-   font-size: 18pt;
+   font-size: 16pt;
    color: #000000;
 }
 </style>
+
+<!--
+================================================================================
+FIGURE 3 — OPPT vs PPT DETECTION REGION IN (p_2, p_3) SPACE
+================================================================================
+CONTEXT FOR IMAGE GENERATOR:
+Given only the second and third moments p_2 = Tr[(ρ^{T_A})^2] and
+p_3 = Tr[(ρ^{T_A})^3] of the partial transpose, each entanglement criterion
+carves out a "separable-compatible region" in the (p_2, p_3) plane. If a
+measured state's (p_2, p_3) falls OUTSIDE the region allowed by a criterion,
+the state is certified as entangled by that criterion. The p_3-PPT criterion
+gives the region p_3 ≥ p_2^2 (a parabolic lower bound). The tighter
+p_3-OPPT criterion (Theorem 3 of Yu-Imai-Gühne 2021) is
+p_3 ≥ α x^3 + (1 − α x)^3 where α = ⌊1/p_2⌋ and x = x(p_2) is determined
+by the optimization. For p_2 ≥ 1/2 we have α = 1 and the two bounds
+coincide. For p_2 < 1/2 the OPPT bound is strictly stronger (higher).
+Every state LIVING ABOVE a boundary is "allowed/unobstructed"; every state
+BELOW a boundary is detected as entangled by that criterion. The area
+between the two boundaries is the set of states that OPPT detects but PPT
+misses.
+
+WHAT TO DRAW:
+- Rectangular Cartesian plot.
+- x-axis: p_2, range [0, 1], with ticks at 0, 0.25, 0.5, 0.75, 1, labeled
+  "$p_2$".
+- y-axis: p_3, range [-0.3, 1], with ticks at -0.25, 0, 0.25, 0.5, 0.75, 1,
+  labeled "$p_3$".
+- Curve A (p_3-PPT lower bound): p_3 = p_2^2. Draw as a solid blue curve
+  from (0, 0) to (1, 1) — a parabola opening upward.
+- Curve B (p_3-OPPT lower bound): a piecewise curve that sits ABOVE curve A
+  for p_2 ∈ (0, 0.5), then merges with curve A for p_2 ∈ [0.5, 1]. Draw
+  as a solid dark-red curve. For p_2 ∈ (0, 0.5), approximate with a curve
+  that reaches up to about p_3 ≈ 0.12 at p_2 = 0.2 (noticeably above the
+  parabola there). Label "$p_3$-OPPT boundary" near the curve.
+- Vertical dashed gray line at p_2 = 0.5, with small label "α transition
+  (α = 1)".
+- Shade the region ABOVE curve A (between the two curves) with a light
+  yellow fill and label it: "Detected by OPPT, missed by PPT".
+- Shade the region ABOVE curve B lightly in pale blue and label:
+  "OPPT-allowed (separable-compatible)".
+- Shade below curve A in light gray with label: "Certified entangled by
+  p_3-PPT".
+- Scatter a handful (6–10) of small black dots representing example Werner
+  states or random density matrices — place some in the yellow region to
+  illustrate "OPPT gain".
+- Legend box in top-right corner with three entries matching the fills.
+
+STYLE:
+- Publication-quality 2D plot. Thin black axes, no grid, math-mode axis
+  labels. Light fills, saturated curves. 4:3 aspect.
+================================================================================
+-->
+
+![width:520px](media/images/fig3_pppt_vs_oppt.png)
 
 ### Hierarchical structure
 The criteria form a hierarchy based on PT-moments:
@@ -788,10 +932,58 @@ Weinbrenner and Gühne (EPL 2025)
 
 <style scoped>
 p, li {
-   font-size: 18pt;
+   font-size: 16pt;
    color: #000000;
 }
 </style>
+
+<!--
+================================================================================
+FIGURE 4 — GEOMETRIC MEASURE SCHEMATIC
+================================================================================
+CONTEXT FOR IMAGE GENERATOR:
+The geometric measure of entanglement quantifies how far a pure quantum
+state |ψ⟩ is from the nearest fully-product (separable) state. All
+normalized pure states live on the unit sphere of the Hilbert space, and
+product states of the form |a_1⟩ ⊗ ... ⊗ |a_N⟩ form a SUBMANIFOLD of this
+sphere (much smaller than the full sphere, since they have fewer free
+parameters). The maximal overlap Λ²(ψ) = max_{|φ⟩ product} |⟨φ|ψ⟩|²
+measures how "close" |ψ⟩ can get to the product-state manifold. Writing
+Λ(ψ) = cos θ where θ is the angle between |ψ⟩ and its nearest product
+state |φ*⟩, the geometric measure is E_G(ψ) = 1 − Λ² = sin²θ. The picture
+should convey three things: (i) pure states live on a sphere, (ii) product
+states form a curved subset of that sphere, and (iii) the geometric measure
+is an angular distance from |ψ⟩ to that subset.
+
+WHAT TO DRAW:
+- A large 3D sphere drawn in soft perspective (Bloch-sphere style, but
+  abstract — no X/Y/Z axis labels). Light gray outline, very light fill so
+  the interior is suggested but not solid.
+- On the surface of the sphere, draw a CURVED closed band/loop in green
+  (thick line, semi-transparent fill) labeled near it: "Product-state
+  manifold |a_1⟩⊗...⊗|a_N⟩". The band should look like a curved ribbon
+  wrapping part of the sphere, NOT a great circle — something more
+  irregular to hint at it being a lower-dimensional submanifold.
+- A single red dot on the sphere's surface, clearly off the green band,
+  labeled "|ψ⟩".
+- A dashed line from |ψ⟩ to the NEAREST point on the green band, ending in
+  a small blue dot labeled "|φ*⟩ (nearest product state)".
+- Two radius lines from the sphere's center to |ψ⟩ and to |φ*⟩ (thin gray
+  lines). Between those two radius lines draw a small angle arc labeled
+  "θ".
+- Below the sphere, centered, two equations:
+    Λ²(ψ) = |⟨φ*|ψ⟩|² = cos²θ
+    E_G(ψ) = 1 − Λ²(ψ) = sin²θ
+
+STYLE:
+- Soft 3D pastel look. Light shadows acceptable. The sphere should feel
+  like a conceptual diagram, not a photo-real render. Sans-serif labels
+  except equations (math/serif).
+- 4:3 aspect ratio.
+================================================================================
+-->
+
+![width:480px](media/images/fig4_geometric_schematic.png)
 
 The **geometric measure** quantifies entanglement by the distance to the nearest separable (product) state.
 
@@ -930,10 +1122,62 @@ This can be reformulated as a **MAX-$N$ Hamiltonian problem**: finding the maxim
 
 <style scoped>
 p, li {
-   font-size: 18pt;
+   font-size: 16pt;
    color: #000000;
 }
 </style>
+
+<!--
+================================================================================
+FIGURE 5 — ASYMPTOTIC DECAY OF Λ² FOR HAAR-RANDOM STATES
+================================================================================
+CONTEXT FOR IMAGE GENERATOR:
+One of the central results highlighted in Weinbrenner-Gühne (2025) is that
+Haar-random N-qubit pure states are, with overwhelming probability, so close
+to being orthogonal to every product state that their geometric measure is
+nearly maximal. Quantitatively:
+   Prob( Λ²(ψ) > 3 N² · 2^{−N} ) < exp(−N).
+This means typical (Haar-random) states satisfy Λ² ≲ 3 N² 2^{−N}, which
+decays EXPONENTIALLY in the number of qubits N. By contrast, the GHZ state
+has Λ² = 1/2 independent of N, and cluster states (the canonical MBQC
+resource) also have Λ² bounded well away from zero. The key pedagogical
+message: generic entanglement is enormous, but "structured" states usable
+for quantum computation live at fixed Λ² — meaning they are ATYPICAL.
+This motivates the slogan "Too Entangled to Be Useful."
+
+WHAT TO DRAW:
+- A 2D plot with LOG scale on y-axis, linear on x-axis.
+- x-axis: N (number of qubits), linear, range [2, 20], ticks every 2. Label
+  "$N$ (number of qubits)".
+- y-axis: Λ²(ψ), log scale, range [10^{-6}, 1], with major gridlines at
+  10^{-6}, 10^{-5}, 10^{-4}, 10^{-3}, 10^{-2}, 10^{-1}, 1. Label
+  "$\Lambda^2(\psi)$".
+- Main curve: the bound $3 N^2 2^{-N}$ plotted as a solid blue curve. It
+  starts near Λ² ≈ 3·4/4 = 3 (clipped at 1) for N=2 and decays roughly by
+  a factor of 2 per additional qubit. By N=20 it reaches Λ² ≈ 10^{-3}.
+  Label the curve (inline, rotated): "$3 N^2 \\cdot 2^{-N}$ (typical upper bound)".
+- Scatter cloud: ~80 small gray dots representing Haar-random samples,
+  tightly concentrated AROUND or slightly BELOW the blue curve (think of
+  it as a noisy fuzz along the curve with most dots within one order of
+  magnitude below it).
+- Horizontal dashed red line at Λ² = 0.5, spanning the full x-range,
+  labeled "GHZ state: $\Lambda^2 = 1/2$".
+- Horizontal dashed green line at Λ² ≈ 0.25, spanning the full x-range,
+  labeled "Cluster state (MBQC resource): $\Lambda^2 \sim \mathrm{const}$".
+- Shade the huge gap between the two horizontal dashed lines and the blue
+  curve cloud with a VERY LIGHT yellow, and annotate in italic in the
+  middle: "Haar-random states are exponentially far from any product
+  state — too entangled for MBQC".
+- Legend in top-right corner.
+
+STYLE:
+- Scientific publication plot. Thin black axes, light-gray log gridlines.
+  Colors: saturated blue for the bound curve, gray for dots, red and green
+  dashed for the reference states. 4:3 aspect. Math-mode labels.
+================================================================================
+-->
+
+![width:540px](media/images/fig5_asymptotic_decay.png)
 
 ### Key result
 For Haar-random $N$-qubit pure states:
