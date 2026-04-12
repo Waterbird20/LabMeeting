@@ -60,7 +60,7 @@ Donghun Jung
 </div>
 
 <div class="date">
-14 Apr 2026
+13 Apr 2026
 </div>
 
 <div class="organization">
