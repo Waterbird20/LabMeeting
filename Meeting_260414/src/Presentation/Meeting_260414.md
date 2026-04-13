@@ -1,6 +1,6 @@
 ---
 
-title       : "Entanglement: PT-Moments and Geometric Measure"
+title       : "Entanglement Detection and Quantification: PT-Moments and Geometric Measure"
 author      : Donghun Jung
 marp        : true
 paginate    : true
@@ -34,7 +34,7 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 }
 .col-left .title{
    color: #00356B;
-   font-size: 32pt;
+   font-size: 24pt;
 }
 
 .col-right{
@@ -50,7 +50,7 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 <div class="col-left">
 
 <div class="title">
-Entanglement: PT-Moments and Geometric Measure
+Entanglement Detection and Quantification: PT-Moments and Geometric Measure
 </div>
 
 <div class="author">
@@ -64,7 +64,7 @@ Donghun Jung
 <div class="organization">
 Department of Physics, Sungkyunkwan University
 <br>
-QuiME Lab, Center for Quantum Technology, Korea Institute of Science Technology
+Paulee Lab, Center for Quantum Technology, Korea Institute of Science and Technology
 </div>
 
 </div>
@@ -126,7 +126,7 @@ p, li {
    display: flex;
    align-items: center;
    justify-content: center;
-   padding-bottom: 3rem;
+   padding-bottom: 12.5rem;
 }
 
 li {
@@ -217,19 +217,22 @@ p, li {
 }
 </style>
 
-A bipartite state $\rho$ is **separable** if it can be written as:
+A bipartite state $\ket{\psi}$ is **separable** if it can be written as:
+$$
+\ket{\psi} = \sum_i \lambda_i \ket{\psi_A}\ket{\psi_B}.
+$$
+
+For density matrix, a bipartite state $\rho$ is **separable** if it can be written as:
 $$
 \rho = \sum_{i} p_i \, \rho^{A}_{i} \otimes \rho^{B}_{i}, \quad \sum_i p_i = 1, \quad p_i > 0
 $$
 
 Otherwise, the state is **entangled**.
 
-**Problem:** Directly determining separability is **NP-hard**.
-
 ### Approaches to detect entanglement
 - **PNCP maps** (e.g., partial transpose): produce negative eigenvalues for entangled states
 - **Entanglement witnesses**: observables with non-negative expectation on all separable states
-- **Entanglement measures**: quantify the degree of entanglement (negativity, geometric measure, ...)
+<!-- - **Entanglement measures**: quantify the degree of entanglement (negativity, geometric measure, ...) -->
 
 ---
 
@@ -246,16 +249,48 @@ For a bipartite state $\rho_{AB} = \sum_{ijkl} \alpha_{ijkl} \ket{i_A}\bra{j_A} 
 $$
 \rho_{AB}^{T_{B}} = \sum_{ijkl} \alpha_{ijkl} \ket{i_{A}}\bra{j_{A}} \otimes \ket{l_{B}}\bra{k_{B}}
 $$
-
-For a single-qubit subsystem, this decomposes as:
+which does not change eigen-spectrum for separable state.
+<!-- For a single-qubit subsystem, this decomposes as:
 $$
 T(\rho) = \frac{1}{2}(\rho + X\rho X - Y \rho Y + Z \rho Z)
-$$
+$$ -->
 
 ### PPT Criterion (Peres–Horodecki)
 - **Separable** $\Rightarrow$ $\rho^{T_B} \geq 0$ (positive partial transpose)
 - **PPT is necessary and sufficient** for $2\times2$ and $2\times3$ systems
 - In higher dimensions, PPT entangled (bound entangled) states exist
+
+---
+
+# Separable vs. Entangled States
+
+## Separable States
+For **separable states**, the partial transpose preserves positivity:
+$$
+\begin{align}
+\rho &= \sum_{i} p_i \rho^{A}_{i} \otimes \rho^{B}_{i} \\
+&= \sum_{i} p_i
+\left(\sum_a \lambda_i^a \ket{\lambda_i^a}\bra{\lambda_i^a}\right) \otimes
+\left(\sum_b \mu_i^b \ket{\mu_i^b}\bra{\mu_i^b}\right) \\
+&= \sum_{i,a,b} p_i \lambda_i^a \mu_i^b \ket{\lambda_i^a , \mu_i^b}\bra{\lambda_i^a , \mu_i^b}
+\end{align}
+$$
+Since all coefficients $p_i \lambda_i^a \mu_i^b \geq 0$ and sum to unity, this represents a valid eigendecomposition. Under positive and trace-preserving operations, the eigenspectrum remains positive.
+
+---
+
+# Separable vs. Entangled States
+
+## Entangled States
+For **entangled states**, quasi-probability decomposition becomes necessary:
+$$
+\rho = \sum_i q_i \ket{a_i , b_i}\bra{a_i , b_i}
+$$
+where $\sum_i q_i = 1$ but some $q_i < 0$. 
+
+The states $\{\ket{a_i ,b_i}\}$ form an overcomplete (non-orthonormal) basis. Under PNCP operations, while the quasi-probability coefficients remain unchanged, the transformation of the overcomplete basis induces negative eigenvalues.
+
+
 
 ---
 
@@ -307,8 +342,7 @@ $$
 
 A witness is **fully decomposable** if this holds for **all** bipartitions $M$.
 
-### Key theorem
-Fully decomposable witnesses detect **exactly** the states that are **not PPT mixtures**:
+***Key theorem***:  Fully decomposable witnesses detect **exactly** the states that are **not PPT mixtures**:
 $$
 \rho \notin \mathcal{S}_{\text{PPT-mix}} \implies \exists \, W \in \mathcal{W}_{\text{fd}} : \text{Tr}(W\rho) < 0
 $$
@@ -340,8 +374,7 @@ $$
 $$
 If $\min \text{Tr}(W\rho) < 0$, the state is **GME**.
 
-### Limitation
-All these methods generally require **full density matrix** $\rho$ — expensive quantum state tomography.
+***Limitation***: All these methods generally require **full density matrix** $\rho$ — expensive quantum state tomography, and even numerical search for entanglement witness $W$. 
 
 ---
 
@@ -473,13 +506,6 @@ $$
 
 **Key advantage:** PT-moments can be efficiently measured via **randomized measurements** (classical shadows, $U$-statistics) without reconstructing $\rho$.
 
-### Measurement cost
-For $N$-qubit states with bipartition $A|B$, the number of copies needed scales as:
-$$
-M \sim \frac{n^2 \, 2^N \, p_2^{n-1}}{\varepsilon^2 \, \delta}
-$$
-Higher-order moments ($p_n$ for large $n$) require only marginally more measurements since $p_n \leq p_2^{n/2}$.
-
 ---
 
 # PT-Moments: Definition and Properties
@@ -507,6 +533,55 @@ Given moments $(p_1, p_2, \ldots, p_n)$, is there a **separable state** $\rho_{A
 
 If not $\Rightarrow$ the state **must be entangled**.
 
+
+---
+
+# PT-Moments: Eigen-spectrum
+
+If we are aware of all the PT-moments $p = (p_1 , p_2 , \cdots , p_d)$ where $d=d_A d_B$, all the eigenvalues of $\rho_{AB}^{T}$ can be directly calculated. It is just solving  equation, employing Newton's identities.
+
+$$
+\begin{align}
+p_1 &= \mathrm{Tr} \rho_{AB}^{T} = \sum_{i} \lambda_i \\
+p_2 &= \mathrm{Tr}{\rho_{AB}^{T}}^2 = \sum_{i} \lambda_i^2 \\
+p_3 &= \mathrm{Tr}{\rho_{AB}^{T}}^3 = \sum_{i} \lambda_i^3 \\
+\vdots & ~~~~~~~~~~~ \vdots ~~~~~~~~~~~~~~~~ \vdots
+\end{align}
+$$
+
+---
+
+# PT-Moments: Eigen-spectrum
+
+The eigenvalues $\{\lambda_i\}$ are roots of
+$$P(x) = \prod_{i=1}^d (x - \lambda_i) = x^d - e_1 x^{d-1} + e_2 x^{d-2} - \cdots + (-1)^d e_d$$
+where $e_k$ are the **elementary symmetric polynomials**:
+$$e_1 = \sum_i \lambda_i, \quad e_2 = \sum_{i<j} \lambda_i \lambda_j, \quad e_3 = \sum_{i<j<k} \lambda_i \lambda_j \lambda_k, \quad \ldots$$
+These provide a recursive relation between $s_k = \sum_i \lambda_i^k$ and $e_k$: $s_1 = e_1$, $s_2 = s_1 e_1 - 2e_2$, $s_3 = s_2 e_1 - s_1 e_2 + 3e_3$, $\cdots$, and in general:
+$$s_k = \sum_{j=1}^{k-1} (-1)^{j-1} s_{k-j}\, e_j + (-1)^{k-1} k\, e_k$$
+
+---
+
+# PT-Moments: Eigen-spectrum
+
+For example of two-qubit system, 
+
+One measure $p_1 = 1$ (trivial), $p_2 = p_2$, $p_3 = p_3$, $p_4 = p_4$. Then:
+$$
+\begin{align}
+e_1 &= 1 \\
+e_2 &= \frac{p_1^2 - p_2}{2} = \frac{1 - p_2}{2} \\
+e_3 &= \frac{p_1^3 - 3p_1 p_2 + 2p_3}{6} = \frac{1 - 3p_2 + 2p_3}{6} \\
+e_4 &= \frac{p_1^4 - 6p_1^2 p_2 + 3p_2^2 + 8p_1 p_3 - 6p_4}{24} = \frac{1 - 6p_2 + 3p_2^2 + 8p_3 - 6p_4}{24}
+\end{align}
+$$
+
+The eigenvalues of $\rho_{AB}^{T_A}$ are then the four roots of
+$$
+x^4 - e_1 x^3 + e_2 x^2 - e_3 x + e_4 = 0 .
+$$  
+
+
 ---
 
 # Connection to Classical Moment Problems
@@ -525,11 +600,8 @@ $$
 
 This connects the PT-moment problem to **classical moment problems**:
 
-### Hamburger Moment Problem
-Given moments $m^{(n)} = (m_0, m_1, \ldots, m_n)$, does there exist a measure on $\mathbb{R}$ with these moments?
-
-### Stieltjes Moment Problem
-Same question, but the measure is supported on $[0, \infty)$.
+***Hamburger Moment Problem***: Given moments $m^{(n)} = (m_0, m_1, \ldots, m_n)$, does there exist a measure on $\mathbb{R}$ with these moments?
+***Stieltjes Moment Problem***: Same question, but the measure is supported on $[0, \infty)$.
 
 For **separable** states, $x_i \geq 0$ $\Rightarrow$ Stieltjes problem.
 For **general** (possibly entangled) states, $x_i \in \mathbb{R}$ $\Rightarrow$ Hamburger problem.
@@ -623,8 +695,6 @@ STYLE:
 ================================================================================
 -->
 
-![width:500px](media/images/fig2_hankel_anatomy.png)
-
 Define the **Hankel matrices** from a moment sequence $m^{(n)} = (m_0, m_1, \ldots, m_n)$:
 $$
 H_k = \begin{pmatrix} m_0 & m_1 & \cdots & m_k \\ m_1 & m_2 & \cdots & m_{k+1} \\ \vdots & \vdots & \ddots & \vdots \\ m_k & m_{k+1} & \cdots & m_{2k} \end{pmatrix}, \quad
@@ -632,11 +702,15 @@ B_k = \begin{pmatrix} m_1 & m_2 & \cdots & m_{k+1} \\ m_2 & m_3 & \cdots & m_{k+
 $$
 
 ### Lemma (Classical moment theory)
-**(a)** $m^{(n)} \in \mathcal{M}_n$ (Hamburger, measure on $\mathbb{R}$) $\iff$ $H_{\lfloor n/2 \rfloor} \geq 0$
-
+**(a)** $m^{(n)} \in \mathcal{M}_n$ (Hamburger, measure on $\mathbb{R}$) $\iff$ $H_{\lfloor n/2 \rfloor} \geq 0$ where
+$$
+\mathcal{M}_n = \left\{ m^{(n)} | \mathrm{Tr}(\sigma X^{k} ) = m_k , \sigma \ge 0 , X^{\dagger} = X \right\}
+$$
 **(b)** $m^{(n)} \in \mathcal{M}_n^+$ (Stieltjes, measure on $[0,\infty)$) $\iff$ $H_{\lfloor n/2 \rfloor} \geq 0$ **and** $B_{\lfloor (n-1)/2 \rfloor} \geq 0$
-
-Since separable states have $x_i \geq 0$, the Stieltjes condition applies. Violation of either Hankel condition certifies entanglement.
+$$
+\mathcal{M}_n = \left\{ m^{(n)} | \mathrm{Tr}(\sigma X^{k} ) = m_k , \sigma \ge 0 , X \ge 0 \right\}
+$$
+Since separable states have $x_i \geq 0$, the Stieltjes condition applies. Violation of either Hankel condition certifies entanglement. Let $\sigma = I , X = \rho^{T}_{AB}$.
 
 ---
 
@@ -678,7 +752,7 @@ p, li {
 }
 </style>
 
-The Hankel criteria are **not optimal** — they only use the positive semidefiniteness of Hankel matrices, ignoring the constraint that the spectrum $\boldsymbol{x} = (x_1, \ldots, x_d)$ must be **finite-dimensional** ($d$ eigenvalues).
+The Hankel criteria are **not optimal** — we may assume $\sigma \neq I$. 
 
 ### Exact optimization formulation
 For fixed $(p_1, p_2, \ldots, p_{n-1})$, find the range of $p_n$ compatible with a separable state:
@@ -724,7 +798,7 @@ $$
 
 The $p_3$-OPPT criterion is **dimension-independent** and strictly stronger than $p_3$-PPT.
 
----
+<!-- ---
 
 # Theorem 3(b): Quantum Refinement
 
@@ -748,8 +822,7 @@ $$
 ### Remarks
 - When $\alpha = 1$ (i.e., $p_2 \geq 1/2$): criterion reduces to $p_3 \geq p_2^2$, recovering $p_3$-PPT
 - When $\alpha \geq 2$ (i.e., $p_2 < 1/2$, high-dimensional or mixed states): the optimal criterion is **strictly stronger**
-- The criterion is **dimension-independent**: the same formula works for any $d$
-- Violation up to **12.5% larger** than $p_3$-PPT
+- The criterion is **dimension-independent**: the same formula works for any $d$ -->
 
 ---
 
@@ -762,72 +835,13 @@ p, li {
 }
 </style>
 
-<!--
-================================================================================
-FIGURE 3 — OPPT vs PPT DETECTION REGION IN (p_2, p_3) SPACE
-================================================================================
-CONTEXT FOR IMAGE GENERATOR:
-Given only the second and third moments p_2 = Tr[(ρ^{T_A})^2] and
-p_3 = Tr[(ρ^{T_A})^3] of the partial transpose, each entanglement criterion
-carves out a "separable-compatible region" in the (p_2, p_3) plane. If a
-measured state's (p_2, p_3) falls OUTSIDE the region allowed by a criterion,
-the state is certified as entangled by that criterion. The p_3-PPT criterion
-gives the region p_3 ≥ p_2^2 (a parabolic lower bound). The tighter
-p_3-OPPT criterion (Theorem 3 of Yu-Imai-Gühne 2021) is
-p_3 ≥ α x^3 + (1 − α x)^3 where α = ⌊1/p_2⌋ and x = x(p_2) is determined
-by the optimization. For p_2 ≥ 1/2 we have α = 1 and the two bounds
-coincide. For p_2 < 1/2 the OPPT bound is strictly stronger (higher).
-Every state LIVING ABOVE a boundary is "allowed/unobstructed"; every state
-BELOW a boundary is detected as entangled by that criterion. The area
-between the two boundaries is the set of states that OPPT detects but PPT
-misses.
-
-WHAT TO DRAW:
-- Rectangular Cartesian plot.
-- x-axis: p_2, range [0, 1], with ticks at 0, 0.25, 0.5, 0.75, 1, labeled
-  "$p_2$".
-- y-axis: p_3, range [-0.3, 1], with ticks at -0.25, 0, 0.25, 0.5, 0.75, 1,
-  labeled "$p_3$".
-- Curve A (p_3-PPT lower bound): p_3 = p_2^2. Draw as a solid blue curve
-  from (0, 0) to (1, 1) — a parabola opening upward.
-- Curve B (p_3-OPPT lower bound): a piecewise curve that sits ABOVE curve A
-  for p_2 ∈ (0, 0.5), then merges with curve A for p_2 ∈ [0.5, 1]. Draw
-  as a solid dark-red curve. For p_2 ∈ (0, 0.5), approximate with a curve
-  that reaches up to about p_3 ≈ 0.12 at p_2 = 0.2 (noticeably above the
-  parabola there). Label "$p_3$-OPPT boundary" near the curve.
-- Vertical dashed gray line at p_2 = 0.5, with small label "α transition
-  (α = 1)".
-- Shade the region ABOVE curve A (between the two curves) with a light
-  yellow fill and label it: "Detected by OPPT, missed by PPT".
-- Shade the region ABOVE curve B lightly in pale blue and label:
-  "OPPT-allowed (separable-compatible)".
-- Shade below curve A in light gray with label: "Certified entangled by
-  p_3-PPT".
-- Scatter a handful (6–10) of small black dots representing example Werner
-  states or random density matrices — place some in the yellow region to
-  illustrate "OPPT gain".
-- Legend box in top-right corner with three entries matching the fills.
-
-STYLE:
-- Publication-quality 2D plot. Thin black axes, no grid, math-mode axis
-  labels. Light fills, saturated curves. 4:3 aspect.
-================================================================================
--->
-
-![width:520px](media/images/fig3_pppt_vs_oppt.png)
-
+![width:470px](./Meeting_260414/src/Presentation/media/OPPT_vs_PPT_Detection.png)
 ### Hierarchical structure
 The criteria form a hierarchy based on PT-moments:
 - **$p_3$-PPT** ($n = 3$, Hankel): $p_3 \geq p_2^2$
 - **$p_3$-OPPT** ($n = 3$, optimal): $p_3 \geq \alpha x^3 + (1-\alpha x)^3$
 - **$p_n$-PPT** ($n = 3, 5, 7, \ldots$): higher-order Hankel conditions
 - **$p_n$-OPPT** ($n = 3, 5, 7, \ldots$): higher-order optimal conditions
-
-### Key distinctions
-1. $p_3$-PPT and $p_3$-OPPT **coincide** when $\alpha = 1$ (i.e., $p_2 \geq 1/2$)
-2. For $p_2 < 1/2$, the optimal criterion detects **more** entangled states
-3. Higher-order Hankel criteria ($p_n^{n-2} \geq p_{n-1}^{n-1}$) are **strictly weaker** than the Hankel matrix conditions
-4. The optimal criteria at each order are the **best possible** given the available moments
 
 ---
 
@@ -848,10 +862,11 @@ table {
 
 | $D$ | NPT | NPT3 | NPT5 | ONPT3 | ONPT4 | NPT5 |
 |-----|------|-------|-------|--------|--------|------|
-| 3 | 25.68% | 15.55% | 39.97% | 75.08% | 64.28% | 75.08% |
-| 4 | 99.93% | 23.33% | 39.40% | 99.55% | 97.51% | $\approx$ 100% |
-| 5 | 100% | 21.80% | 34.94% | 99.99% | $\approx$ 100% | 100% |
-| 10 | 100% | 18.54% | 31.25% | 100% | 100% | 100% |
+| 2 | 75.68% | 25.53% | 39.97% | 75.68% | 64.78% | 75.68% |
+| 3 | 99.99% | 25.32% | 39.46% | 91.63% | 97.51% | 98.97% |
+| 4 | 100% | 23.29% | 33.69% | 98.68% | 100% | 100% |
+| 5 | 100% | 21.80% | 34.54% | 99.95% | 100% | 100% |
+| 6 | 100% | 20.93% | 31.20% | 100% | 100% | 100% |
 
 - **NPT**: PPT criterion (full spectrum)
 - **NPT$n$**: $p_n$-PPT criterion
@@ -870,18 +885,14 @@ p, li {
 }
 </style>
 
-### Two systematic methods for entanglement detection from PT-moments:
-
 1. **Hankel matrix method** ($p_n$-PPT): relaxation to classical moment problems
    - Lowest order gives $p_3 \geq p_2^2$
    - Higher orders provide strictly stronger criteria
-
 2. **Optimal method** ($p_n$-OPPT): exact solution of the PT-moment problem
    - Gives necessary and sufficient conditions
    - Detects significantly more entangled states
    - Dimension-independent
-
-### Advantages over conventional methods
+3.  **Advantages** over conventional methods
 - **No full tomography required** — only PT-moments from randomized measurements
 - **No prior information** needed (unlike witness-based methods)
 - **Efficient measurement scaling** — higher-order moments cost only marginally more
@@ -937,71 +948,16 @@ p, li {
 }
 </style>
 
-<!--
-================================================================================
-FIGURE 4 — GEOMETRIC MEASURE SCHEMATIC
-================================================================================
-CONTEXT FOR IMAGE GENERATOR:
-The geometric measure of entanglement quantifies how far a pure quantum
-state |ψ⟩ is from the nearest fully-product (separable) state. All
-normalized pure states live on the unit sphere of the Hilbert space, and
-product states of the form |a_1⟩ ⊗ ... ⊗ |a_N⟩ form a SUBMANIFOLD of this
-sphere (much smaller than the full sphere, since they have fewer free
-parameters). The maximal overlap Λ²(ψ) = max_{|φ⟩ product} |⟨φ|ψ⟩|²
-measures how "close" |ψ⟩ can get to the product-state manifold. Writing
-Λ(ψ) = cos θ where θ is the angle between |ψ⟩ and its nearest product
-state |φ*⟩, the geometric measure is E_G(ψ) = 1 − Λ² = sin²θ. The picture
-should convey three things: (i) pure states live on a sphere, (ii) product
-states form a curved subset of that sphere, and (iii) the geometric measure
-is an angular distance from |ψ⟩ to that subset.
-
-WHAT TO DRAW:
-- A large 3D sphere drawn in soft perspective (Bloch-sphere style, but
-  abstract — no X/Y/Z axis labels). Light gray outline, very light fill so
-  the interior is suggested but not solid.
-- On the surface of the sphere, draw a CURVED closed band/loop in green
-  (thick line, semi-transparent fill) labeled near it: "Product-state
-  manifold |a_1⟩⊗...⊗|a_N⟩". The band should look like a curved ribbon
-  wrapping part of the sphere, NOT a great circle — something more
-  irregular to hint at it being a lower-dimensional submanifold.
-- A single red dot on the sphere's surface, clearly off the green band,
-  labeled "|ψ⟩".
-- A dashed line from |ψ⟩ to the NEAREST point on the green band, ending in
-  a small blue dot labeled "|φ*⟩ (nearest product state)".
-- Two radius lines from the sphere's center to |ψ⟩ and to |φ*⟩ (thin gray
-  lines). Between those two radius lines draw a small angle arc labeled
-  "θ".
-- Below the sphere, centered, two equations:
-    Λ²(ψ) = |⟨φ*|ψ⟩|² = cos²θ
-    E_G(ψ) = 1 − Λ²(ψ) = sin²θ
-
-STYLE:
-- Soft 3D pastel look. Light shadows acceptable. The sphere should feel
-  like a conceptual diagram, not a photo-real render. Sans-serif labels
-  except equations (math/serif).
-- 4:3 aspect ratio.
-================================================================================
--->
-
-![width:480px](media/images/fig4_geometric_schematic.png)
+![width:400px](./Meeting_260414/src/Presentation/media/fig4_geometric_schematic.png)
 
 The **geometric measure** quantifies entanglement by the distance to the nearest separable (product) state.
 
-### Definition
-For a pure state $\ket{\psi}$ of $N$ particles, define the **maximal overlap** with product states:
+***Definition***: For a pure state $\ket{\psi}$ of $N$ particles, define the **maximal overlap** with product states:
 $$
 \Lambda^2(\psi) = \max_{\ket{\phi} = \ket{a_1} \otimes \ket{a_2} \otimes \cdots \otimes \ket{a_N}} \left|\braket{\phi | \psi}\right|^2
 $$
+The **geometric measure of entanglement** is $E_G(\psi) = 1 - \Lambda^2(\psi)$.
 
-The **geometric measure of entanglement** is:
-$$
-E_G(\psi) = 1 - \Lambda^2(\psi)
-$$
-
-### Properties
-- $E_G = 0$ iff $\ket{\psi}$ is a product state
-- $0 \leq E_G \leq 1 - 1/d$ for a $d$-dimensional system
-- Monotone under LOCC (local operations and classical communication)
 
 ---
 
@@ -1021,17 +977,13 @@ $$
 $$
 where $s_1 \geq s_2 \geq \cdots \geq s_r > 0$ are the **Schmidt coefficients**, $\sum_i s_i^2 = 1$, and $r$ is the **Schmidt rank**.
 
-The maximal overlap is simply the **largest Schmidt coefficient**:
-$$
-\Lambda(\psi) = s_1
-$$
+The maximal overlap is simply the **largest Schmidt coefficient**$\Lambda(\psi) = s_1$.
 
-### Connection to SVD
 The Schmidt decomposition follows from the SVD of the coefficient matrix $\tau_{ij}$:
 $$
 \ket{\psi} = \sum_{i,j} \tau_{ij} \ket{i}_A \ket{j}_B
 $$
-A state is separable iff the Schmidt rank $r = 1$ (i.e., $\tau_{ij}$ has rank one).
+A state is separable iff the Schmidt rank $r = 1$ (i.e., $\tau_{ij}$ has rank one and must be one).
 
 ---
 
@@ -1044,24 +996,22 @@ p, li {
 }
 </style>
 
-### GHZ state
+***GHZ state***
 $$
 \ket{\text{GHZ}_N} = \frac{1}{\sqrt{2}}(\ket{0}^{\otimes N} + \ket{1}^{\otimes N})
 $$
 $$
 \Lambda^2 = \frac{1}{2}, \quad E_G = \frac{1}{2}
 $$
-Nearest product state: $\ket{+}^{\otimes N}$ or $\ket{-}^{\otimes N}$, independent of $N$.
+Nearest product state: $\ket{0}^{\otimes N}$ or $\ket{1}^{\otimes N}$, independent of $N$.
 
-### W state
+***W state***
 $$
 \ket{W_N} = \frac{1}{\sqrt{N}}(\ket{10\cdots 0} + \ket{01\cdots 0} + \cdots + \ket{0\cdots 01})
 $$
 $$
 \Lambda^2 = \left(\frac{N-1}{N}\right)^{N-1} \xrightarrow{N \to \infty} \frac{1}{e}, \quad E_G = 1 - \Lambda^2
 $$
-
-The W state has **larger** geometric entanglement than GHZ for $N \geq 3$: $E_G^W > E_G^{\text{GHZ}}$.
 
 ---
 
@@ -1087,141 +1037,7 @@ $$
 $$
 
 The injective tensor norm is also called the **spectral norm** of the tensor.
-
-**Remark:** Computing $\Lambda(\psi)$ for multipartite states is in general **NP-hard**. However, analytical results exist for specific families (GHZ, W, Dicke, cluster states), and iterative algorithms can approximate it.
-
----
-
-# Mixed State Extension: Convex Roof
-
-<style scoped>
-p, li {
-   font-size: 18pt;
-   color: #000000;
-}
-</style>
-
-For mixed states $\rho$, the geometric measure is defined via the **convex roof construction**:
-$$
-E_G(\rho) = \min_{\{p_i, \ket{\psi_i}\}} \sum_i p_i \, E_G(\ket{\psi_i})
-$$
-where the minimization is over all pure-state decompositions $\rho = \sum_i p_i \ket{\psi_i}\bra{\psi_i}$.
-
-### Equivalent formulation
-$$
-\Lambda^2(\rho) = \max_{\{p_i, \ket{\psi_i}\}} \sum_i p_i \, \Lambda^2(\ket{\psi_i})
-$$
-
-This can be reformulated as a **MAX-$N$ Hamiltonian problem**: finding the maximal overlap with all fully separable states is related to optimizing over product states in the geometric measure.
-
-**Key difficulty:** The convex roof minimization is generally intractable. Analytical results exist only for special cases (e.g., permutation-symmetric states).
-
----
-
-# Asymptotic Behaviour of Generic States
-
-<style scoped>
-p, li {
-   font-size: 16pt;
-   color: #000000;
-}
-</style>
-
-<!--
-================================================================================
-FIGURE 5 — ASYMPTOTIC DECAY OF Λ² FOR HAAR-RANDOM STATES
-================================================================================
-CONTEXT FOR IMAGE GENERATOR:
-One of the central results highlighted in Weinbrenner-Gühne (2025) is that
-Haar-random N-qubit pure states are, with overwhelming probability, so close
-to being orthogonal to every product state that their geometric measure is
-nearly maximal. Quantitatively:
-   Prob( Λ²(ψ) > 3 N² · 2^{−N} ) < exp(−N).
-This means typical (Haar-random) states satisfy Λ² ≲ 3 N² 2^{−N}, which
-decays EXPONENTIALLY in the number of qubits N. By contrast, the GHZ state
-has Λ² = 1/2 independent of N, and cluster states (the canonical MBQC
-resource) also have Λ² bounded well away from zero. The key pedagogical
-message: generic entanglement is enormous, but "structured" states usable
-for quantum computation live at fixed Λ² — meaning they are ATYPICAL.
-This motivates the slogan "Too Entangled to Be Useful."
-
-WHAT TO DRAW:
-- A 2D plot with LOG scale on y-axis, linear on x-axis.
-- x-axis: N (number of qubits), linear, range [2, 20], ticks every 2. Label
-  "$N$ (number of qubits)".
-- y-axis: Λ²(ψ), log scale, range [10^{-6}, 1], with major gridlines at
-  10^{-6}, 10^{-5}, 10^{-4}, 10^{-3}, 10^{-2}, 10^{-1}, 1. Label
-  "$\Lambda^2(\psi)$".
-- Main curve: the bound $3 N^2 2^{-N}$ plotted as a solid blue curve. It
-  starts near Λ² ≈ 3·4/4 = 3 (clipped at 1) for N=2 and decays roughly by
-  a factor of 2 per additional qubit. By N=20 it reaches Λ² ≈ 10^{-3}.
-  Label the curve (inline, rotated): "$3 N^2 \\cdot 2^{-N}$ (typical upper bound)".
-- Scatter cloud: ~80 small gray dots representing Haar-random samples,
-  tightly concentrated AROUND or slightly BELOW the blue curve (think of
-  it as a noisy fuzz along the curve with most dots within one order of
-  magnitude below it).
-- Horizontal dashed red line at Λ² = 0.5, spanning the full x-range,
-  labeled "GHZ state: $\Lambda^2 = 1/2$".
-- Horizontal dashed green line at Λ² ≈ 0.25, spanning the full x-range,
-  labeled "Cluster state (MBQC resource): $\Lambda^2 \sim \mathrm{const}$".
-- Shade the huge gap between the two horizontal dashed lines and the blue
-  curve cloud with a VERY LIGHT yellow, and annotate in italic in the
-  middle: "Haar-random states are exponentially far from any product
-  state — too entangled for MBQC".
-- Legend in top-right corner.
-
-STYLE:
-- Scientific publication plot. Thin black axes, light-gray log gridlines.
-  Colors: saturated blue for the bound curve, gray for dots, red and green
-  dashed for the reference states. 4:3 aspect. Math-mode labels.
-================================================================================
--->
-
-![width:540px](media/images/fig5_asymptotic_decay.png)
-
-### Key result
-For Haar-random $N$-qubit pure states:
-$$
-\boxed{\text{Prob}\!\left(\Lambda^2(\psi) > 3N^2 \cdot 2^{-N}\right) < \exp(-N)}
-$$
-
-This means that for generic multi-qubit states, the maximal overlap with product states is **exponentially small**:
-$$
-\Lambda^2(\psi) \lesssim 3N^2 \cdot 2^{-N}
-$$
-
-### Physical interpretation
-- The geometric entanglement $E_G = 1 - \Lambda^2 \to 1$ for almost all states
-- Generic states are **maximally entangled** in the geometric sense
-- The bound $\Lambda^2 \approx \mathcal{O}(N^2 / 2^N)$ matches the state space dimension scaling
-
-This follows directly from the **Schur convexity** of the geometric measure and concentration of measure phenomena on the unit sphere in high-dimensional Hilbert spaces.
-
----
-
-# "Too Entangled to Be Useful"
-
-<style scoped>
-p, li {
-   font-size: 18pt;
-   color: #000000;
-}
-</style>
-
-### Connection to measurement-based quantum computation (MBQC)
-In MBQC, computation proceeds by performing local measurements on a highly entangled **resource state** (e.g., cluster states).
-
-However, if $\Lambda^2(\psi) \lesssim 3N^2 \cdot 2^{-N}$:
-- Local measurement outcomes become **uncorrelated** with the global state
-- Measurement results carry **negligible information** about the entangled state
-- The state cannot serve as a useful resource for computation
-
-### The paradox of entanglement
-- Only states with **structured entanglement** (e.g., cluster, graph states) are useful for MBQC
-- **Generic** multi-qubit states have near-maximal entanglement but are computationally **useless**
-- Useful entanglement is **atypical** — it lives on a measure-zero subset of Hilbert space
-
-This underscores that the **type** of entanglement, not just its **amount**, determines usefulness.
+**Remark:** Computing $\Lambda(\psi)$ for multipartite states is in general **NP-hard**. 
 
 ---
 
@@ -1241,9 +1057,19 @@ $$
 $$
 This is a **polynomial optimization on the product of unit spheres** — a non-convex problem.
 
+---
+
+# Why Tensor Eigenvalues?
+
+<style scoped>
+p, li {
+   font-size: 18pt;
+   color: #000000;
+}
+</style>
+
 ### Why eigenvalues?
 For **matrices** ($N = 2$), the analogous problem $\max_{\|x\|=1} |x^T A \, y|$ is solved by the **singular value decomposition**. The critical points satisfy $Ay = \sigma x$, $A^T x = \sigma y$.
-
 For **tensors** ($N \geq 3$), no SVD exists in general. Instead, the critical points of the optimization satisfy a **tensor eigenvalue equation**:
 $$
 T \bar{x}^{N-1} = \lambda \, x, \quad \|x\| = 1
@@ -1275,7 +1101,6 @@ $$
 T \bar{x}^{N-1} = \lambda \, x
 $$
 with the normalization $x^T x = 1$ (or $x^\dagger x = 1$ in the complex case).
-
 The **largest eigenvalue** of the tensor equals $\Lambda(\psi)$, the maximal overlap with product states.
 
 ---
@@ -1300,13 +1125,6 @@ $$
 - Every Z-eigenvalue is a **critical value** of the polynomial $T(x, x, \ldots, x)$ on the unit sphere
 - The **largest Z-eigenvalue** equals $\|T\|_\sigma$ (the injective tensor norm)
 
-### Connection to entanglement
-For a real state $\ket{\psi}$ with coefficient tensor $T$:
-$$
-\Lambda(\psi) = \max \{ |\lambda| : \lambda \text{ is a Z-eigenvalue of } T \}
-$$
-
-This reformulates entanglement quantification as a **polynomial optimization** on the unit sphere — a well-studied problem in multilinear algebra.
 
 ---
 
@@ -1334,10 +1152,53 @@ $$
 \Lambda(\psi) = \max \{ |\lambda| : \lambda \text{ is a US-eigenvalue of } T \}
 $$
 
-### Significance
-- For **real** symmetric tensors, US-eigenvalues reduce to Z-eigenvalues
-- US-eigenvalues capture the full **complex structure** of the tensor
-- Connects entanglement quantification to the rich mathematical theory of **tensor decompositions**
+
+---
+
+# Asymptotic Behaviour of Generic States
+
+<style scoped>
+p, li {
+   font-size: 16pt;
+   color: #000000;
+}
+</style>
+
+### Key result
+For Haar-random $N$-qubit pure states (N>11):
+$$
+\boxed{\text{Prob}\!\left(\Lambda^2(\psi) > 3N^2 \cdot 2^{-N}\right) < \exp(-N)}
+$$
+
+This means that for generic multi-qubit states, the maximal overlap with product states is **exponentially small**:
+$$
+\Lambda^2(\psi) \lesssim 3N^2 \cdot 2^{-N}
+$$
+
+### Physical interpretation
+- The geometric entanglement $E_G = 1 - \Lambda^2 \to 1$ for almost all states
+- Generic states are highly entangled in the geometric sense
+
+
+---
+
+# Mixed State Extension: Convex Roof
+
+<style scoped>
+p, li {
+   font-size: 18pt;
+   color: #000000;
+}
+</style>
+
+For mixed states $\rho$, the geometric measure might be extended via the convex roof construction:
+$$
+\Lambda^2(\rho) = \max_{\{p_i, \ket{\psi_i}\}} \sum_i p_i \, \Lambda^2(\ket{\psi_i}) = \min_{\{p_i, \ket{\psi_i}\}} \sum_i p_i \, (1 - \Lambda^2(\ket{\psi_i}))
+$$
+where the minimization is over all pure-state decompositions $\rho = \sum_i p_i \ket{\psi_i}\bra{\psi_i}$.
+
+The convex roof minimization is generally intractable. Analytical results exist only for special cases (e.g., permutation-symmetric states).
+
 
 ---
 
@@ -1350,52 +1211,17 @@ p, li {
 }
 </style>
 
-The geometric measure of entanglement provides a **bridge** between physics and mathematics:
+### Concepts
 
-### Physical insights
-| Result | Implication |
-|--------|------------|
-| $\Lambda^2 \lesssim 3N^2 \cdot 2^{-N}$ | Generic states are "too entangled to be useful" |
-| $E_G^W > E_G^{\text{GHZ}}$ | W states are more geometrically entangled than GHZ |
-| Convex roof | Mixed state extension is NP-hard in general |
-
-### Mathematical connections
-| Concept | Entanglement interpretation |
-|---------|---------------------------|
-| Injective tensor norm | $= \Lambda(\psi)$, maximal product state overlap |
-| Z-eigenvalues | Extrema on real unit sphere $\to$ $\Lambda$ for real states |
-| US-eigenvalues | Complex generalization $\to$ $\Lambda$ for arbitrary states |
+- Injective tensor norm: $= \Lambda(\psi)$, maximal product state overlap 
+- Z-eigenvalues: Extrema on real unit sphere $\to$ $\Lambda$ for real states 
+- US-eigenvalues: Complex generalization $\to$ $\Lambda$ for arbitrary states 
 
 ### Open directions
-- Extending the geometric measure to multipartite **mixed states** efficiently
+- Extending the geometric measure to multipartite mixed states efficiently
 - Connecting tensor rank to operational entanglement properties
 - Better algorithms for computing the injective tensor norm
 
----
-
-# References
-
-<style scoped>
-section h1 {
-  font-size: 28pt;
-}
-p, li {
-   font-size: 13pt;
-   color: #000000;
-}
-</style>
-
-## Main Papers
-- Yu, X.-D., Imai, S., and Gühne, O. "Optimal Entanglement Certification from Moments of the Partial Transpose." Physical Review Letters **127**, 060504 (2021).
-- Weinbrenner, L. T. and Gühne, O. "Quantifying entanglement from the geometric perspective." EPL **151**, 68001 (2025).
-
-## Related Works
-- Elben, A. et al. "Statistical correlations between locally randomized measurements." Phys. Rev. Lett. **125**, 200501 (2020).
-- Neven, A. et al. "Symmetry-resolved entanglement detection using partial transpose moments." npj Quantum Inf. **7**, 152 (2021).
-- Shimony, A. "Degree of entanglement." Ann. N.Y. Acad. Sci. **755**, 675 (1995).
-- Wei, T.-C. and Goldbart, P. M. "Geometric measure of entanglement and applications." Phys. Rev. A **68**, 042307 (2003).
-- Barnum, H. and Linden, N. "Monotones and invariants for multi-particle quantum states." J. Phys. A **34**, 6787 (2001).
-- Qi, L. "Eigenvalues of a real supersymmetric tensor." J. Symb. Comput. **40**, 1302 (2005).
 
 ---
 

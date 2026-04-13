@@ -33,6 +33,14 @@ pdf: $(PDF)
 $(PDF): $(SOURCE_DIR)/$(SOURCE_FILE)
 	cd $(SOURCE_DIR) && $(MARP) $(SOURCE_FILE) --html --theme-set $(THEME) --pdf -o $(PDF) --allow-local-files
 
+# PDF output
+.PHONY: pptx
+pptx: $(PPTX)
+
+$(PPTX): $(SOURCE_DIR)/$(SOURCE_FILE)
+	$(MARP) $(SOURCE) --html --theme-set $(THEME) --pptx -o $(PPTX) --allow-local-files
+
+
 # Clean generated files
 .PHONY: clean
 clean:

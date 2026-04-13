@@ -13,16 +13,12 @@
 @import "default";
 @import "schema";
 @import "structure";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
 /***************** COMMON STRUCTURE **********************/
 
 :root {
-  /* font-family: Cochin, Georgia; */
-  /* font-family: 'Times New Roman', Times, serif; */
-  /* font-family: "Fira Sans Light"; */
-  font-family: 'Tahoma';
-  font-family: 'Open Sans';
-  font-family: 'Segoe UI';
+  font-family: 'Open Sans', 'Segoe UI', Tahoma, Helvetica, Arial, sans-serif;
 
   font-weight: initial;
 
@@ -239,9 +235,7 @@ section.transition {
   justify-content: flex-start;
 
   font-weight: bold;
-  font-family: serif, sans-serif, "Libre Baskerville", serif;
-  font-family: 'Open Sans';
-  font-family: 'Segoe UI';
+  font-family: 'Open Sans', 'Segoe UI', Tahoma, Helvetica, Arial, sans-serif;
 
   /* font-size: 200%; */
   /* text-shadow: 4px 4px 0 rgb(77, 61, 61); */
