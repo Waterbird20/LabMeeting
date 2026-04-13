@@ -565,8 +565,6 @@ $$s_k = \sum_{j=1}^{k-1} (-1)^{j-1} s_{k-j}\, e_j + (-1)^{k-1} k\, e_k$$
 # PT-Moments: Eigen-spectrum
 
 For example of two-qubit system, 
-
-One measure $p_1 = 1$ (trivial), $p_2 = p_2$, $p_3 = p_3$, $p_4 = p_4$. Then:
 $$
 \begin{align}
 e_1 &= 1 \\
