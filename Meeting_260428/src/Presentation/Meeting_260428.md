@@ -114,15 +114,10 @@ li {
 <div class="container">
 <div class="col-left-content">
 
-<!-- TODO(human): Replace these placeholder bullets with your own three-act outline.
-     The talk now covers:
-       (1) DDrf gate — what it is and how it's calculated
-       (2) Side-peak problem — observed phenomenon and analytical explanation
-       (3) Suppression — apodized pulses, plus outlook on time-dependent driving
-     Pick wording you'd actually say at the start of the talk. -->
 1. **DDrf Gate**
    - Hamiltonian engineering & conditional rotation
    - DDrf spectroscopy
+   - Hybrid DDrf gate
 2. **Side-Peak Problem**
    - Observation in numerics
    - Detuned-Rabi explanation
@@ -181,27 +176,15 @@ The $\ket{1}$ branch has a **tilted** nuclear quantization axis (angle $\beta$, 
 
 # DDrf Spectroscopy: Rotating Frame
 
-<!--
-Nano Banana prompt for the figure to insert here:
+<style scoped>
+.split { display: flex; gap: 1rem; align-items: center; }
+.split .text { flex: 1 1 60%; }
+.split .fig  { flex: 0 0 38%; text-align: center; }
+.split .fig img { max-width: 100%; }
+</style>
 
-  "Two side-by-side Bloch spheres on a clean white background, scientific
-  publication style, no shading clutter. Both spheres share the same dashed
-  reference frame (x, y, z axes labeled at the equator and pole).
-
-  LEFT sphere is labeled '|0⟩ branch' above. Its quantization axis is the
-  vertical z-axis, drawn as a thick blue arrow from origin to the north pole,
-  labeled 'I_z'. A second arrow along +x is labeled 'I_x'. A small caption
-  underneath reads 'H_0 ∝ ω_0 I_z'.
-
-  RIGHT sphere is labeled '|1⟩ branch' above. Its quantization axis is tilted
-  away from +z toward +x by an angle β (~25°), drawn as a thick red arrow
-  labeled '~I_z = cosβ I_z + sinβ I_x'. The angle β is annotated with a small
-  arc between +z and the tilted axis. A perpendicular red arrow in the
-  z-x plane labeled '~I_x' is also shown. Caption underneath reads
-  'H_1 has tilted quantization axis (β = arctan(A_⊥/(ω_0-A_∥)))'.
-
-  Both spheres equal size, aligned horizontally, minimalist line-art style."
--->
+<div class="split">
+<div class="text">
 
 Two electron-conditioned rotating frames, $R_s(t) = e^{i\omega_{\text{RF}} t \,\tilde I_z^{(s)}}$, give:
 $$
@@ -211,6 +194,14 @@ H_1' &= (\omega_1 - \omega_{\text{RF}})\,\tilde{I}_z + \Omega_{\text{RF}}\cos\be
 \end{align}
 $$
 At resonance ($\omega_{\text{RF}}=\omega_1$) and approximation to $\omega_0 - \omega_{\text{RF}} \gg \Omega_{\text{RF}}$ and $\beta\to 0$, $H_1'$ is a pure transverse drive, while $H_0^{\prime}$ is pure Z-rotation.
+
+</div>
+<div class="fig">
+
+![width:430px](./media/DDrf_rotating_axis.png)
+
+</div>
+</div>
 
 ---
 
@@ -229,40 +220,48 @@ Exact under the assumption of negligible MW pulse duration, and **much faster th
 
 # DDrf Spectroscopy: Procedure & Results
 
+<style scoped>
+.split { display: flex; gap: 1rem; align-items: center; }
+.split .text { flex: 1 1 62%; }
+.split .fig  { flex: 0 0 36%; text-align: center; }
+.split .fig img { max-width: 100%; }
+</style>
+
+<div class="split">
+<div class="text">
+
 Sequence: $\pi/2 \rightarrow \text{DDrf}(N,\tau) \rightarrow \pi/2_\phi$, projecting onto $\ket{+}$ ($\phi=\pi/2$).
 
 For $N$ nuclear spins:
 $$
-P_x = \tfrac{1}{2} + \tfrac{1}{2^{N+1}}\,\Re\,\text{Tr}\,U_0 U_1^\dagger, \qquad \text{Tr}\,U_0 U_1^\dagger = \prod_i \text{Tr}\,U_0^i {U_1^i}^\dagger.
+P_x = \tfrac{1}{2} + \tfrac{1}{2^{N+1}}\,\Re\,\text{Tr}\,U_0 U_1^\dagger,
+$$
+$$
+\text{Tr}\,U_0 U_1^\dagger = \prod_i \text{Tr}\,U_0^i {U_1^i}^\dagger.
 $$
 Peaks appear at $\omega_{\text{RF}} = \omega_1$.
 
-![height:180px](./media/spectroscopy_sequence.png)
+</div>
+<div class="fig">
+
+![width:420px](./media/spectroscopy_sequence.png)
+
+</div>
+</div>
 
 ---
 
 # DDrf Spectroscopy: Reproduced Taminiau Results
 
 <style scoped>
-.row { display: flex; gap: 1rem; align-items: center; }
-.row > div { flex: 1; }
-.row img { max-width: 100%; }
+img { display: block; margin: 0.15rem auto; }
+.caption { font-size: 0.75rem; text-align: center; margin-top: 0.3rem; }
 </style>
 
-<div class="row">
-<div>
+![width:800px](./media/Taminiau_spectroscopy.png)
+![width:900px](./media/Reproduce_focused.png)
 
-![](./media/Taminiau_spectroscopy.png)
 
-</div>
-<div>
-
-![](./media/Reproduce.png)
-
-</div>
-</div>
-
-Left: Taminiau et al., *Phys. Rev. X* **9**, 031045 (2019). Right: our numerics — peak positions and amplitudes match.
 
 ---
 
@@ -278,9 +277,9 @@ $$
 
 ---
 
-# DDrf: Telescoping Strategy
+# DDrf: Commutation Trick
 
-A $z$-rotation can be commuted *through* a transverse rotation by shifting its azimuthal angle:
+A $z$-rotation can be commuted through a transverse rotation by shifting its azimuthal angle:
 $$
 e^{i\alpha I_z}\,(\cos\phi\, I_x + \sin\phi\, I_y)\,e^{-i\alpha I_z} = \cos(\phi-\alpha)\, I_x + \sin(\phi-\alpha)\, I_y .
 $$
@@ -288,7 +287,7 @@ Applied per cell (Taminiau limit, $\beta=0$, $\omega_{\text{RF}}=\omega_1$):
 $$
 V_0^{(k)} = e^{-iH_0'\tau}\,e^{-iH_1' 2\tau}\,e^{-iH_0'\tau} \;=\; e^{-i\,2\delta_0\tau\, I_z}\;e^{-i\,2\Omega\tau\,\hat{\phi}_k'\cdot\vec I}.
 $$
-Each cell splits cleanly into a $z$-piece + a transverse rotation. Choosing $\phi_k$ to align successive transverse axes makes the product over $k$ **telescope** into a single conditional rotation.
+Each cell splits cleanly into a $z$-piece + a transverse rotation. Choosing $\phi_k$ to align successive transverse axes makes the product over $k$ contracted into a single conditional rotation.
 
 ---
 
@@ -299,7 +298,7 @@ The per-cell picture exposes two distinct mechanisms that both produce condition
 - **CPMG limit** ($\Omega_{\text{RF}}\to 0$): pure dynamical decoupling. At $\tau \simeq \frac{(2k-1)\pi}{2\omega_0 + A_\parallel}$, the change-of-frame between $R_0$ and $R_1$ alone yields a hyperfine-driven conditional rotation.
 - **Taminiau limit** ($\beta\to 0$, $\omega_{\text{RF}}=\omega_1$): pure RF driving. Conditional rotation comes from $\Omega_{\text{RF}}$ alone, independent of $A_\parallel$.
 
-**Hybrid idea.** Choose $\tau$ at the CPMG resonance **and** add RF driving on top. The two mechanisms add coherently:
+**Hybrid idea.** Choose $\tau$ at the CPMG resonance and add RF driving on top. The two mechanisms add coherently:
 $$
 \theta_{\text{cond}} \approx \underbrace{N\,\theta_{\text{CPMG}}(\tau)}_{\text{frame-swap}} + \underbrace{N\,\Omega_{\text{RF}}\tau}_{\text{RF drive}}
 $$
@@ -308,16 +307,16 @@ $$
 
 # Hybrid DDrf: Taylor Expansion in $\beta$
 
-The hybrid regime sits *between* the two clean limits, but $\beta$ is small. Treat it as a perturbation around the Taminiau limit:
+The hybrid regime sits between the two clean limits, but $\beta$ is small. Treat it as a perturbation around the Taminiau limit:
 $$
 V_s^{(k)} \;\simeq\; \left.V_s^{(k)}\right|_{\beta=0} \;+\; \beta\,\frac{\partial}{\partial\beta}\left.V_s^{(k)}\right|_{\beta=0} \;+\; \mathcal{O}(\beta^2).
 $$
 
 **Limit checks** (the reason this approach is trustworthy):
-- $\beta \to 0$ — recovers the Taminiau result (slide 10).
+- $\beta \to 0$ — recovers the Taminiau result.
 - $\Omega \to 0$ — recovers the CPMG mechanism.
 
-**Outcome (qualitative).** The leading $\beta$-correction adds a small $k$-dependent rotation around an axis that mixes $I_z, I_x, I_y$. With an appropriate choice of $\phi_k$ and $\tau$, these corrections **telescope coherently** — the effective rotation angle exceeds bare $\Omega\tau$, realizing the speed-up promised on the previous slide.
+**Outcome (qualitative).** The leading $\beta$-correction adds a small $k$-dependent rotation around an axis that mixes $I_z, I_x, I_y$. With an appropriate choice of $\phi_k$ and $\tau$, these corrections build up — the effective rotation angle exceeds bare $\Omega\tau$, realizing the speed-up promised on the previous slide.
 
 (Explicit form is messy and not load-bearing for this talk.)
 
@@ -325,16 +324,11 @@ $$
 
 # Side-Peak Problem: Observation
 
-In the Taminiau limit ($\beta\to 0$, $\omega_{\text{RF}}=\omega_1$), telescoping gives
-$$
-U_s = R_z(N(\omega_L-\omega_1)\tau)\cdot R_\phi(\pm N\Omega_{\text{RF}}\tau).
-$$
+In the Taminiau limit, we have $U_s = R_z(N(\omega_L-\omega_1)\tau)\cdot R_\phi(\pm N\Omega_{\text{RF}}\tau).$
 
-**[Observation]** When $N\Omega_{\text{RF}}\tau = 2\pi$, $U_0 = U_1$ — the gate becomes **unconditional**, so a flat spectroscopy signal is expected.
+**[Observation]** When $N\Omega_{\text{RF}}\tau = 2\pi$, $U_0 = U_1$ — the gate becomes **unconditional**, so a flat spectroscopy signal is expected. However, ...
 
-The numerics disagree:
-
-![height:280px width:1000px](./media/sidepeak.png)
+![height:400px width:1000px](./media/sidepeak.png)
 
 ---
 
@@ -348,7 +342,7 @@ $$
 \Omega_{\text{eff}} = \sqrt{\Omega^2+\delta_1^2},\qquad \sin\gamma = \frac{\delta_1}{\Omega_{\text{eff}}},\qquad \hat n(\phi)=(\cos\gamma\cos\phi,\,\cos\gamma\sin\phi,\,\sin\gamma).
 $$
 
-Conjugation/telescoping still works because the tilt angle $\gamma$ is invariant under $z$-rotations. Result:
+Conjugation still works because the tilt angle $\gamma$ is invariant under $z$-rotations. Result:
 $$
 V_s^{\text{tot}} = e^{-iN\delta_0\tau I_z}\,e^{-i\Omega_{\text{eff}}N\tau\,\hat n_s\cdot\vec I},\qquad \hat n_{0,1} = (\pm\cos\gamma,\,0,\,\sin\gamma).
 $$
@@ -362,11 +356,26 @@ $$
 \frac{1}{2}\,\text{Tr}(U_0 U_1^\dagger) = 1 - \frac{2\Omega^2}{\Omega^2+\delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\,N\tau}{2}\right)\;}
 $$
 
-The detuned-Rabi formula reproduces both the envelope and the side-lobe period observed numerically:
+The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
 
-![width:620px](./media/unconditional_focus.png)
+<style scoped>
+.row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; }
+</style>
 
-The "unconditional" prediction was an artifact of $\delta_1 = 0$; finite detuning revives sin² oscillations with period $2\pi/(N\tau)$.
+<div class="row2">
+<div>
+
+![width:560px](./media/detuned_rabi_overlap_48.png)
+
+</div>
+<div>
+
+![width:560px](./media/detuned_rabi_overlap.png)
+
+</div>
+</div>
 
 ---
 
@@ -374,45 +383,97 @@ The "unconditional" prediction was an artifact of $\delta_1 = 0$; finite detunin
 
 Replace constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\, f(k)$, a discrete window function (Hanning, Hamming, Blackman, …):
 
-![width:680px](./media/Adodizied.jpeg)
+![width:2000px](./media/DDrf_pulse_circuit.png)
 
 **Intuition:** the side-lobes are essentially the discrete Fourier transform of a rectangular window. Shaping the window suppresses its sidelobes, exactly the same trick used in classical signal processing.
 
 ---
 
+# Suppression: Window Catalogue
+
+<style scoped>
+img { display: block; margin: 1rem auto; }
+</style>
+
+![width:800px](./media/window_shapes.png)
+
+The four windows we'll compare: rectangular (the baseline that produces the side-lobes), and three classical apodization windows from signal processing.
+
+---
+
 # Suppression: Numerical Result
 
-![height:380px](./media/DDrf_Apodization.png)
+<style scoped>
+.row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; }
+</style>
 
-Apodized envelopes flatten the off-resonant region while preserving the on-resonant peak.
+<div class="row2">
+<div>
+
+![width:560px](./media/DDrf_Apodization_N48_focused.png)
+
+</div>
+<div>
+
+![width:560px](./media/DDrf_Apodization_N136_focused.png)
+
+</div>
+</div>
+
+Apodized envelopes flatten the off-resonant region while preserving the on-resonant peak. The effect grows with $N$ (right): rectangular develops a clean side-lobe pair, both apodized windows stay smooth.
 
 ---
 
 # Suppression: Window Comparison
 
-The normalized spectral response factorizes into a window-independent sinc and a window-dependent kernel:
+The normalized spectral response factorizes into a window-independent `sinc` and a window-dependent kernel:
 $$
 \left|\frac{F(\delta_1)}{F(0)}\right|^2 = \mathrm{sinc}^2(u)\cdot |G(u)|^2,\qquad u = \frac{\delta_1}{2\Omega \bar f}.
 $$
 
-| Window | $\bar f$ | FWHM ($u$) | FWHM ($\delta_1$) |
-|---|---|---|---|
-| Rectangular | 1.00 | 0.89 | $1.77\,\Omega$ |
-| Hanning     | 0.50 | 1.44 | $1.44\,\Omega$ |
-| Hamming     | 0.54 | 1.30 | $1.41\,\Omega$ |
-| Blackman    | 0.42 | 1.68 | $1.41\,\Omega$ |
+For example, while constant pulse gives :$\left|\frac{F}{F(0)}\right|^2_{\mathrm{rect}} = \mathrm{sinc}^2(u)$.
 
-Hann/Hamming/Blackman trade broader main lobes for dramatically lower side-lobes.
+Blackman apodized pulse, $\left|\frac{F}{F(0)}\right|^2_{\mathrm{Black}} = \mathrm{sinc}^2(u)\cdot\left(\frac{50u^4 - 209u^2 + 84}{21(u^2-1)(u^2 - 4)}\right)^2$ where $u=\frac{\delta_1}{2\Omega\bar{f}}$.
+
+---
+
+# Suppression: Build-up mismatch
+
+<style scoped>
+.split { display: flex; gap: 1rem; align-items: center; }
+.split .text { flex: 1 1 58%; }
+.split .fig  { flex: 0 0 40%; text-align: center; }
+.split .fig img { max-width: 100%; }
+</style>
+
+<div class="split">
+<div class="text">
+
+The mismatch between consecutive axes is
+
+$$\Delta\gamma_k \equiv \gamma_{k+1} - \gamma_k \approx -\frac{\delta_1}{\Omega}\Delta f_k$$
+
+where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\delta_1 \cdot \Delta f_k$, which is small when either $\delta_1$ is small or the window varies slowly.
+
+</div>
+<div class="fig">
+
+![width:450px](./media/apodized_rotating_axis.png)
+
+</div>
+</div>
 
 ---
 
 # Outlook: Beyond Constant $\Omega_{\text{RF}}$
 
-The full-evolution formalism above **assumes** $\Omega_{\text{RF}}$ is time-independent (compatible with the RWA). With a Gaussian envelope
+The full-evolution formalism above assumes $\Omega_{\text{RF}}$ is time-independent (compatible with the RWA). With a Gaussian envelope
 $$
 \Omega_{\text{RF}}(t) = \Omega_0\, e^{-(t-t_k)^2/2\sigma^2},
 $$
-the per-segment propagator $e^{-iH_{0,1}'\tau}$ is no longer exact. Direct Schrödinger integration takes tens of minutes per frequency point — impractical for spectroscopy sweeps over thousands of $\omega_{\text{RF}}$.
+the per-segment propagator $e^{-iH_{0,1}'\tau}$ is no longer exact. Direct Schrödinger integration takes tens of minutes per frequency point.
 
 **Approach:** Magnus expansion, valid when $\Omega_{\text{RF}}$ varies slowly relative to $\omega_{\text{RF}}$.
 
@@ -433,6 +494,32 @@ $$
 \end{align}
 $$
 with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is guaranteed when $\int_0^T \|A(s)\|_2\, ds < \pi$ — likely satisfied here; **simulation pending**.
+
+---
+
+# Outlook: Gaussian Pulse Shaping — Spectroscopy
+
+<style scoped>
+.row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; }
+</style>
+
+<div class="row2">
+<div>
+
+![width:560px](./media/gaussian_apod_spectroscopy_48.png)
+
+</div>
+<div>
+
+![width:560px](./media/gaussian_apod_spectroscopy_136.png)
+
+</div>
+</div>
+
+
+
 
 ---
 
