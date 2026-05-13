@@ -62,7 +62,7 @@ Donghun Jung
 </div>
 
 <div class="organization">
-Paulee Lab, Center for Quantum Technology, Korea Institute of Science and Technology
+Paulee Group, Center for Quantum Technology, Korea Institute of Science and Technology
 </div>
 
 </div>
@@ -113,11 +113,11 @@ li {
 <div class="col-left-content">
 
 1. **Post-Selection**
-   - 
+   - Analytical bound on the post-selected QFI and its saturating probes
 2. **DDrf**
-   - 
-3. **Mattermost-Outline**
-   - 
+   - Hybrid driving, side-peak suppression, Gaussian pulse shaping
+3. **Mattermost–Outline**
+   - Lab tooling update
 
 </div>
 
@@ -131,537 +131,558 @@ li {
 
 # Post-Selection: Sensing
 
-<!-- Todo: Add diagram -->
+<!--
+IMAGE NEEDED: Two-panel schematic illustrating magnetic-field sensing with an NV center.
 
-Regardless of the quantity being sensed, it requires interaction between the system and the target. In our NV-center system, we perform quantum sensing of the external magnetic field. Such interaction is captured in the Hamiltonian.
+Aspect ratio: 16:6 (wide, fits below the slide title with room for math).
+Style: clean physics-textbook line illustration on white background; thin black outlines; flat fills; no shadows; no perspective tricks; no photorealism. Label fonts: sans-serif (Inter / Helvetica), ~14pt for axis labels, ~12pt for annotations. Keep the figure self-contained — no caption needed (the slide provides it).
+
+Left panel (≈45% of width) — "Physical system":
+- Draw a small cube of diamond lattice (3×3 carbon atoms shown as gray circles connected by thin tetrahedral bonds; partial lattice is fine).
+- Inside, place one nitrogen atom (blue circle, labeled "N") adjacent to a vacancy (dashed-outline circle, labeled "V"), oriented along the [111] axis — the canonical NV center geometry.
+- Three external arrows entering the lattice from the upper-right, all parallel, labeled "B" once near the topmost arrow. Color the arrows a saturated blue (#1f6feb) with arrowheads.
+- A small curved double-headed arrow over the NV pair representing the electron spin S=1, labeled "S_z".
+
+Middle (≈10%): a thin right-pointing arrow with the label "phase encoding e^{-i H_B t}" above it, to suggest the mapping from physical system to abstract state.
+
+Right panel (≈45% of width) — "Quantum state on the Bloch sphere":
+- A Bloch sphere (clean circle with dashed equator and dashed back-half meridian). Axes labeled "x", "y", "z" at the tips.
+- The initial state vector |ψ⟩ drawn as a solid arrow from origin to a point on the equator (say, +x direction), colored gray.
+- After time evolution, a second arrow at the same polar angle but rotated by angle θ around z, colored red (#d22). Connect the two arrow tips with a curved dashed arc on the equator, labeled "θ = γ B t".
+- Small text near the red arrow: "phase imprinted".
+
+Overall: the figure should make the reader see at a glance that an external B field rotates the NV spin's Bloch vector around z by an angle proportional to B.
+-->
+
+
+Regardless of the quantity being sensed, quantum sensing requires an interaction between the system and the target. In our NV center system, we sense an external magnetic field, captured by the Hamiltonian
 $$
-\mathcal{H}_B = \gamma B S_z
+\mathcal{H}_B = \gamma B S_z,
 $$
-where $\gamma$ is the gyromagnetic ratio, related to magnetic sensitivity. Through this interaction term and time evolution, $e^{-i\mathcal{H}}$, the information on the $B$-field is embedded in the state. 
+where $\gamma$ is the gyromagnetic ratio. Through this interaction term and the time evolution $e^{-i\mathcal{H}_B t}$, information about the $B$-field is imprinted onto the state:
 $$
-\ket{\psi} \rightarrow e^{-i\mathcal{H}_B} \ket\psi .
+\ket{\psi} \;\rightarrow\; e^{-i\mathcal{H}_B t}\ket{\psi}.
 $$
 
 ---
 
 # Post-Selection: Quantum Fisher Information
 
-In this sense, the quantum Fisher information (QFI) quantifies how rapidly a quantum state, represented by a density matrix, changes with respect to the $B$-field. The faster the change, the greater the sensitivity. 
+The quantum Fisher information (QFI) quantifies how rapidly a quantum state — represented by a density matrix — changes with respect to the $B$-field. The faster the change, the greater the sensitivity:
 $$
-F_Q = 2\sum_{k,l} \frac{(\lambda_k - \lambda_l)^2}{\lambda_k + \lambda_l} \left| \bra{k}\mathcal{H}_{B}\ket{l}\right|
+F_Q \;=\; 2\sum_{k,l} \frac{(\lambda_k - \lambda_l)^2}{\lambda_k + \lambda_l}\,\left|\bra{k}\mathcal{H}_{B}\ket{l}\right|^2,
 $$
-where $\rho = \sum_k \lambda_k \ket{k}\bra{k}$. 
+where $\rho = \sum_k \lambda_k \ket{k}\bra{k}$.
 
 ---
 
 # Post-Selection
 
-In this sense, we hypothesize that adding a post-selection procedure might be advantageous. Intuitively, the information on the $B$-field is encoded in the phase, and through post-selection we may discard unnecessary information to the ancillary qubit (or the other energy level). 
+We hypothesize that adding a post-selection step can be advantageous. Intuitively, the $B$-field information is encoded in the phase, and post-selection lets us discard the unnecessary part of the state into the ancillary qubit (or the other energy level).
 
-![](Meeting_260402/src/Presentation/media/PS_diagram.png)
+<!--
+IMAGE NEEDED: Horizontal block-diagram of the four-stage post-selection pipeline, with a branching at the final filter step.
 
----
+Aspect ratio: 16:5 (wide and thin, fits a single horizontal flow under one paragraph of text).
+Style: physics-talk block diagram. White background. Each stage is a rounded rectangle (~140×80 px) with a thin black border (~1.5px) and a soft pastel fill (no gradients). Arrows are solid black with simple arrowheads (~2px stroke). Math labels rendered as LaTeX-style italics (use a math font like STIX or Latin Modern Math). No drop shadows. No 3D.
 
-# Post-Selection: Analytical Approach for maximum QFI
+Layout, left-to-right:
 
-Last time, I've tried numerical simulation to gain insight on which state and the corresponding Post-selection filter achieve maximum QFI. GH provided a report generated by ChatGPT that provided profound insight to calculate maximum QFI. From that, I reorganized proof and analyzed the solution with Claude Opus 4.7. 
+  Stage 1 — "Probe preparation"
+    Fill: very pale blue (#e7f0fb).
+    Inside: |ψ⟩ = Σ_x a_x |x⟩  (centered).
+    Below the box, small caption: "pure N-qubit probe".
 
-<!-- Todo: Add screen shot -->
+  Arrow →
 
----
+  Stage 2 — "Phase encoding"
+    Fill: very pale yellow (#fdf6d9).
+    Inside: e^{-i H_B τ}, with H_B = γ B S_z below it.
+    Below caption: "B-field interaction, time τ".
 
-# Post-Selection: Set-up
+  Arrow →
 
-Under such set-up, the state evolves:
-$$\ket\psi \rightarrow\ket{\psi_0} =  e^{-i H_B \tau}\ket\psi \rightarrow \rho = \mathcal{D}(\rho_0) \rightarrow  \frac{K\rho K^{\dagger}}{\mathrm{Tr}~ K\rho K^{\dagger} }.$$
+  Stage 3 — "Phase damping"
+    Fill: very pale orange (#fde6cf).
+    Inside: 𝒟(ρ_0) → ρ,  with η = e^{-(τ/T_2)^p} written below the main symbol.
+    Below caption: "decoherence channel".
 
-Without loss of generality, we can write pure state in a computational basis: $$\ket{\psi} = \sum_x a_x \ket{x}, $$where $x$ is computational basis and $\sum_x |a_x |^2 = 1$. 
-### 1.2. Time evo
-After time-evolution under detuned magnetic field, we have:$$\ket{\psi_0} =  e^{-i H_B \tau}\ket\psi = \sum_x a_x e^{i\theta |x|} \ket{x}.$$ where $|x|$ denotes Hamming weight. Accordingly, its density matrix representation is:$$\rho_0 = \sum_{x,y} a_x \bar{a}_y e^{i\theta (|x| - |y|)} \ket{x}\bra{y}.$$
-### 1.3. Phase damping channel
-After applying phase damping noise, the off-diagonal elements undergoes damping proportional to $\eta^{d(x,y)}$ where $d(x,y) = |x\oplus y|$ is the Hamming distance. 
-$$
-\begin{align}
-\rho_0 \rightarrow \rho &= \sum_{x,y} a_x \bar{a}_y e^{i\theta (|x| - |y|)} \eta^{d(x,y)} \ket{x}\bra{y} \\
-&= \sum_{x,y} e^{i\theta |x|}\left( a_x \right) \left(\eta^{d(x,y)} \ket{x}\bra{y} \right)\left( \bar{a}_y\right) e^{-i\theta|y|} \\
-&= U(\theta) D_a C_N D_a^{\dagger} U^\dagger (\theta),
-\end{align}
-$$
-where $D_a = \mathrm{diag} (a_x)$ and $C_N = (I+\eta X)^{\otimes N}$. 
+  Arrow →
 
-Phase damping kills off-diagonal elements between computational-basis states at different Hamming weights, but preserves populations $|a_x|^2$. Thus $\rho$ has the eigenvalue structure of a mixed state on $\mathrm{supp} \rho \subseteq \mathrm{span} \{|x\rangle:a_x\neq 0\}$, even when $\rho_0$ is rank-1. Hence $\rho^{-1/2}$, used in the operator $M=\rho^{-1/2}\dot\rho\,\rho^{-1/2}$, is well-defined on $\mathrm{supp}\,\rho$ as a pseudoinverse, and the contraction $\|W_j\|_\infty<1$ analysis applies. 
-### 1.4. Post-Selection
-A $\theta$-independent Kraus operator $K$ (with $K^\dagger K\preceq I$) is applied to $\rho$, producing the success branch
+  Stage 4 — "Kraus filter K (post-selection)"
+    Fill: very pale red (#fad6d6).
+    Inside: K with K†K ⪯ I.
+    Below caption: "θ-independent measurement".
 
-$$
+  After Stage 4, the arrow splits into two diverging arrows:
+    - Upper branch (solid green arrow, #2e8b57) labeled "accept, prob. p_s" leading to a final rounded rectangle with pale green fill containing σ = KρK†/p_s and a small caption underneath: "carries QFI F^{ps}_{θ,Q}".
+    - Lower branch (dashed gray arrow, #888) labeled "reject, prob. 1−p_s" leading to a smaller rounded rectangle with light gray fill containing "discard" and no further annotation.
 
-\sigma = \frac{K\rho K^\dagger}{p_s}, \qquad p_s = \mathrm{Tr}\bigl[ K\rho K^\dagger\bigr].
+Above the entire diagram, a thin horizontal title bar in small gray text: "Post-selected quantum metrology pipeline".
 
-$$
-The conditional phase QFI $F^{\mathrm{ps}}_{\theta,Q}=\mathrm{Tr}(\sigma L_\sigma^2)$ is the object we bound and optimize.
-
----
-
-# Post-Selection: Analytical Approach for maximum QFI, Quick summary
-
-In $N$-qubit system, now we recognize that the phase Quantum Fisher Information (QFI) of the conditionally-accepted state obeys
-$$
-F^{\mathrm{ps}}_{\theta,Q} \le \frac{N^2 \eta^2}{1-\eta^2}, \qquad \eta=e^{-\tau}, \tau=\left(\tau/T_2\right)^p.
-$$
-**Strategy**: chaining inequality, analyze saturation condition, it is expected to gain some insight. 
-Accordingly, we can furthur analyze when the equality condition holds.
-- Which state satisfy equality condition? What are the corresponding filter basis?
-- Is there entanglement-related gain? 
-- What is post-selection success probability?
-- Which state makes success probability maximum?
-
----
-
-# Generalized eigenvalue problem
-
-Generally, we solve eigenvalue problem like $A\mathbf{x} = \lambda\mathbf{x}$. 
-The eigenvalue is derived by solving $\det{A-\lambda I} = 0$.
-
-Generalized eigenvalue problem is introduced as $A\mathbf{x} = \lambda B \mathbf{x}$.
-This must not be new to physicsiant, such as vibrating mechanical system. Consider a system of coupled masses and springs, Lagrangian formalism tends to give euqation of motion:
-$$
-M \ddot{\mathbf{x}} + K\mathbf{x} = 0
-$$
-With harmonic solution, $\mathrm{x}=\mathrm{x}_0 e^{i\omega t}$,
-$$
-K\mathrm{x} = \omega^2 M \mathrm{x}.
-$$
-
----
-
-# Post-selection
-
-The post-selected density matrix $\sigma$ is derived as:
-$$
-\sigma = \frac{K\rho K^\dagger}{p_s}, \quad p_s = \mathrm{Tr} K\rho K^\dagger .
-$$
-The QFI can be derived by symmetric logarithmic derivative (SLD):
-$$
-F_Q = \mathrm{Tr} \sigma L^2
-$$
-where SLD operator $L$ is defined as:
-$$
-\dot\sigma = \frac{1}{2} \left( \sigma L + L \sigma \right).
-$$
-
-However, it is known that calculating SLD directly is challenging.
-
----
-
-# Post-selection
-
-Let me introduce operator $M = \sigma^{-\frac{1}{2}}\dot\sigma\sigma^{-\frac{1}{2}}$.
-$$
-M = \sigma^{-\frac{1}{2}} \frac{1}{2}(\sigma L + L \sigma) \sigma^{-\frac{1}{2}}= \frac{1}{2} (\sigma^{\frac{1}{2}}L\sigma^{-\frac{1}{2}} + \sigma^{-\frac{1}{2}}L \sigma^{\frac{1}{2}})
-$$
-
-This operator is important since $\mathrm{Tr} ~ \sigma L^2  \leq \mathrm{Tr} ~ \sigma M^2$.
-
-Under eigenbasis of $\sigma$, $\sigma = \sum_i p_k \ket{p_k}\bra{p_k}$. 
-Then, 
-$L_{ab}=\frac{2 \dot\sigma_{ab}}{p_a + p_b}$
-$M_{ab}=\frac{\dot\sigma_{ab}}{\sqrt{p_a p_b}}$.
-Then, 
-$\mathrm{Tr} ~ \sigma L^2 = \sum_{a,b} l_{ab} = \sum_{a,b} \frac{2 |\dot\sigma_{ab}|^2}{p_a + p_b}$
-$\mathrm{Tr} ~ \sigma M^2 = \sum_{a,b} m_{ab} = \sum_{a,b} \frac{|\dot\sigma_{ab}|^2 (p_a + p_b)}{2 p_a  p_b}$
-Comparing each term, $\frac{m_{ab}}{l_{ab}}= \frac{(p_a + p_b)^2}{4p_a p_b} \geq 1$.
-
-Saturation condtition is $p_k = p_i$.
-
----
-
-# Post-seleciton
-
-At here, $\sigma$ lives in the subspace of $\rho$ filtered by $K$. Accordingly, $M$ lives in the same subspace and its maximum operator norm also bound to $M_\rho$. 
-Therefore, $\mathrm{Tr} \sigma M^2 \leq \| M_\rho \|_\infty^2$. 
-
-On the other hand, 
-$$
-M_\rho = \rho^{-\frac{1}{2}}\dot\rho\rho^{-\frac{1}{2}}
-$$
-and 
-$$
-\dot\rho = -i [H_B , \rho] = \sum_i -\frac{i}{2} [Z_i , \rho]
-$$
-$M_\rho = \sum_i \rho^{-\frac{1}{2}}-\frac{i}{2} [Z_i , \rho]\rho^{-\frac{1}{2}} = \sum_i M_i .$
-Hence, 
-$$
-\|M_\rho \| \leq \sum_i \|M_i \|_\infty
-$$
-equality holds when each partition is symmetrized. 
-
----
-
-# Post-selection
-
-We can chain inequality, 
-$$
-F_Q = \mathrm{Tr} \sigma L^2 \leq \mathrm{Tr} \sigma M_\sigma^2 \leq \|M_\rho\|^2 \leq \left(\sum_i \|M_i \|_\infty \right)^2
-$$
-When all the saturation condition is satisfied at once, QFI is bound 
-$$
-F_Q \leq N^2 \| M_i \|_\infty^2 .
-$$
-
-We see three inequality. First is saturate when $\sigma$ is fully mixed state for subspace. The second one is saturated when optimal filter is selected. The last one is saturated when the whole system is symmetrized. 
-
-
-Now, lets find such $\|M_i \|$ first.
+Overall composition: the reader should immediately see four sequential operations followed by a binary accept/reject branching, with the accepted branch being the object of analysis.
+-->
 
 
 ---
 
-# Post-selection
+# Post-Selection: Analytical Approach for Maximum QFI
 
-To derive eigenvalue and eigenvectors of $M$, it is helpful to solve Generalized eigenvalue problem. 
-$$
-\begin{align}
-M\ket{v} = \lambda\ket{v} \\
-\rho^{-1/2}\dot\rho_j\rho^{-1/2}\ket{v} = \lambda{v}\\
-\dot\rho_j \left(\rho^{-1/2}\ket{v}\right) = \lambda\rho\left(\rho^{-1/2}\ket{v}\right) \\
-\dot\rho_j \ket{w} = \lambda\rho\ket{w}
-\end{align}
-$$
-where the last line is generalized eigenvalue problem(GEP). 
+Last time I ran numerical simulations to identify which probe state and post-selection filter achieve the maximum QFI. GH then shared a ChatGPT-generated report that gave useful insight into how to compute the bound. Building on that, I reorganized the proof and analyzed the solution with Claude Opus 4.7.
 
 ---
 
-# Post-selection
+# Post-Selection: Setup
 
-It is trivial:
+The state evolves through four stages:
 $$
-\dot\rho_j = \begin{pmatrix}
-0 & -i\eta B_j \\
-i \eta B^\dagger_j & 0 
-\end{pmatrix}.
+\ket\psi \;\rightarrow\; \ket{\psi_0} = e^{-i H_B \tau}\ket\psi \;\rightarrow\; \rho = \mathcal{D}(\rho_0) \;\rightarrow\; \frac{K\rho K^{\dagger}}{\mathrm{Tr}\,K\rho K^{\dagger}}.
 $$
-Then, the GEP is reduced to
+
+Without loss of generality, write the pure probe state in the computational basis:
 $$
-\begin{pmatrix}
-0 & -i\eta B_j \\
-i \eta B^\dagger_j & 0 
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix} 
-=
-\lambda 
-\begin{pmatrix}
-A_j & \eta B_j \\
-\eta B^\dagger_j & D_j 
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix} 
+\ket{\psi} \;=\; \sum_x a_x \ket{x}, \qquad \sum_x |a_x|^2 = 1,
 $$
+where $x$ ranges over computational-basis bitstrings like $\ket{00\cdots0}$.
+
+**Time evolution.** Under the detuned magnetic field,
+$$
+\ket{\psi_0} \;=\; e^{-i H_B \tau}\ket\psi \;=\; \sum_x a_x e^{i\theta |x|} \ket{x},
+$$
+where $|x|$ is the Hamming weight.
 
 ---
 
-# Post-selection
+# Post-Selection: Phase-Damping Channel
 
-Applying Schur decomposition, we derive:
+The density matrix before damping is
 $$
-\begin{align}
-\begin{pmatrix}
-0 & -i\eta A_j^{\frac{1}{2}}W_j D_{j}^{\frac{1}{2}} \\
-i \eta {D_j^{\frac{1}{2}}}^\dagger W_j^\dagger {A_j^{\frac{1}{2}}}  & 0 
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix} 
-&=
-\lambda 
-\begin{pmatrix}
-A_j & \eta A_j^{\frac{1}{2}}W_j D_{j}^{\frac{1}{2}} \\
-\eta {D_j^{\frac{1}{2}}}^\dagger W_j^\dagger {A_j^{\frac{1}{2}}} & D_j 
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix} \\
-\begin{pmatrix}
-A_j^{\frac{1}{2}} & 0 \\
-0 & D_j^{\frac{1}{2}}
-\end{pmatrix}
-\begin{pmatrix}
-0 & -i\eta W_j \\
-i\eta W_j^\dagger & 0
-\end{pmatrix}
-\begin{pmatrix}
-A_j^{\frac{1}{2}} & 0 \\
-0 & D_j^{\frac{1}{2}}
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix}
-&= \lambda
-\begin{pmatrix}
-A_j^{\frac{1}{2}} & 0 \\
-0 & D_j^{\frac{1}{2}}
-\end{pmatrix}
-\begin{pmatrix}
-I & \eta W_j \\
-\eta W_j^\dagger & I
-\end{pmatrix}
-\begin{pmatrix}
-A_j^{\frac{1}{2}} & 0 \\
-0 & D_j^{\frac{1}{2}}
-\end{pmatrix}
-\begin{pmatrix}
-w_1\\
-w_2
-\end{pmatrix}
-\end{align} 
+\rho_0 \;=\; \sum_{x,y} a_x \bar{a}_y\, e^{i\theta(|x| - |y|)} \ket{x}\bra{y}.
 $$
 
-Hence, 
+After phase damping, off-diagonal elements decay by $\eta^{d(x,y)}$, where $d(x,y) = |x\oplus y|$ is the Hamming distance:
 $$
-\begin{pmatrix}
-0 & -i\eta W_j \\
-i\eta W_j^\dagger & 0
-\end{pmatrix}
-\begin{pmatrix}
-\tilde{w}_1\\
-\tilde{w}_2
-\end{pmatrix}
-= \lambda
-\begin{pmatrix}
-I & \eta W_j \\
-\eta W_j^\dagger & I
-\end{pmatrix}
-\begin{pmatrix}
-\tilde{w}_1\\
-\tilde{w}_2
-\end{pmatrix}
+\begin{aligned}
+\rho_0 \;\rightarrow\; \rho
+&= \sum_{x,y} a_x \bar{a}_y\, e^{i\theta(|x| - |y|)}\, \eta^{d(x,y)} \ket{x}\bra{y} \\
+&= U(\theta)\, D_a\, C_N\, D_a^{\dagger}\, U^\dagger(\theta),
+\end{aligned}
 $$
+with $D_a = \mathrm{diag}(a_x)$ and $C_N = (I + \eta X)^{\otimes N}$.
+
+Phase damping kills coherences across different Hamming weights but preserves populations $|a_x|^2$, so $\rho$ has the eigenvalue structure of a *mixed* state on $\mathrm{supp}\,\rho$.
 
 ---
 
-# Post-selection
+# Post-Selection: Filter Step
 
-
-Taking SVD to $W_j = U \Sigma_j V^\dagger$, with singular value $\Sigma = \mathrm{diag}(s_jk)$ , we have: 
+A $\theta$-independent Kraus operator $K$ (with $K^\dagger K \preceq I$) is applied to $\rho$, producing the success branch
 $$
-\begin{pmatrix}
-0 & -i\eta s_{jk} \\
-i\eta s_{jk} & 0
-\end{pmatrix}
-\begin{pmatrix}
-\tilde{u}_{jk1}\\
-\tilde{u}_{jk2}
-\end{pmatrix}
-= \lambda_{jk}
-\begin{pmatrix}
-1 & \eta s_{jk} \\
-\eta s_{jk} & 1
-\end{pmatrix}
-\begin{pmatrix}
-\tilde{u}_{jk1}\\
-\tilde{u}_{jk2}
-\end{pmatrix}
+\sigma \;=\; \frac{K\rho K^\dagger}{p_s}, \qquad p_s = \mathrm{Tr}\bigl[K\rho K^\dagger\bigr].
 $$
 
-Solving this, 
+The conditional phase QFI
 $$
-\det \begin{pmatrix}
--\lambda & - \eta s_{jk} (\lambda + i) \\
-\eta s_{jk} (-\lambda + i) & - \lambda
-\end{pmatrix} = 0
+F^{\mathrm{ps}}_{\theta,Q} \;=\; \mathrm{Tr}(\sigma L_\sigma^2)
 $$
-resulting in, 
-$$
-\lambda_{jk} = \pm \sqrt\frac{\eta^2 s_{jk}^2}{1-\eta^2 s_{jk}^2}.
-$$
+is the quantity we bound and optimize in the remaining slides.
 
 ---
 
-# Post-selection
+# Post-Selection: Quick Summary
 
+For an $N$-qubit system, the phase QFI of the post-selected branch obeys
+$$
+F^{\mathrm{ps}}_{\theta,Q} \;\le\; \frac{N^2 \eta^2}{1-\eta^2}, \qquad \eta = e^{-\tau_d},\quad \tau_d = (\tau/T_2)^p.
+$$
 
-The singular value is bound to $0\leq s_{jk} \leq 1$, then, the magnitude of eigenvalue is maximized at $s_{jk}=1$. Therefore,
-$$
-\|M_j\|_\infty \leq \frac{\eta}{\sqrt{1 - \eta^2}}.
-$$
+**Strategy.** Chain the relevant inequalities and analyze when each saturates. From the saturation conditions we can answer:
 
-At here, we see one more inequality. This should be satisfied whichever qubit we choose. The value $s_{jk}$ is generally less than 1 for mixed state generally. However, $s_{jk}$ can be satisfied if we make fully symmetric state (symmetric under exchange, bit-flip operation).
-
-Therefore, at saturation condition, 
-$$
-\|M\|_\infty = \frac{N\eta}{\sqrt{1 - \eta^2}},
-$$
-accordingly,
-$$
-F_Q \leq \|M\|_\infty^2 = \frac{N^2 \eta^2}{1 - \eta^2}.
-$$
+- Which probe states satisfy equality? What is the corresponding filter basis?
+- Is there an entanglement-related gain?
+- What is the post-selection success probability?
+- Which probe state maximizes that success probability?
 
 ---
 
-# Post-selection
+# Generalized Eigenvalue Problem
 
-Every pure-state at stage 1, $\ket{\psi_0} = \sum_x a_x\ket{x}$, for all pauli-string $x$ saturates the global bound
+The standard eigenvalue problem is $A\mathbf{x} = \lambda\mathbf{x}$, with eigenvalues from $\det(A - \lambda I) = 0$.
+
+The **generalized eigenvalue problem (GEP)** extends this to $A\mathbf{x} = \lambda B\mathbf{x}$. This should be familiar from, e.g., coupled mechanical systems: the Lagrangian gives
 $$
-F^{\mathrm{ps}}_{\theta,Q} = \frac{N^2 \eta^2}{1-\eta^2}.
+M \ddot{\mathbf{x}} + K\mathbf{x} = 0.
 $$
-The saturating class is open (the condition $|a_x|>0$ is open) and dense (full-support probes are generic) in the projective Hilbert space $\mathbb{CP}^{2^N-1}$. 
+A harmonic ansatz $\mathbf{x} = \mathbf{x}_0 e^{i\omega t}$ then yields
+$$
+K\mathbf{x} \;=\; \omega^2 M \mathbf{x},
+$$
+a GEP whose generalized eigenvalues are the squared normal-mode frequencies.
 
 ---
 
-# Post-selection
+# Post-Selection: SLD and the $M$ Operator
 
-As shown above, phase damped state can be written as: $\rho = D_a C_N D_a^\dagger$ with $C_N = (I + \eta X)^{\otimes N}$. $D_a$ is invertible iff $a_x \neq 0$ for all $x$. Let's return to GEP,
+The post-selected density matrix is
 $$
-\dot\rho_j \ket{w} = \lambda\rho\ket{w}
+\sigma \;=\; \frac{K\rho K^\dagger}{p_s}, \qquad p_s = \mathrm{Tr}\,K\rho K^\dagger.
 $$
-Then, 
+The QFI is obtained from the symmetric logarithmic derivative (SLD):
 $$
-\begin{align}
--i [H_B , D_a C_N D_a^\dagger ] \ket{w} = \lambda D_a C_N D_a^\dagger \ket{w} \\
--i D_a [H_B , C_N]D_a^\dagger \ket{w} = \lambda D_a C_N D_a^\dagger \ket{w}
-\end{align}
+F_Q \;=\; \mathrm{Tr}\,\sigma L^2, \qquad \dot\sigma \;=\; \tfrac{1}{2}(\sigma L + L\sigma).
 $$
-As $H_B$ and $D_a$ are commutable. And let $\ket{\epsilon} = D_a^\dagger \ket{w}$, we have another GEP, 
+
+Computing the SLD directly is generally hard, so we work with an auxiliary operator instead.
+
+---
+
+# Post-Selection: Bounding via $M$
+
+Introduce $M = \sigma^{-1/2}\dot\sigma\,\sigma^{-1/2}$. Substituting the SLD definition,
 $$
--i [H_B , C_N] \ket{\epsilon}= \lambda C_N \ket\epsilon .
+M \;=\; \tfrac{1}{2}\bigl(\sigma^{1/2} L \sigma^{-1/2} + \sigma^{-1/2} L \sigma^{1/2}\bigr).
+$$
+The key inequality is $\mathrm{Tr}\,\sigma L^2 \le \mathrm{Tr}\,\sigma M^2$.
+
+In the eigenbasis $\sigma = \sum_k p_k \ket{p_k}\bra{p_k}$,
+$$
+L_{ab} = \frac{2\dot\sigma_{ab}}{p_a + p_b}, \qquad M_{ab} = \frac{\dot\sigma_{ab}}{\sqrt{p_a p_b}}.
+$$
+
+$$
+\mathrm{Tr}\,\sigma L^2 = \sum_{a,b} \frac{2|\dot\sigma_{ab}|^2}{p_a + p_b}, \qquad
+\mathrm{Tr}\,\sigma M^2 = \sum_{a,b} \frac{|\dot\sigma_{ab}|^2 (p_a + p_b)}{2 p_a p_b}.
+$$
+
+Term by term, $m_{ab}/l_{ab} = (p_a+p_b)^2/(4 p_a p_b) \ge 1$, with **saturation when $p_a = p_b$**.
+
+---
+
+# Post-Selection: Lifting to $\rho$
+
+Here, $\sigma$ lives in the subspace of $\rho$ selected by $K$. Accordingly, $M$ lives in that same subspace, and its operator norm is bounded by that of $M_\rho$:
+$$
+\mathrm{Tr}\,\sigma M^2 \;\le\; \|M_\rho\|_\infty^2.
+$$
+
+On the other hand,
+$$
+M_\rho \;=\; \rho^{-1/2}\dot\rho\,\rho^{-1/2}, \qquad
+\dot\rho \;=\; -i[H_B, \rho] \;=\; \sum_i -\tfrac{i}{2}[Z_i, \rho].
+$$
+
+Writing $M_\rho = \sum_i M_i$ with $M_i = \rho^{-1/2}\bigl(-\tfrac{i}{2}[Z_i, \rho]\bigr)\rho^{-1/2}$,
+$$
+\|M_\rho\|_\infty \;\le\; \sum_i \|M_i\|_\infty,
+$$
+with **equality when each single-qubit contribution is symmetrized**.
+
+---
+
+# Post-Selection: Chained Inequality
+
+Putting it together,
+$$
+F_Q \;=\; \mathrm{Tr}\,\sigma L^2 \;\le\; \mathrm{Tr}\,\sigma M_\sigma^2 \;\le\; \|M_\rho\|_\infty^2 \;\le\; \Bigl(\sum_i \|M_i\|_\infty\Bigr)^2.
+$$
+When every step saturates simultaneously,
+$$
+F_Q \;\le\; N^2\,\|M_i\|_\infty^2.
+$$
+
+**Three saturation conditions:**
+1. $\sigma$ is maximally mixed on the filter subspace.
+2. The optimal filter is chosen.
+3. The full $N$-qubit system is permutation-symmetrized.
+
+Next, we evaluate $\|M_i\|_\infty$.
+
+---
+
+# Post-Selection: GEP for $M$
+
+To extract the eigenvalues and eigenvectors of $M$, it helps to recast the problem as a generalized eigenvalue problem:
+$$
+\begin{aligned}
+M\ket{v} &= \lambda\ket{v} \\
+\rho^{-1/2}\dot\rho_j\,\rho^{-1/2}\ket{v} &= \lambda\ket{v} \\
+\dot\rho_j\,\bigl(\rho^{-1/2}\ket{v}\bigr) &= \lambda\,\rho\,\bigl(\rho^{-1/2}\ket{v}\bigr) \\
+\dot\rho_j\ket{w} &= \lambda\,\rho\,\ket{w},
+\end{aligned}
+$$
+with $\ket{w} = \rho^{-1/2}\ket{v}$. The last line is the GEP we solve.
+
+---
+
+# Post-Selection: Block Form of the GEP
+
+The relevant block-form is
+$$
+\dot\rho_j \;=\; \begin{pmatrix} 0 & -i\eta B_j \\ i\eta B^\dagger_j & 0 \end{pmatrix},
+$$
+so the GEP reduces to
+$$
+\begin{pmatrix} 0 & -i\eta B_j \\ i\eta B^\dagger_j & 0 \end{pmatrix}
+\begin{pmatrix} w_1 \\ w_2 \end{pmatrix}
+\;=\; \lambda
+\begin{pmatrix} A_j & \eta B_j \\ \eta B^\dagger_j & D_j \end{pmatrix}
+\begin{pmatrix} w_1 \\ w_2 \end{pmatrix}.
 $$
 
 ---
 
-# Post-selection
+# Post-Selection: Schur Decomposition
 
+Applying a Schur-style decomposition with $B_j = A_j^{1/2} W_j D_j^{1/2}$,
+$$
+\begin{aligned}
+&\begin{pmatrix} A_j^{1/2} & 0 \\ 0 & D_j^{1/2} \end{pmatrix}
+\begin{pmatrix} 0 & -i\eta W_j \\ i\eta W_j^\dagger & 0 \end{pmatrix}
+\begin{pmatrix} A_j^{1/2} & 0 \\ 0 & D_j^{1/2} \end{pmatrix}
+\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} \\
+&\quad = \lambda
+\begin{pmatrix} A_j^{1/2} & 0 \\ 0 & D_j^{1/2} \end{pmatrix}
+\begin{pmatrix} I & \eta W_j \\ \eta W_j^\dagger & I \end{pmatrix}
+\begin{pmatrix} A_j^{1/2} & 0 \\ 0 & D_j^{1/2} \end{pmatrix}
+\begin{pmatrix} w_1 \\ w_2 \end{pmatrix}.
+\end{aligned}
+$$
 
-Given $C_N = (1+\eta X)^{\otimes N} = C^{\otimes N}$ and $H_B = \sum_i \frac{1}{2} Z_i$, we have $$-\frac{i}{2} \sum_i \left[Z_i , C^{\otimes N}\right] \ket\epsilon = \lambda_i C^{\otimes N} \ket\epsilon .$$For product ansatz $\ket\epsilon = \otimes_i \ket{\epsilon_i}$. Then, each term satisfies a single-qubit GEP. 
+Stripping the outer factors,
 $$
--\frac{i}{2}\left[Z , C\right]\ket{\epsilon_i} = \lambda C \ket{\epsilon_i}. 
+\begin{pmatrix} 0 & -i\eta W_j \\ i\eta W_j^\dagger & 0 \end{pmatrix}
+\begin{pmatrix} \tilde{w}_1 \\ \tilde{w}_2 \end{pmatrix}
+\;=\; \lambda
+\begin{pmatrix} I & \eta W_j \\ \eta W_j^\dagger & I \end{pmatrix}
+\begin{pmatrix} \tilde{w}_1 \\ \tilde{w}_2 \end{pmatrix}.
 $$
-
-Then, $\frac{-i}{2}[Z,C] = \eta Y$. It is reduced to 
-$$
-\begin{pmatrix}
--\lambda & -\eta (\lambda + i) \\
--\eta(\lambda - i) & -\lambda
-\end{pmatrix} 
-\ket{\epsilon_i} = 0
-$$
-Then, $\lambda_\pm = \pm\frac{\eta}{\sqrt{1-\eta^2}}$ and $\ket{\epsilon_i^\pm} = \frac{1}{2}(\ket{0} + e^{\pm i\alpha}\ket{1})$ where $\cos\alpha = -\eta$, $\sin\alpha = \sqrt{1-\eta^2}$. Returning to $N$-qubit system, the product of $\ket{\epsilon^\pm}$ is eigenstate whose eigenvalue is $\lambda = \sum_i \lambda_i$. Especially, GEP has $\ket{\epsilon^\pm}^{\otimes N}$ has eigenvalue $\pm\frac{N\eta}{\sqrt{1-\eta^2}}$. 
-
 
 ---
 
-# Post-selection
+# Post-Selection: Reducing via SVD
 
+Take the SVD $W_j = U \Sigma_j V^\dagger$ with $\Sigma_j = \mathrm{diag}(s_{jk})$:
+$$
+\begin{pmatrix} 0 & -i\eta s_{jk} \\ i\eta s_{jk} & 0 \end{pmatrix}
+\begin{pmatrix} \tilde{u}_{jk1} \\ \tilde{u}_{jk2} \end{pmatrix}
+\;=\; \lambda_{jk}
+\begin{pmatrix} 1 & \eta s_{jk} \\ \eta s_{jk} & 1 \end{pmatrix}
+\begin{pmatrix} \tilde{u}_{jk1} \\ \tilde{u}_{jk2} \end{pmatrix}.
+$$
 
-Going back to $\ket{w}$:
-$$\ket{w^\pm} = {D_a^{-1}}^{\dagger}\ket{\epsilon^\pm}$$
-then, 
-$$\dot\rho \ket{w^\pm} = \pm \frac{N\eta}{\sqrt{1-\eta^2}}\rho\ket{w^\pm}.$$
-
-Therefore, $M=\rho^{-\frac{1}{2}}\dot\rho\rho^{-\frac{1}{2}}$ contains $\pm\frac{N\eta}{\sqrt{1-\eta^2}}$, and  $\|M\|_\infty = \frac{N\eta}{\sqrt{1-\eta^2}}$, resulting in
-$$F^{\mathrm{ps}}_{\theta,Q} = \frac{N^2 \eta^2}{1-\eta^2},$$
-with filter basis $\ket{w^\pm}$. 
-
+The determinant condition
+$$
+\det \begin{pmatrix} -\lambda & -\eta s_{jk}(\lambda + i) \\ \eta s_{jk}(-\lambda + i) & -\lambda \end{pmatrix} = 0
+$$
+gives
+$$
+\lambda_{jk} \;=\; \pm\sqrt{\frac{\eta^2 s_{jk}^2}{1 - \eta^2 s_{jk}^2}}.
+$$
 
 ---
 
-# Post-selection
+# Post-Selection: Single-Qubit Bound
 
-As given above, $\ket{w} = \rho^{-\frac{1}{2}}\ket{v}$, then, we can derive filter basis(denoted as $\ket{\Psi^\pm}$), 
-$$\ket{\Psi^\pm} = \ket{v^\pm} = \frac{\rho^{\frac{1}{2}} \ket{w^\pm}}{(1-c^2)^{\frac{N}{2}}}.$$
-Each basis is orthogonal to each other, 
+Since $0 \le s_{jk} \le 1$, the magnitude of $\lambda_{jk}$ is maximized at $s_{jk} = 1$, giving
 $$
-\bra{\Psi^+}\ket{\Psi^-} = \frac{\bra{w^+}\rho\ket{w^-}}{(1-c^2)^N} = 0,
+\|M_j\|_\infty \;\le\; \frac{\eta}{\sqrt{1 - \eta^2}}.
 $$
-inherited from $\rho$-biorthogonality (which is $C_1$-biorthogonality lifted to $N$ qubits).
 
+This is one more inequality, which must hold for every qubit. For generic mixed states $s_{jk} < 1$; saturation $s_{jk} = 1$ requires a **fully symmetric** probe (symmetric under qubit exchange and bit flip).
+
+At joint saturation,
+$$
+\|M\|_\infty \;=\; \frac{N\eta}{\sqrt{1-\eta^2}}, \qquad
+F_Q \;\le\; \|M\|_\infty^2 \;=\; \frac{N^2 \eta^2}{1-\eta^2}.
+$$
 
 ---
 
-# Post-selection
+# Post-Selection: Saturating Probe States
 
-The filter is a rank-2 projector onto $\mathrm{span}\{|\Psi^+\rangle,|\Psi^-\rangle\}$:
+Every pure stage-1 state $\ket{\psi_0} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for **all** computational-basis strings $x$ saturates the global bound
 $$
-P_\pm \;=\; |\Psi^+\rangle\langle\Psi^+| + |\Psi^-\rangle\langle\Psi^-|.
+F^{\mathrm{ps}}_{\theta,Q} \;=\; \frac{N^2 \eta^2}{1-\eta^2}.
+$$
+
+The saturating class is **open** (the condition $|a_x| > 0$ for all $x$ is open) and **dense** (full-support probes are generic) in the projective Hilbert space $\mathbb{CP}^{2^N - 1}$.
+
+---
+
+# Post-Selection: Back to the GEP
+
+As shown above, the phase-damped state factorizes as $\rho = D_a C_N D_a^\dagger$ with $C_N = (I + \eta X)^{\otimes N}$. $D_a$ is invertible iff $a_x \neq 0$ for all $x$. Return to the GEP:
+$$
+\dot\rho_j\ket{w} \;=\; \lambda\,\rho\,\ket{w}.
+$$
+Then
+$$
+\begin{aligned}
+-i[H_B, D_a C_N D_a^\dagger]\ket{w} &= \lambda\,D_a C_N D_a^\dagger\ket{w} \\
+-i D_a[H_B, C_N] D_a^\dagger\ket{w} &= \lambda\,D_a C_N D_a^\dagger\ket{w},
+\end{aligned}
+$$
+since $H_B$ and $D_a$ commute. Letting $\ket{\epsilon} = D_a^\dagger\ket{w}$, we obtain another GEP:
+$$
+-i[H_B, C_N]\ket{\epsilon} \;=\; \lambda\,C_N\ket{\epsilon}.
+$$
+
+---
+
+# Post-Selection: Single-Qubit GEP
+
+With $C_N = (I + \eta X)^{\otimes N} = C^{\otimes N}$ and $H_B = \tfrac{1}{2}\sum_i Z_i$,
+$$
+-\tfrac{i}{2}\sum_i [Z_i, C^{\otimes N}]\ket{\epsilon} \;=\; \lambda\,C^{\otimes N}\ket{\epsilon}.
+$$
+For the product ansatz $\ket{\epsilon} = \bigotimes_i \ket{\epsilon_i}$, each factor satisfies a single-qubit GEP:
+$$
+-\tfrac{i}{2}[Z, C]\ket{\epsilon_i} \;=\; \lambda\,C\ket{\epsilon_i}.
+$$
+
+Since $-\tfrac{i}{2}[Z, C] = \eta Y$, this reduces to
+$$
+\begin{pmatrix} -\lambda & -\eta(\lambda + i) \\ -\eta(\lambda - i) & -\lambda \end{pmatrix}\ket{\epsilon_i} = 0,
+$$
+yielding $\lambda_\pm = \pm\eta/\sqrt{1 - \eta^2}$ and $\ket{\epsilon_i^\pm} = \tfrac{1}{\sqrt 2}(\ket{0} + e^{\pm i\alpha}\ket{1})$, where $\cos\alpha = -\eta$, $\sin\alpha = \sqrt{1 - \eta^2}$.
+
+For the $N$-qubit system, $\ket{\epsilon^\pm}^{\otimes N}$ has eigenvalue $\pm N\eta/\sqrt{1 - \eta^2}$.
+
+---
+
+# Post-Selection: Filter Vectors $\ket{w^\pm}$
+
+Returning to $\ket{w}$:
+$$
+\ket{w^\pm} \;=\; (D_a^{-1})^{\dagger}\ket{\epsilon^\pm},
+$$
+so
+$$
+\dot\rho\,\ket{w^\pm} \;=\; \pm\,\frac{N\eta}{\sqrt{1-\eta^2}}\,\rho\,\ket{w^\pm}.
+$$
+
+Therefore $M = \rho^{-1/2}\dot\rho\,\rho^{-1/2}$ contains the eigenvalues $\pm\, N\eta/\sqrt{1-\eta^2}$, giving $\|M\|_\infty = N\eta/\sqrt{1-\eta^2}$ and
+$$
+F^{\mathrm{ps}}_{\theta,Q} \;=\; \frac{N^2 \eta^2}{1-\eta^2},
+$$
+with filter vectors $\ket{w^\pm}$.
+
+---
+
+# Post-Selection: Filter Basis $\ket{\Psi^\pm}$
+
+Since $\ket{w} = \rho^{-1/2}\ket{v}$, the filter basis (denoted $\ket{\Psi^\pm}$) is
+$$
+\ket{\Psi^\pm} \;=\; \ket{v^\pm} \;=\; \frac{\rho^{1/2}\ket{w^\pm}}{(1-c^2)^{N/2}}.
+$$
+
+The two basis vectors are mutually orthogonal:
+$$
+\braket{\Psi^+ | \Psi^-} \;=\; \frac{\bra{w^+}\rho\ket{w^-}}{(1-c^2)^N} \;=\; 0,
+$$
+inherited from $\rho$-biorthogonality (the $C_1$-biorthogonality lifted to $N$ qubits).
+
+---
+
+# Post-Selection: Matched Kraus Operator
+
+The filter is a rank-2 projector onto $\mathrm{span}\{\ket{\Psi^+}, \ket{\Psi^-}\}$:
+$$
+P_\pm \;=\; \ket{\Psi^+}\bra{\Psi^+} + \ket{\Psi^-}\bra{\Psi^-}.
 $$
 The matched Kraus operator is
 $$
-K =\sqrt{\frac{p_s}{2}} P_\pm \rho^{-1/2}.
+K \;=\; \sqrt{\frac{p_s}{2}}\,P_\pm\,\rho^{-1/2}.
 $$
-Apply it to $\rho$:
+Applying it to $\rho$:
 $$
-K\rho K^\dagger \;=\; \frac{p_s}{2}\,P_\pm\rho^{-1/2}\rho\,\rho^{-1/2}P_\pm \;=\; \frac{p_s}{2}\,P_\pm^2 \;=\; \frac{p_s}{2}\,P_\pm.
+K\rho K^\dagger \;=\; \frac{p_s}{2}\,P_\pm\,\rho^{-1/2}\rho\,\rho^{-1/2}\,P_\pm \;=\; \frac{p_s}{2}\,P_\pm^2 \;=\; \frac{p_s}{2}\,P_\pm.
 $$
 
 ---
 
-# Post-selection
+# Post-Selection: Accepted State
 
 The accepted state is
 $$
-\sigma\;=\;\frac{K\rho K^\dagger}{p_s} \;=\; \frac{P_\pm}{2}\;=\;\frac{|\Psi^+\rangle\langle\Psi^+|+|\Psi^-\rangle\langle\Psi^-|}{2}.
+\sigma \;=\; \frac{K\rho K^\dagger}{p_s} \;=\; \frac{P_\pm}{2} \;=\; \frac{\ket{\Psi^+}\bra{\Psi^+} + \ket{\Psi^-}\bra{\Psi^-}}{2}.
 $$
-The accepted state is the *maximally mixed state on the filter subspace*. This is the structural requirement for QFI saturation.
+That is, the accepted state is the *maximally mixed state on the filter subspace* — exactly the structural requirement for QFI saturation.
 
-Such form looks unfamilar. We should implement, 
-$$K=\ket{\Psi^+}\bra{w^+} + \ket{\Psi^-}\bra{w^-}.$$
+This form looks unfamiliar, so we re-express the filter as
+$$
+K \;=\; \ket{\Psi^+}\bra{w^+} + \ket{\Psi^-}\bra{w^-}.
+$$
 
-Then this Kraus operation can be implemented by $K = \sqrt{1-\gamma}\ket{00\cdots 0}\bra{00\cdots 0}+\ket{00\cdots 0}\bra{10\cdots 0}$ by applying appropriate unitary operation before and after Post-selection operation with choosing one post-selection strength zero, others are all-one.
+It can be implemented as $K = \sqrt{1 - \gamma}\,\ket{00\cdots 0}\bra{00\cdots 0} + \ket{00\cdots 0}\bra{10\cdots 0}$ by sandwiching with appropriate unitaries before and after the post-selection step, setting one post-selection strength to zero and the others to one.
 
 ---
 
-# Post-selection:
+# Post-Selection: POVM Constraint
 
-The POVM constraint is $K^\dagger K \preceq I$. 
-$$K^\dagger K = \ket{w^+}\bra{w^+} + \ket{w^-}\bra{w^-}={D_a^{-1}}^\dagger \Pi D_a^{-1}$$
-where $\Pi = \ket{\epsilon^+}^{\otimes N }\bra{\epsilon^+}^{\otimes N } + \ket{\epsilon^-}^{\otimes N }\bra{\epsilon^-}^{\otimes N }$. Its component form is given as:
-$$\Pi_{xy} = \frac{1}{2^{N-1}}\cos(\alpha (|x| - |y|)).$$
-Then, $(K^\dagger K)_{xy} = \frac{\Pi_{xy}}{\bar{a}_x a_y}$.
+The POVM constraint is $K^\dagger K \preceq I$. Explicitly,
+$$
+K^\dagger K \;=\; \ket{w^+}\bra{w^+} + \ket{w^-}\bra{w^-} \;=\; (D_a^{-1})^\dagger\,\Pi\,D_a^{-1},
+$$
+where
+$$
+\Pi \;=\; \ket{\epsilon^+}^{\otimes N}\bra{\epsilon^+}^{\otimes N} + \ket{\epsilon^-}^{\otimes N}\bra{\epsilon^-}^{\otimes N}.
+$$
+Its component form is
+$$
+\Pi_{xy} \;=\; \frac{1}{2^{N-1}}\cos\bigl(\alpha(|x| - |y|)\bigr),
+$$
+so $(K^\dagger K)_{xy} = \Pi_{xy}/(\bar{a}_x a_y)$.
 
 ---
 
-# Post-selection
+# Post-Selection: Success Probability — Setup
 
-the equation is $\Pi|u\rangle = \mu D_p|u\rangle$, equivalently $D_p^{-1/2}\Pi D_p^{-1/2}|w\rangle = \mu|w\rangle$ with $|w\rangle = D_p^{1/2}|u\rangle$. So we want the eigenvalues of the symmetric operator $D_p^{-1/2}\Pi D_p^{-1/2}$.
+The condition $\Pi\ket{u} = \mu D_p\ket{u}$ is equivalent to $D_p^{-1/2}\Pi D_p^{-1/2}\ket{w} = \mu\ket{w}$ with $\ket{w} = D_p^{1/2}\ket{u}$, so we want the eigenvalues of the symmetric operator $D_p^{-1/2}\Pi D_p^{-1/2}$.
 
-In the 2D image of $\Pi$ (basis $\{|v^+\rangle^{\otimes N},|v^-\rangle^{\otimes N}\}$), $\Pi$ acts as the rank-2 identity. The Gram matrix of $\{D_p^{-1/2}|v^\pm\rangle^{\otimes N}\}$ is
-$$
-G \;=\; \begin{pmatrix}\hat S & \hat T\\ \overline{\hat T} & \hat S\end{pmatrix},
-$$
-and the eigenvalues of $D_p^{-1/2}\Pi D_p^{-1/2}$ in this basis are the eigenvalues of $G$, namely $\hat S\pm|\hat T|$.
+In the 2D image of $\Pi$ (basis $\{\ket{v^+}^{\otimes N}, \ket{v^-}^{\otimes N}\}$), $\Pi$ acts as the rank-2 identity.
 
-So $\lambda_{\max}(\Xi)=\hat S+|\hat T| = (S+|T|)/2^N$. Therefore
+---
+
+# Post-Selection: Success Probability — Result
+
+The Gram matrix of $\{D_p^{-1/2}\ket{v^\pm}^{\otimes N}\}$ is
 $$
-\boxed{\quad p_s^* \;=\; \frac{2(1-c^2)^N}{\lambda_{\max}(\Xi)}\;=\;\frac{2\cdot 2^N(1-c^2)^N}{S+|T|}\;=\;\frac{2^{N+1}(1-c^2)^N}{S+|T|}.\quad}
+G \;=\; \begin{pmatrix} \hat S & \hat T \\ \overline{\hat T} & \hat S \end{pmatrix},
+$$
+and the eigenvalues of $D_p^{-1/2}\Pi D_p^{-1/2}$ in this basis are those of $G$, namely $\hat S \pm |\hat T|$.
+
+So $\lambda_{\max}(\Xi) = \hat S + |\hat T| = (S + |T|)/2^N$, giving
+$$
+\boxed{\;p_s^{*} \;=\; \frac{2(1-c^2)^N}{\lambda_{\max}(\Xi)} \;=\; \frac{2^{N+1}(1-c^2)^N}{S + |T|}.\;}
 $$
 
 ---
 
-# Post-selection
+# Post-Selection: Optimal Probe — Symmetries
 
-The optimization is over all pure probe magnitudes $\{|a_x|^2\}_x$ subject to $\sum_x|a_x|^2=1$. The objective $S+|T|$ depends on the magnitudes via
+The optimization is over all probe magnitudes $\{|a_x|^2\}_x$ with $\sum_x |a_x|^2 = 1$. The objective $S + |T|$ depends on the magnitudes through
 $$
-S\;=\;\sum_x \frac{1}{|a_x|^2}, \qquad T\;=\;\sum_x \frac{e^{-2i\beta|x|}}{|a_x|^2}, \qquad \beta\;=\;\pi-\arccos c.
+S \;=\; \sum_x \frac{1}{|a_x|^2}, \qquad T \;=\; \sum_x \frac{e^{-2i\beta|x|}}{|a_x|^2}, \qquad \beta = \pi - \arccos c.
 $$
-The objective is **invariant under permutations of the $N$ qubits** because both $S$ and the *magnitude* $|T|$ depend on $|a_x|^2$ only through the Hamming weight $|x|$ (the phase factor in $T$ is permutation-invariant). It is also **invariant under bit-flip $x\to\bar x$** because $e^{-2i\beta|\bar x|}=e^{-2i\beta(N-|x|)}=e^{-2i\beta N}e^{2i\beta|x|}$, which conjugates $T$ — a global phase invisible to $|T|$.
 
-These two symmetries are baked into the noise model and the optimization, so by a standard symmetrization argument (averaging any candidate probe over the symmetry group does not increase $S+|T|$, by convexity), **the optimum lies in the permutation-symmetric and bit-flip-symmetric subclass.**
+The objective is **invariant under permutations of the $N$ qubits**, since both $S$ and $|T|$ depend on $|a_x|^2$ only through the Hamming weight $|x|$. It is also **invariant under bit-flip** $x \to \bar x$: $e^{-2i\beta|\bar x|} = e^{-2i\beta(N - |x|)} = e^{-2i\beta N} e^{2i\beta|x|}$ merely conjugates $T$ — a global phase invisible to $|T|$.
 
-In this subclass, $|a_x|^2$ depends only on $|x|=k$. Parametrize via *Dicke populations* $p_k$, $k=0,1,\ldots,N$:
+By a standard symmetrization argument (averaging over the symmetry group does not increase $S + |T|$, by convexity), **the optimum lies in the permutation- and bit-flip-symmetric subclass**.
+
+---
+
+# Post-Selection: Optimal Probe — Dicke Parametrization
+
+In the symmetric subclass, $|a_x|^2$ depends only on $|x| = k$. Parametrize by Dicke populations $p_k$ for $k = 0, 1, \ldots, N$:
 $$
-|a_x|^2 \;=\; \frac{p_k}{\binom{N}{k}} \quad\text{for }|x|=k, \qquad \sum_k p_k \;=\; 1, \qquad p_k\;=\;p_{N-k}.
+|a_x|^2 \;=\; \frac{p_k}{\binom{N}{k}} \text{ for } |x| = k, \quad \sum_k p_k = 1, \quad p_k = p_{N-k}.
 $$
-The corresponding probe state, in Dicke basis $|D_k^N\rangle = \binom{N}{k}^{-1/2}\sum_{|x|=k}|x\rangle$, is
+The corresponding probe, in the Dicke basis $\ket{D_k^N} = \binom{N}{k}^{-1/2}\sum_{|x| = k}\ket{x}$, is
 $$
-|\psi_0\rangle \;=\; \sum_{k=0}^N q_k\,|D_k^N\rangle, \qquad q_k\;=\;\sqrt{p_k}\;\;(\text{up to phase}).
+\ket{\psi_0} \;=\; \sum_{k=0}^N q_k\,\ket{D_k^N}, \qquad q_k = \sqrt{p_k} \;\;(\text{up to phase}).
 $$
-This collapses the optimization from $2^N$ variables to $\lfloor N/2\rfloor+1$ variables.
+This collapses the optimization from $2^N$ variables to $\lfloor N/2 \rfloor + 1$.
 
 
 ---
@@ -672,13 +693,13 @@ DDrf = selective, phase-controlled RF driving of nuclear spins, interleaved with
 
 If the Hamiltonian is **block-diagonal** in the electron basis,
 $$
-H = \ket{0}\bra{0} \otimes H_0 + \ket{1}\bra{1} \otimes H_1 ,
+H \;=\; \ket{0}\bra{0} \otimes H_0 \;+\; \ket{1}\bra{1} \otimes H_1,
 $$
-then sandwiching evolution with an electron $\pi$-pulse swaps the two branches:
+then sandwiching the evolution with an electron $\pi$-pulse swaps the two branches:
 $$
-\ket{+}\ket{0} \xrightarrow{t_1,\,\pi,\,t_2} \frac{1}{\sqrt{2}}\Big( \ket{0}\otimes \underbrace{e^{-iH_0 t_2}e^{-iH_1 t_1}}_{U_0}\ket{0} + \ket{1}\otimes \underbrace{e^{-iH_1 t_2}e^{-iH_0 t_1}}_{U_1}\ket{0} \Big).
+\ket{+}\ket{0} \xrightarrow{\,t_1,\,\pi,\,t_2\,} \tfrac{1}{\sqrt{2}}\Bigl( \ket{0} \otimes \underbrace{e^{-iH_0 t_2}e^{-iH_1 t_1}}_{U_0}\ket{0} + \ket{1} \otimes \underbrace{e^{-iH_1 t_2}e^{-iH_0 t_1}}_{U_1}\ket{0} \Bigr).
 $$
-Generally $U_0 \neq U_1$ — a **conditional gate**.
+Generically $U_0 \neq U_1$ — a **conditional gate**.
 
 ---
 
@@ -690,13 +711,13 @@ Generally $U_0 \neq U_1$ — a **conditional gate**.
 
 # DDrf Spectroscopy: NV–${}^{13}$C Hamiltonian
 
-For NV–${}^{13}$C with rf driving:
+For NV–${}^{13}$C with RF driving:
 $$
-\begin{align}
-H &= \ket{0}\bra{0}\otimes H_0 + \ket{-1}\bra{-1}\otimes H_1 \\
-H_0 &= \omega_0 I_z + 2\Omega_{\text{RF}}\cos(\omega_{\text{RF}}t + \phi)\, I_x \\
-H_1 &= \omega_1 \tilde{I}_z + 2\Omega_{\text{RF}}\cos\beta \cos(\omega_{\text{RF}}t + \phi)\, \tilde{I}_x + 2\Omega_{\text{RF}}\sin\beta \cos(\omega_{\text{RF}}t + \phi)\, \tilde{I}_z
-\end{align}
+\begin{aligned}
+H &= \ket{0}\bra{0} \otimes H_0 + \ket{-1}\bra{-1} \otimes H_1, \\
+H_0 &= \omega_0 I_z + 2\Omega_{\text{RF}}\cos(\omega_{\text{RF}} t + \phi)\,I_x, \\
+H_1 &= \omega_1 \tilde{I}_z + 2\Omega_{\text{RF}}\cos\beta\cos(\omega_{\text{RF}} t + \phi)\,\tilde{I}_x + 2\Omega_{\text{RF}}\sin\beta\cos(\omega_{\text{RF}} t + \phi)\,\tilde{I}_z.
+\end{aligned}
 $$
 The $\ket{1}$ branch has a **tilted** nuclear quantization axis (angle $\beta$, with $\sin\beta = A_\perp/\omega_1$). This small tilt is what enables hyperfine-mediated control of nuclei with vanishing $A_\perp$.
 
@@ -714,14 +735,14 @@ The $\ket{1}$ branch has a **tilted** nuclear quantization axis (angle $\beta$, 
 <div class="split">
 <div class="text">
 
-Two electron-conditioned rotating frames, $R_s(t) = e^{i\omega_{\text{RF}} t \,\tilde I_z^{(s)}}$, give:
+In two electron-conditioned rotating frames $R_s(t) = e^{i\omega_{\text{RF}} t\,\tilde{I}_z^{(s)}}$,
 $$
-\begin{align}
-H_0' &= (\omega_0 - \omega_{\text{RF}})\,I_z + \Omega_{\text{RF}}(\cos\phi\, I_x + \sin\phi\, I_y) \\
-H_1' &= (\omega_1 - \omega_{\text{RF}})\,\tilde{I}_z + \Omega_{\text{RF}}\cos\beta\,(\cos\phi\, \tilde I_x + \sin\phi\, \tilde I_y)
-\end{align}
+\begin{aligned}
+H_0' &= (\omega_0 - \omega_{\text{RF}})\,I_z + \Omega_{\text{RF}}(\cos\phi\,I_x + \sin\phi\,I_y), \\
+H_1' &= (\omega_1 - \omega_{\text{RF}})\,\tilde{I}_z + \Omega_{\text{RF}}\cos\beta\,(\cos\phi\,\tilde{I}_x + \sin\phi\,\tilde{I}_y).
+\end{aligned}
 $$
-At resonance ($\omega_{\text{RF}}=\omega_1$) and approximation to $\omega_0 - \omega_{\text{RF}} \gg \Omega_{\text{RF}}$ and $\beta\to 0$, $H_1'$ is a pure transverse drive, while $H_0^{\prime}$ is pure Z-rotation.
+At resonance ($\omega_{\text{RF}} = \omega_1$), with $\omega_0 - \omega_{\text{RF}} \gg \Omega_{\text{RF}}$ and $\beta \to 0$, $H_1'$ becomes a pure transverse drive while $H_0'$ is a pure $z$-rotation.
 
 </div>
 <div class="fig">
@@ -735,14 +756,14 @@ At resonance ($\omega_{\text{RF}}=\omega_1$) and approximation to $\omega_0 - \o
 
 # DDrf Spectroscopy: Full Time Evolution
 
-Each MW $\pi$-pulse acts as an **instantaneous frame swap** $\Lambda_{s,\bar s}(t) \equiv R_s(t) R_{\bar s}(t)^\dagger$ between the two rotating frames. The full unitary $U = \sum_s \ket{s}\bra{s}\otimes U_s$ is then a chain of $H_s'$-segments separated by frame swaps:
+Each MW $\pi$-pulse acts as an **instantaneous frame swap** $\Lambda_{s,\bar s}(t) \equiv R_s(t) R_{\bar s}(t)^\dagger$ between the two rotating frames. The full unitary $U = \sum_s \ket{s}\bra{s} \otimes U_s$ is a chain of $H_s'$-segments separated by frame swaps:
 $$
-\begin{align}
-U_s = \, & R_s(4N\tau)^\dagger \cdot e^{-iH_s'\tau} \cdot \Lambda_{s,\bar s}((2N{-}1)\tau)\cdot e^{-iH_{\bar s}' 2\tau}\cdot \Lambda_{\bar s, s}((2N{-}3)\tau) \cdot e^{-iH_s'\tau} \cdots \\
-& \cdots e^{-iH_s'\tau}\cdot \Lambda_{s,\bar s}(3\tau)\cdot e^{-iH_{\bar s}' 2\tau} \cdot \Lambda_{\bar s, s}(\tau)\cdot e^{-iH_s'\tau}\cdot R_s(0).
-\end{align}
+\begin{aligned}
+U_s \;=\;& R_s(4N\tau)^\dagger \cdot e^{-iH_s'\tau} \cdot \Lambda_{s,\bar s}((2N{-}1)\tau) \cdot e^{-iH_{\bar s}' 2\tau} \cdot \Lambda_{\bar s, s}((2N{-}3)\tau) \cdot e^{-iH_s'\tau} \cdots \\
+&\cdots e^{-iH_s'\tau} \cdot \Lambda_{s,\bar s}(3\tau) \cdot e^{-iH_{\bar s}' 2\tau} \cdot \Lambda_{\bar s, s}(\tau) \cdot e^{-iH_s'\tau} \cdot R_s(0).
+\end{aligned}
 $$
-Exact under the assumption of negligible MW pulse duration, and **much faster than direct Schrödinger integration** when $\Omega_{\text{RF}}$ is constant — each $e^{-iH_s'\tau}$ is a single matrix exponential of a time-independent Hamiltonian.
+This is exact under the assumption of negligible MW pulse duration, and **much faster than direct Schrödinger integration** when $\Omega_{\text{RF}}$ is constant: each $e^{-iH_s'\tau}$ is a single matrix exponential of a time-independent Hamiltonian.
 
 ---
 
@@ -758,14 +779,14 @@ Exact under the assumption of negligible MW pulse duration, and **much faster th
 <div class="split">
 <div class="text">
 
-Sequence: $\pi/2 \rightarrow \text{DDrf}(N,\tau) \rightarrow \pi/2_\phi$, projecting onto $\ket{+}$ ($\phi=\pi/2$).
+Sequence: $\pi/2 \rightarrow \text{DDrf}(N, \tau) \rightarrow \pi/2_\phi$, projecting onto $\ket{+}$ ($\phi = \pi/2$).
 
-For $N$ nuclear spins:
+For $N$ nuclear spins,
 $$
-P_x = \tfrac{1}{2} + \tfrac{1}{2^{N+1}}\,\Re\,\text{Tr}\,U_0 U_1^\dagger,
+P_x \;=\; \tfrac{1}{2} + \tfrac{1}{2^{N+1}}\,\mathfrak{Re}\,\mathrm{Tr}\,U_0 U_1^\dagger,
 $$
 $$
-\text{Tr}\,U_0 U_1^\dagger = \prod_i \text{Tr}\,U_0^i {U_1^i}^\dagger.
+\mathrm{Tr}\,U_0 U_1^\dagger \;=\; \prod_i \mathrm{Tr}\,U_0^i\, {U_1^i}^\dagger.
 $$
 Peaks appear at $\omega_{\text{RF}} = \omega_1$.
 
@@ -795,10 +816,10 @@ img { display: block; margin: 0.15rem auto; }
 
 # DDrf: Per-Cell Decomposition
 
-The DDrf sequence is built from identical 4-$\tau$ cells. Each cell is itself block-diagonal:
+The DDrf sequence is built from identical $4\tau$ cells. Each cell is itself block-diagonal:
 $$
-V^{(k)} = \ket{0}\bra{0}\otimes V_0^{(k)} + \ket{1}\bra{1}\otimes V_1^{(k)},\qquad
-U = \sum_{s\in\{0,1\}} \ket{s}\bra{s}\otimes \prod_{k=1}^{N/2} V_s^{(k)}.
+V^{(k)} \;=\; \ket{0}\bra{0} \otimes V_0^{(k)} + \ket{1}\bra{1} \otimes V_1^{(k)}, \qquad
+U \;=\; \sum_{s \in \{0,1\}} \ket{s}\bra{s} \otimes \prod_{k=1}^{N/2} V_s^{(k)}.
 $$
 
 ![width:480px](./media/DDrf_Pulse_cell.png)
@@ -809,26 +830,26 @@ $$
 
 A $z$-rotation can be commuted through a transverse rotation by shifting its azimuthal angle:
 $$
-e^{i\alpha I_z}\,(\cos\phi\, I_x + \sin\phi\, I_y)\,e^{-i\alpha I_z} = \cos(\phi-\alpha)\, I_x + \sin(\phi-\alpha)\, I_y .
+e^{i\alpha I_z}\,(\cos\phi\,I_x + \sin\phi\,I_y)\,e^{-i\alpha I_z} \;=\; \cos(\phi - \alpha)\,I_x + \sin(\phi - \alpha)\,I_y.
 $$
-Applied per cell (Taminiau limit, $\beta=0$, $\omega_{\text{RF}}=\omega_1$):
+Applied per cell (Taminiau limit, $\beta = 0$, $\omega_{\text{RF}} = \omega_1$):
 $$
-V_0^{(k)} = e^{-iH_0'\tau}\,e^{-iH_1' 2\tau}\,e^{-iH_0'\tau} \;=\; e^{-i\,2\delta_0\tau\, I_z}\;e^{-i\,2\Omega\tau\,\hat{\phi}_k'\cdot\vec I}.
+V_0^{(k)} \;=\; e^{-iH_0'\tau}\,e^{-iH_1' 2\tau}\,e^{-iH_0'\tau} \;=\; e^{-i\,2\delta_0\tau\,I_z}\,e^{-i\,2\Omega\tau\,\hat\phi_k'\cdot \vec I}.
 $$
-Each cell splits cleanly into a $z$-piece + a transverse rotation. Choosing $\phi_k$ to align successive transverse axes makes the product over $k$ contracted into a single conditional rotation.
+Each cell splits cleanly into a $z$-piece plus a transverse rotation. Choosing $\phi_k$ to align successive transverse axes makes the product over $k$ contract into a single conditional rotation.
 
 ---
 
 # Hybrid DDrf: Two Limits and Their Combination
 
-The per-cell picture exposes two distinct mechanisms that both produce conditional rotation:
+The per-cell picture exposes two distinct mechanisms, each producing a conditional rotation:
 
-- **CPMG limit** ($\Omega_{\text{RF}}\to 0$): pure dynamical decoupling. At $\tau \simeq \frac{(2k-1)\pi}{2\omega_0 + A_\parallel}$, the change-of-frame between $R_0$ and $R_1$ alone yields a hyperfine-driven conditional rotation.
-- **Taminiau limit** ($\beta\to 0$, $\omega_{\text{RF}}=\omega_1$): pure RF driving. Conditional rotation comes from $\Omega_{\text{RF}}$ alone, independent of $A_\parallel$.
+- **CPMG limit** ($\Omega_{\text{RF}} \to 0$): pure dynamical decoupling. At $\tau \simeq (2k - 1)\pi/(2\omega_0 + A_\parallel)$, the change-of-frame between $R_0$ and $R_1$ alone yields a hyperfine-driven conditional rotation.
+- **Taminiau limit** ($\beta \to 0$, $\omega_{\text{RF}} = \omega_1$): pure RF driving. The conditional rotation comes from $\Omega_{\text{RF}}$ alone, independent of $A_\parallel$.
 
-**Hybrid idea.** Choose $\tau$ at the CPMG resonance and add RF driving on top. The two mechanisms add coherently:
+**Hybrid idea.** Pick $\tau$ at the CPMG resonance and add RF driving on top. The two mechanisms add coherently:
 $$
-\theta_{\text{cond}} \approx \underbrace{N\,\theta_{\text{CPMG}}(\tau)}_{\text{frame-swap}} + \underbrace{N\,\Omega_{\text{RF}}\tau}_{\text{RF drive}}
+\theta_{\text{cond}} \;\approx\; \underbrace{N\,\theta_{\text{CPMG}}(\tau)}_{\text{frame-swap}} \;+\; \underbrace{N\,\Omega_{\text{RF}}\,\tau}_{\text{RF drive}}.
 $$
 
 ---
@@ -837,24 +858,24 @@ $$
 
 The hybrid regime sits between the two clean limits, but $\beta$ is small. Treat it as a perturbation around the Taminiau limit:
 $$
-V_s^{(k)} \;\simeq\; \left.V_s^{(k)}\right|_{\beta=0} \;+\; \beta\,\frac{\partial}{\partial\beta}\left.V_s^{(k)}\right|_{\beta=0} \;+\; \mathcal{O}(\beta^2).
+V_s^{(k)} \;\simeq\; \left.V_s^{(k)}\right|_{\beta = 0} \;+\; \beta\,\frac{\partial}{\partial\beta}\left.V_s^{(k)}\right|_{\beta = 0} \;+\; \mathcal{O}(\beta^2).
 $$
 
 **Limit checks** (the reason this approach is trustworthy):
-- $\beta \to 0$ — recovers the Taminiau result.
-- $\Omega \to 0$ — recovers the CPMG mechanism.
+- $\beta \to 0$ recovers the Taminiau result.
+- $\Omega \to 0$ recovers the CPMG mechanism.
 
-**Outcome (qualitative).** The leading $\beta$-correction adds a small $k$-dependent rotation around an axis that mixes $I_z, I_x, I_y$. With an appropriate choice of $\phi_k$ and $\tau$, these corrections build up — the effective rotation angle exceeds bare $\Omega\tau$, realizing the speed-up promised on the previous slide.
+**Outcome (qualitative).** The leading $\beta$-correction adds a small $k$-dependent rotation around an axis mixing $I_z, I_x, I_y$. With an appropriate choice of $\phi_k$ and $\tau$, these corrections build up — the effective rotation angle exceeds bare $\Omega\tau$, realizing the speed-up promised on the previous slide.
 
-(Explicit form is messy and not load-bearing for this talk.)
+(The explicit form is messy and not load-bearing for this talk.)
 
 ---
 
 # Side-Peak Problem: Observation
 
-In the Taminiau limit, we have $U_s = R_z(N(\omega_L-\omega_1)\tau)\cdot R_\phi(\pm N\Omega_{\text{RF}}\tau).$
+In the Taminiau limit, $U_s = R_z(N(\omega_L - \omega_1)\tau) \cdot R_\phi(\pm N\Omega_{\text{RF}}\tau)$.
 
-**[Observation]** When $N\Omega_{\text{RF}}\tau = 2\pi$, $U_0 = U_1$ — the gate becomes **unconditional**, so a flat spectroscopy signal is expected. However, ...
+**Observation.** When $N\Omega_{\text{RF}}\tau = 2\pi$, $U_0 = U_1$ — the gate becomes **unconditional**, so a flat spectroscopy signal is expected. In practice, however:
 
 ![height:400px width:1000px](./media/sidepeak.png)
 
@@ -862,26 +883,27 @@ In the Taminiau limit, we have $U_s = R_z(N(\omega_L-\omega_1)\tau)\cdot R_\phi(
 
 # Side-Peak Problem: Detuned Rotating Frame
 
-Restore finite detuning $\delta_1 = \omega_1 - \omega_{\text{RF}}$ (assume $\beta=0$ for clarity):
+Restoring finite detuning $\delta_1 = \omega_1 - \omega_{\text{RF}}$ (with $\beta = 0$ for clarity):
 $$
-H_1' = \delta_1 I_z + \Omega(\cos\phi I_x + \sin\phi I_y) = \Omega_{\text{eff}}\,\hat n(\phi)\cdot\vec I,
+H_1' \;=\; \delta_1\,I_z + \Omega\,(\cos\phi\,I_x + \sin\phi\,I_y) \;=\; \Omega_{\text{eff}}\,\hat n(\phi) \cdot \vec I,
 $$
 $$
-\Omega_{\text{eff}} = \sqrt{\Omega^2+\delta_1^2},\qquad \sin\gamma = \frac{\delta_1}{\Omega_{\text{eff}}},\qquad \hat n(\phi)=(\cos\gamma\cos\phi,\,\cos\gamma\sin\phi,\,\sin\gamma).
+\Omega_{\text{eff}} = \sqrt{\Omega^2 + \delta_1^2}, \qquad \sin\gamma = \frac{\delta_1}{\Omega_{\text{eff}}}, \qquad \hat n(\phi) = (\cos\gamma\cos\phi,\,\cos\gamma\sin\phi,\,\sin\gamma).
 $$
 
 Conjugation still works because the tilt angle $\gamma$ is invariant under $z$-rotations. Result:
 $$
-V_s^{\text{tot}} = e^{-iN\delta_0\tau I_z}\,e^{-i\Omega_{\text{eff}}N\tau\,\hat n_s\cdot\vec I},\qquad \hat n_{0,1} = (\pm\cos\gamma,\,0,\,\sin\gamma).
+V_s^{\text{tot}} \;=\; e^{-iN\delta_0\tau\,I_z}\,e^{-i\Omega_{\text{eff}} N\tau\,\hat n_s \cdot \vec I}, \qquad \hat n_{0,1} = (\pm\cos\gamma,\,0,\,\sin\gamma).
 $$
 
 ---
 
-# Side-Peak Problem: Detuned Rabi Formula vs. Numerics
+# Side-Peak Problem: Detuned-Rabi Formula vs. Numerics
 
 $$
 \boxed{\;
-\frac{1}{2}\,\text{Tr}(U_0 U_1^\dagger) = 1 - \frac{2\Omega^2}{\Omega^2+\delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2+\delta_1^2}\,N\tau}{2}\right)\;}
+\tfrac{1}{2}\,\mathrm{Tr}(U_0 U_1^\dagger) \;=\; 1 - \frac{2\Omega^2}{\Omega^2 + \delta_1^2}\,\sin^2\!\!\left(\frac{\sqrt{\Omega^2 + \delta_1^2}\,N\tau}{2}\right)
+\;}
 $$
 
 The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
@@ -909,11 +931,11 @@ The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
 
 # Suppression: Apodized Pulse Idea
 
-Replace constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\, f(k)$, a discrete window function (Hanning, Hamming, Blackman, …):
+Replace the constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\,f(k)$, where $f$ is a discrete window function (Hanning, Hamming, Blackman, …):
 
 ![width:2000px](./media/DDrf_pulse_circuit.png)
 
-**Intuition:** the side-lobes are essentially the discrete Fourier transform of a rectangular window. Shaping the window suppresses its sidelobes, exactly the same trick used in classical signal processing.
+**Intuition.** The side-lobes are essentially the discrete Fourier transform of a rectangular window. Shaping the window suppresses its sidelobes — the same trick used in classical signal processing.
 
 ---
 
@@ -925,7 +947,7 @@ img { display: block; margin: 1rem auto; }
 
 ![width:800px](./media/window_shapes.png)
 
-The four windows we'll compare: rectangular (the baseline that produces the side-lobes), and three classical apodization windows from signal processing.
+The four windows we compare: rectangular (the baseline that produces the side-lobes), plus three classical apodization windows from signal processing.
 
 ---
 
@@ -950,7 +972,7 @@ The four windows we'll compare: rectangular (the baseline that produces the side
 </div>
 </div>
 
-Apodized envelopes flatten the off-resonant region while preserving the on-resonant peak. The effect grows with $N$ (right): rectangular develops a clean side-lobe pair, both apodized windows stay smooth.
+Apodized envelopes flatten the off-resonant region while preserving the on-resonant peak. The effect grows with $N$ (right): the rectangular window develops a clean side-lobe pair, while both apodized windows stay smooth.
 
 ---
 
@@ -958,16 +980,22 @@ Apodized envelopes flatten the off-resonant region while preserving the on-reson
 
 The normalized spectral response factorizes into a window-independent `sinc` and a window-dependent kernel:
 $$
-\left|\frac{F(\delta_1)}{F(0)}\right|^2 = \mathrm{sinc}^2(u)\cdot |G(u)|^2,\qquad u = \frac{\delta_1}{2\Omega \bar f}.
+\left|\frac{F(\delta_1)}{F(0)}\right|^2 \;=\; \mathrm{sinc}^2(u) \cdot |G(u)|^2, \qquad u = \frac{\delta_1}{2\Omega\bar f}.
 $$
 
-For example, while constant pulse gives :$\left|\frac{F}{F(0)}\right|^2_{\mathrm{rect}} = \mathrm{sinc}^2(u)$.
+For a rectangular (constant-amplitude) pulse,
+$$
+\left|\frac{F}{F(0)}\right|^2_{\mathrm{rect}} \;=\; \mathrm{sinc}^2(u).
+$$
 
-Blackman apodized pulse, $\left|\frac{F}{F(0)}\right|^2_{\mathrm{Black}} = \mathrm{sinc}^2(u)\cdot\left(\frac{50u^4 - 209u^2 + 84}{21(u^2-1)(u^2 - 4)}\right)^2$ where $u=\frac{\delta_1}{2\Omega\bar{f}}$.
+For a Blackman-apodized pulse,
+$$
+\left|\frac{F}{F(0)}\right|^2_{\mathrm{Black}} \;=\; \mathrm{sinc}^2(u) \cdot \left(\frac{50 u^4 - 209 u^2 + 84}{21(u^2 - 1)(u^2 - 4)}\right)^2, \qquad u = \frac{\delta_1}{2\Omega\bar f}.
+$$
 
 ---
 
-# Suppression: Build-up mismatch
+# Suppression: Build-up Mismatch
 
 <style scoped>
 .split { display: flex; gap: 1rem; align-items: center; }
@@ -980,9 +1008,9 @@ Blackman apodized pulse, $\left|\frac{F}{F(0)}\right|^2_{\mathrm{Black}} = \math
 <div class="text">
 
 The mismatch between consecutive axes is
-
-$$\Delta\gamma_k \equiv \gamma_{k+1} - \gamma_k \approx -\frac{\delta_1}{\Omega}\Delta f_k$$
-
+$$
+\Delta\gamma_k \;\equiv\; \gamma_{k+1} - \gamma_k \;\approx\; -\,\frac{\delta_1}{\Omega}\,\Delta f_k,
+$$
 where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\delta_1 \cdot \Delta f_k$, which is small when either $\delta_1$ is small or the window varies slowly.
 
 </div>
@@ -999,29 +1027,30 @@ where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\d
 
 The full-evolution formalism above assumes $\Omega_{\text{RF}}$ is time-independent (compatible with the RWA). With a Gaussian envelope
 $$
-\Omega_{\text{RF}}(t) = \Omega_0\, e^{-(t-t_k)^2/2\sigma^2},
+\Omega_{\text{RF}}(t) \;=\; \Omega_0\,e^{-(t - t_k)^2 / 2\sigma^2},
 $$
-the per-segment propagator $e^{-iH_{0,1}'\tau}$ is no longer exact. Direct Schrödinger integration takes tens of minutes per frequency point.
+the per-segment propagator $e^{-iH_{0,1}'\tau}$ is no longer exact, and direct Schrödinger integration takes tens of minutes per frequency point.
 
-**Approach:** Magnus expansion, valid when $\Omega_{\text{RF}}$ varies slowly relative to $\omega_{\text{RF}}$.
+**Approach.** Magnus expansion, valid when $\Omega_{\text{RF}}$ varies slowly relative to $\omega_{\text{RF}}$.
 
 ---
 
 # Outlook: Magnus Expansion
 
-For $\partial_t U = -iH(t)U$, write $U = e^{\Omega(t)}$ with $\Omega(t) = \sum_n \Omega_n(t)$ where
+For $\partial_t U = -iH(t)U$, write $U = e^{\Omega(t)}$ with $\Omega(t) = \sum_n \Omega_n(t)$:
 $$
-\Omega_1 = \int_0^t A_1\, dt_1,\qquad \Omega_2 = \tfrac{1}{2}\!\int\!\!\int [A_1, A_2]\, dt_1 dt_2,\ldots
+\Omega_1 = \int_0^t A_1\,dt_1, \qquad \Omega_2 = \tfrac{1}{2}\!\int\!\!\int [A_1, A_2]\,dt_1\,dt_2, \ldots
 $$
+
 Computed terms (with $f(t)$ the Gaussian envelope):
 $$
-\begin{align}
-\Omega_1(T) &= -i\Big(\delta_{(0,1)} T\,I_z + c_1(\cos\phi\, I_x + \sin\phi\, I_y)\Big) \\
-\Omega_3(T) &= \tfrac{\delta_{(0,1)}^2}{24}\,K_1\,(\cos\phi I_x + \sin\phi I_y) + \tfrac{\delta_{(0,1)}}{24}\,K_2\,I_z \\
-\Omega_2 &= \Omega_4 = 0
-\end{align}
+\begin{aligned}
+\Omega_1(T) &= -i\bigl(\delta_{(0,1)} T\,I_z + c_1\,(\cos\phi\,I_x + \sin\phi\,I_y)\bigr), \\
+\Omega_3(T) &= \tfrac{\delta_{(0,1)}^2}{24}\,K_1\,(\cos\phi\,I_x + \sin\phi\,I_y) + \tfrac{\delta_{(0,1)}}{24}\,K_2\,I_z, \\
+\Omega_2 &= \Omega_4 = 0,
+\end{aligned}
 $$
-with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is guaranteed when $\int_0^T \|A(s)\|_2\, ds < \pi$ — likely satisfied here; **simulation pending**.
+with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is guaranteed when $\int_0^T \|A(s)\|_2\,ds < \pi$ — likely satisfied here; **simulation pending**.
 
 ---
 
@@ -1048,39 +1077,39 @@ with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is gu
 
 ---
 
-# Mattermost-Outline Update
+# Mattermost–Outline Update
 
-Special Thanks to WD Lee. 
+Special thanks to WD Lee.
 
 <!-- TODO: Add Screen shot -->
 
 ---
 
-# Required Feature
+# Required Features
 
-- [x] Mattermost: Private Channel
+- [x] Mattermost: private channel
 - [?] Send alert from Outline changes to Mattermost
-- [ ] Code/PPT update
-- [ ] Cool paper channel update to Outline update
-- [?] 장비 directory/Diamond sample
-- [x] 비상연락망
+- [ ] Code / PPT update
+- [ ] Cool-paper channel update to Outline
+- [?] Equipment directory / Diamond sample
+- [x] Emergency contact list
 
 ---
 
-# Outline - Mattermost Channel: Cool paper update
+# Outline – Mattermost Channel: Cool-Paper Updates
 
 <!-- TODO: Add Screenshot -->
 
 ---
 
-# Outline - Mattermost Channel: Alert when Outline has update
+# Outline – Mattermost Channel: Alerts for Outline Updates
 
 <!-- TODO: Add Screenshot -->
 
-- New document has been added. 
-- Comment has been added. 
-- Document has been modified. 
-- Alert is sent if and only if *collection* has the corresponding Mattermost Channel. 
+- A new document has been added.
+- A comment has been added.
+- A document has been modified.
+- An alert is sent if and only if the *collection* has a corresponding Mattermost channel.
 
 ---
 
@@ -1088,8 +1117,8 @@ Special Thanks to WD Lee.
 
 <!-- TODO: Add Screenshot -->
 
-- Notion-like dataview (but require SQL-like imbedding)
-- Table, Kanban, Calendar, timeline view are supported. 
+- Notion-like dataview (requires SQL-like embedding).
+- Table, Kanban, Calendar, and timeline views are supported.
 
 
 

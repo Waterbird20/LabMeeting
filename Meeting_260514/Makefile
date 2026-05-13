@@ -1,13 +1,13 @@
 # Makefile for Marp presentation
-# Meeting_260428.md -> HTML, PDF, PPTX
+# Meeting_260514.md -> HTML, PDF, PPTX
 
 # Variables
 MARP := marp
 SOURCE_DIR := src/Presentation
-SOURCE_FILE := Meeting_260428.md
+SOURCE_FILE := Meeting_260514.md
 THEME := ../../../KIST.css
 OUTPUT_DIR := $(CURDIR)
-BASENAME := Meeting_260428
+BASENAME := Meeting_260514
 
 # Output files
 HTML := $(OUTPUT_DIR)/$(BASENAME).html
