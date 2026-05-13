@@ -174,7 +174,7 @@ Regardless of the quantity being sensed, quantum sensing requires an interaction
 
 <div class="figcard">
 
-![](./media/sensing-diagram.png)
+![](./Meeting_260514/src/Presentation/media/sensing-diagram.png)
 
 </div>
 
@@ -215,7 +215,7 @@ $$
 
 <div class="figcard">
 
-![](./media/Post-selection-pipeline.png)
+![](./Meeting_260514/src/Presentation/media/Post-selection-pipeline.png)
 
 </div>
 
@@ -255,7 +255,7 @@ Building on that, I reorganized the proof and analyzed the solution with Claude 
 </div>
 <div class="papercard">
 
-![](./media/GH-paper.png)
+![](./Meeting_260514/src/Presentation/media/GH-paper.png)
 
 <div class="caption">Shared by GH — analytic two-qubit derivation.</div>
 
@@ -756,7 +756,7 @@ Generically $U_0 \neq U_1$ — a **conditional gate**.
 
 # <span class="cat cat-method">Method</span> DDrf: Pulse Sequence
 
-![](./media/DDrf_pulse.png)
+![](./Meeting_260514/src/Presentation/media/DDrf_pulse.png)
 
 ---
 
@@ -798,7 +798,7 @@ At resonance ($\omega_{\text{RF}} = \omega_1$), with $\omega_0 - \omega_{\text{R
 </div>
 <div class="fig">
 
-![width:430px](./media/DDrf_rotating_axis.png)
+![width:430px](/Meeting_260514/src/Presentation/media/DDrf_rotating_axis.png)
 
 </div>
 </div>
@@ -844,7 +844,7 @@ Peaks appear at $\omega_{\text{RF}} = \omega_1$.
 </div>
 <div class="fig">
 
-![width:420px](./media/spectroscopy_sequence.png)
+![width:420px](/Meeting_260514/src/Presentation/media/spectroscopy_sequence.png)
 
 </div>
 </div>
@@ -858,8 +858,8 @@ img { display: block; margin: 0.15rem auto; }
 .caption { font-size: 0.75rem; text-align: center; margin-top: 0.3rem; }
 </style>
 
-![width:800px](./media/Taminiau_spectroscopy.png)
-![width:900px](./media/Reproduce_focused.png)
+![width:800px](/Meeting_260514/src/Presentation/media/Taminiau_spectroscopy.png)
+![width:900px](/Meeting_260514/src/Presentation/media/Reproduce_focused.png)
 
 
 
@@ -873,7 +873,7 @@ V^{(k)} \;=\; \ket{0}\bra{0} \otimes V_0^{(k)} + \ket{1}\bra{1} \otimes V_1^{(k)
 U \;=\; \sum_{s \in \{0,1\}} \ket{s}\bra{s} \otimes \prod_{k=1}^{N/2} V_s^{(k)}.
 $$
 
-![width:480px](./media/DDrf_Pulse_cell.png)
+![width:480px](/Meeting_260514/src/Presentation/media/DDrf_Pulse_cell.png)
 
 ---
 
@@ -897,7 +897,7 @@ In the Taminiau limit, $U_s = R_z(N(\omega_L - \omega_1)\tau) \cdot R_\phi(\pm N
 
 **Observation.** When $N\Omega_{\text{RF}}\tau = 2\pi$, $U_0 = U_1$ — the gate becomes **unconditional**, so a flat spectroscopy signal is expected. In practice, however:
 
-![height:400px width:1000px](./media/sidepeak.png)
+![height:400px width:1000px](/Meeting_260514/src/Presentation/media/sidepeak.png)
 
 ---
 
@@ -937,12 +937,12 @@ The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
 <div class="row2">
 <div>
 
-![width:560px](./media/detuned_rabi_overlap_48.png)
+![width:560px](/Meeting_260514/src/Presentation/media/detuned_rabi_overlap_48.png)
 
 </div>
 <div>
 
-![width:560px](./media/detuned_rabi_overlap.png)
+![width:560px](/Meeting_260514/src/Presentation/media/detuned_rabi_overlap.png)
 
 </div>
 </div>
@@ -953,7 +953,7 @@ The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
 
 Replace the constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\,f(k)$, where $f$ is a discrete window function (Hanning, Hamming, Blackman, …):
 
-![width:2000px](./media/DDrf_pulse_circuit.png)
+![width:2000px](/Meeting_260514/src/Presentation/media/DDrf_pulse_circuit.png)
 
 **Intuition.** The side-lobes are essentially the discrete Fourier transform of a rectangular window. Shaping the window suppresses its sidelobes — the same trick used in classical signal processing.
 
@@ -965,7 +965,7 @@ Replace the constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\,f
 img { display: block; margin: 1rem auto; }
 </style>
 
-![width:800px](./media/window_shapes.png)
+![width:800px](/Meeting_260514/src/Presentation/media/window_shapes.png)
 
 The four windows we compare: rectangular (the baseline that produces the side-lobes), plus three classical apodization windows from signal processing.
 
@@ -982,12 +982,12 @@ The four windows we compare: rectangular (the baseline that produces the side-lo
 <div class="row2">
 <div>
 
-![width:560px](./media/DDrf_Apodization_N48_focused.png)
+![width:560px](/Meeting_260514/src/Presentation/media/DDrf_Apodization_N48_focused.png)
 
 </div>
 <div>
 
-![width:560px](./media/DDrf_Apodization_N136_focused.png)
+![width:560px](/Meeting_260514/src/Presentation/media/DDrf_Apodization_N136_focused.png)
 
 </div>
 </div>
@@ -1036,7 +1036,7 @@ where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\d
 </div>
 <div class="fig">
 
-![width:450px](./media/apodized_rotating_axis.png)
+![width:450px](/Meeting_260514/src/Presentation/media/apodized_rotating_axis.png)
 
 </div>
 </div>
@@ -1085,12 +1085,12 @@ with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is gu
 <div class="row2">
 <div>
 
-![width:560px](./media/gaussian_apod_spectroscopy_48.png)
+![width:560px](/Meeting_260514/src/Presentation/media/gaussian_apod_spectroscopy_48.png)
 
 </div>
 <div>
 
-![width:560px](./media/gaussian_apod_spectroscopy_136.png)
+![width:560px](/Meeting_260514/src/Presentation/media/gaussian_apod_spectroscopy_136.png)
 
 </div>
 </div>
@@ -1105,7 +1105,7 @@ Special thanks to WD Lee.
 img { display: block; margin: 0.6rem auto; max-height: 480px; }
 </style>
 
-![width:900px](./media/outline-wiki.png)
+![width:900px](/Meeting_260514/src/Presentation/media/outline-wiki.png)
 
 ---
 
@@ -1133,12 +1133,12 @@ img { display: block; margin: 0.6rem auto; max-height: 480px; }
 <div class="row2">
 <div>
 
-![width:520px](./media/mattermost-example-cool-paper.png)
+![width:520px](/Meeting_260514/src/Presentation/media/mattermost-example-cool-paper.png)
 
 </div>
 <div>
 
-![width:520px](./media/outline-example-cool-paper.png)
+![width:520px](/Meeting_260514/src/Presentation/media/outline-example-cool-paper.png)
 
 </div>
 </div>
@@ -1157,12 +1157,12 @@ ul { font-size: 0.8rem; }
 <div class="row2">
 <div>
 
-![width:480px](./media/outline-example-alert.png)
+![width:480px](/Meeting_260514/src/Presentation/media/outline-example-alert.png)
 
 </div>
 <div>
 
-![width:480px](./media/mattermost-example-alert.png)
+![width:480px](/Meeting_260514/src/Presentation/media/mattermost-example-alert.png)
 
 </div>
 </div>
@@ -1185,12 +1185,12 @@ ul { font-size: 0.8rem; }
 <div class="row2">
 <div>
 
-![width:420px](./media/outline-example-table.png)
+![width:420px](/Meeting_260514/src/Presentation/media/outline-example-table.png)
 
 </div>
 <div>
 
-![width:420px](./media/outline-example-kanban.png)
+![width:420px](/Meeting_260514/src/Presentation/media/outline-example-kanban.png)
 
 </div>
 </div>
@@ -1198,12 +1198,12 @@ ul { font-size: 0.8rem; }
 <div class="row2">
 <div>
 
-![width:420px](./media/outline-example-calendar.png)
+![width:420px](/Meeting_260514/src/Presentation/media/outline-example-calendar.png)
 
 </div>
 <div>
 
-![width:420px](./media/outline-example-timeline.png)
+![width:420px](/Meeting_260514/src/Presentation/media/outline-example-timeline.png)
 
 </div>
 </div>
@@ -1219,7 +1219,7 @@ ul { font-size: 0.8rem; }
 img { display: block; margin: 0.4rem auto; max-height: 420px; }
 </style>
 
-![width:720px](./media/outline-example-datafield.png)
+![width:720px](/Meeting_260514/src/Presentation/media/outline-example-datafield.png)
 
 Datafield values are not searchable as keywords on their own — the dataview feature on the previous slide is the workaround.
 
@@ -1252,7 +1252,7 @@ Datafield values are not searchable as keywords on their own — the dataview fe
 </div>
 <div class="idcard">
 
-![](./media/ID_card.jpg)
+![](./Meeting_260514/src/Presentation/media/ID_card.jpg)
 
 </div>
 </div>
