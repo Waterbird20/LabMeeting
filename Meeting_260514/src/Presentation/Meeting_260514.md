@@ -178,7 +178,14 @@ where $\rho = \sum_k \lambda_k \ket{k}\bra{k}$.
 
 # Post-Selection
 
-We hypothesize that adding a post-selection step can be advantageous. Intuitively, the $B$-field information is encoded in the phase, and post-selection lets us discard the unnecessary part of the state into the ancillary qubit (or the other energy level).
+We hypothesize that adding a post-selection step can be advantageous. Intuitively, the $B$-field information is encoded in the phase, and post-selection lets us discard the unnecessary part of the state into an ancillary qubit (or the other energy level). For a probe coupled to an ancilla,
+$$
+\rho \;=\; p_0\,\ket{0}\bra{0} \otimes \rho_0 \;+\; p_1\,\ket{1}\bra{1} \otimes \rho_1 \;\;\longrightarrow\;\;
+\begin{cases}
+\rho_0 & \text{if the ancilla is measured in $\ket{0}$, with probability $p_0$,}\\
+\rho_1 & \text{if the ancilla is measured in $\ket{1}$, with probability $p_1$.}
+\end{cases}
+$$
 
 <!--
 IMAGE NEEDED: Horizontal block-diagram of the four-stage post-selection pipeline, with a branching at the final filter step.
@@ -236,14 +243,14 @@ Last time I ran numerical simulations to identify which probe state and post-sel
 
 The state evolves through four stages:
 $$
-\ket\psi \;\rightarrow\; \ket{\psi_0} = e^{-i H_B \tau}\ket\psi \;\rightarrow\; \rho = \mathcal{D}(\rho_0) \;\rightarrow\; \frac{K\rho K^{\dagger}}{\mathrm{Tr}\,K\rho K^{\dagger}}.
+\ket\psi \;\underbrace{\rightarrow}_{\text{Time evo}}\; \ket{\psi_0} = e^{-i H_B \tau}\ket\psi \;\underbrace{\rightarrow}_{\text{Phase Damping}}\; \rho = \mathcal{D}(\rho_0) \;\underbrace{\rightarrow}_{\text{Post-selection}}\; \frac{K\rho K^{\dagger}}{\mathrm{Tr}\,K\rho K^{\dagger}}.
 $$
 
 Without loss of generality, write the pure probe state in the computational basis:
 $$
 \ket{\psi} \;=\; \sum_x a_x \ket{x}, \qquad \sum_x |a_x|^2 = 1,
 $$
-where $x$ ranges over computational-basis bitstrings like $\ket{00\cdots0}$.
+where $x$ ranges over computational-basis bitstrings like $\ket{00\cdots 0}$.
 
 **Time evolution.** Under the detuned magnetic field,
 $$
@@ -291,7 +298,7 @@ is the quantity we bound and optimize in the remaining slides.
 
 # Post-Selection: Quick Summary
 
-For an $N$-qubit system, the phase QFI of the post-selected branch obeys
+For an $N$-qubit system, the phase QFI of the post-selected state obeys
 $$
 F^{\mathrm{ps}}_{\theta,Q} \;\le\; \frac{N^2 \eta^2}{1-\eta^2}, \qquad \eta = e^{-\tau_d},\quad \tau_d = (\tau/T_2)^p.
 $$
@@ -303,21 +310,22 @@ $$
 - What is the post-selection success probability?
 - Which probe state maximizes that success probability?
 
+
 ---
 
-# Generalized Eigenvalue Problem
+# Post-Selection: Quick Summary — Answers
 
-The standard eigenvalue problem is $A\mathbf{x} = \lambda\mathbf{x}$, with eigenvalues from $\det(A - \lambda I) = 0$.
+For an $N$-qubit system, the phase QFI of the post-selected state obeys
+$$
+F^{\mathrm{ps}}_{\theta,Q} \;\le\; \frac{N^2 \eta^2}{1-\eta^2}, \qquad \eta = e^{-\tau_d},\quad \tau_d = (\tau/T_2)^p.
+$$
 
-The **generalized eigenvalue problem (GEP)** extends this to $A\mathbf{x} = \lambda B\mathbf{x}$. This should be familiar from, e.g., coupled mechanical systems: the Lagrangian gives
-$$
-M \ddot{\mathbf{x}} + K\mathbf{x} = 0.
-$$
-A harmonic ansatz $\mathbf{x} = \mathbf{x}_0 e^{i\omega t}$ then yields
-$$
-K\mathbf{x} \;=\; \omega^2 M \mathbf{x},
-$$
-a GEP whose generalized eigenvalues are the squared normal-mode frequencies.
+- **Which probe states satisfy equality? What is the corresponding filter basis?**
+  Any $\ket{\psi} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for all $x$ attains the maximum; the corresponding filter basis is derived below.
+- **Is there an entanglement-related gain?**
+  No — the saturating class is dense and includes product states, so QFI alone shows no entanglement-related gain.
+- **What is the post-selection success probability, and which state maximizes it?**
+  Among saturating probes, the state that maximizes the success probability is symmetric under both qubit exchange and bit flip.
 
 ---
 
@@ -332,7 +340,7 @@ $$
 F_Q \;=\; \mathrm{Tr}\,\sigma L^2, \qquad \dot\sigma \;=\; \tfrac{1}{2}(\sigma L + L\sigma).
 $$
 
-Computing the SLD directly is generally hard, so we work with an auxiliary operator instead.
+Computing the SLD directly is generally hard, so we work with another operator instead.
 
 ---
 
@@ -342,9 +350,9 @@ Introduce $M = \sigma^{-1/2}\dot\sigma\,\sigma^{-1/2}$. Substituting the SLD def
 $$
 M \;=\; \tfrac{1}{2}\bigl(\sigma^{1/2} L \sigma^{-1/2} + \sigma^{-1/2} L \sigma^{1/2}\bigr).
 $$
-The key inequality is $\mathrm{Tr}\,\sigma L^2 \le \mathrm{Tr}\,\sigma M^2$.
+The key inequality is $\boxed{\mathrm{Tr}\,\sigma L^2 \le \mathrm{Tr}\,\sigma M^2}$.
 
-In the eigenbasis $\sigma = \sum_k p_k \ket{p_k}\bra{p_k}$,
+In the eigenbasis $\sigma = \sum_k p_k \ket{p_k}\bra{p_k}$ with $p_k \neq 0$,
 $$
 L_{ab} = \frac{2\dot\sigma_{ab}}{p_a + p_b}, \qquad M_{ab} = \frac{\dot\sigma_{ab}}{\sqrt{p_a p_b}}.
 $$
@@ -375,7 +383,7 @@ Writing $M_\rho = \sum_i M_i$ with $M_i = \rho^{-1/2}\bigl(-\tfrac{i}{2}[Z_i, \r
 $$
 \|M_\rho\|_\infty \;\le\; \sum_i \|M_i\|_\infty,
 $$
-with **equality when each single-qubit contribution is symmetrized**.
+Generically, equality requires each single-qubit contribution to be symmetrized. Here, however, $C_N = C^{\otimes N}$ together with $[H_B, D_a] = 0$ makes any $\ket{\psi} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for all $x$ already saturate this inequality.
 
 ---
 
@@ -393,7 +401,7 @@ $$
 **Three saturation conditions:**
 1. $\sigma$ is maximally mixed on the filter subspace.
 2. The optimal filter is chosen.
-3. The full $N$-qubit system is permutation-symmetrized.
+3. (Automatically satisfied here — see the previous slide.)
 
 Next, we evaluate $\|M_i\|_\infty$.
 
@@ -411,6 +419,23 @@ M\ket{v} &= \lambda\ket{v} \\
 \end{aligned}
 $$
 with $\ket{w} = \rho^{-1/2}\ket{v}$. The last line is the GEP we solve.
+
+---
+
+# Generalized Eigenvalue Problem
+
+The standard eigenvalue problem is $A\mathbf{x} = \lambda\mathbf{x}$, with eigenvalues from $\det(A - \lambda I) = 0$.
+
+The **generalized eigenvalue problem (GEP)** extends this to $A\mathbf{x} = \lambda B\mathbf{x}$. This should be familiar from, e.g., coupled mechanical systems: the Lagrangian gives
+$$
+M \ddot{\mathbf{x}} + K\mathbf{x} = 0.
+$$
+A harmonic ansatz $\mathbf{x} = \mathbf{x}_0 e^{i\omega t}$ then yields
+$$
+K\mathbf{x} \;=\; \omega^2 M \mathbf{x},
+$$
+a GEP whose generalized eigenvalues are the squared normal-mode frequencies.
+
 
 ---
 
@@ -488,7 +513,7 @@ $$
 \|M_j\|_\infty \;\le\; \frac{\eta}{\sqrt{1 - \eta^2}}.
 $$
 
-This is one more inequality, which must hold for every qubit. For generic mixed states $s_{jk} < 1$; saturation $s_{jk} = 1$ requires a **fully symmetric** probe (symmetric under qubit exchange and bit flip).
+This is one more inequality, which must hold for every qubit. Generically $s_{jk} < 1$ for mixed states; however, for any initial state $\ket{\psi_0} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for all $x$, phase damping still lets us attain $s_{jk} = 1$.
 
 At joint saturation,
 $$
@@ -500,7 +525,7 @@ $$
 
 # Post-Selection: Saturating Probe States
 
-Every pure stage-1 state $\ket{\psi_0} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for **all** computational-basis strings $x$ saturates the global bound
+Every pure state $\ket{\psi_0} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for **all** computational-basis strings $x$ saturates the global bound
 $$
 F^{\mathrm{ps}}_{\theta,Q} \;=\; \frac{N^2 \eta^2}{1-\eta^2}.
 $$
@@ -573,14 +598,14 @@ with filter vectors $\ket{w^\pm}$.
 
 Since $\ket{w} = \rho^{-1/2}\ket{v}$, the filter basis (denoted $\ket{\Psi^\pm}$) is
 $$
-\ket{\Psi^\pm} \;=\; \ket{v^\pm} \;=\; \frac{\rho^{1/2}\ket{w^\pm}}{(1-c^2)^{N/2}}.
+\boxed{\qquad\ket{\Psi^\pm} \;=\; \ket{v^\pm} \;=\; \frac{\rho^{1/2}\ket{w^\pm}}{(1-\eta^2)^{N/2}}.\qquad}
 $$
 
 The two basis vectors are mutually orthogonal:
 $$
-\braket{\Psi^+ | \Psi^-} \;=\; \frac{\bra{w^+}\rho\ket{w^-}}{(1-c^2)^N} \;=\; 0,
+\braket{\Psi^+ | \Psi^-} \;=\; \frac{\bra{w^+}\rho\ket{w^-}}{(1-\eta^2)^N} \;=\; 0,
 $$
-inherited from $\rho$-biorthogonality (the $C_1$-biorthogonality lifted to $N$ qubits).
+inherited from $\rho$-biorthogonality (the $C$-biorthogonality lifted to $N$ qubits).
 
 ---
 
@@ -614,7 +639,7 @@ $$
 K \;=\; \ket{\Psi^+}\bra{w^+} + \ket{\Psi^-}\bra{w^-}.
 $$
 
-It can be implemented as $K = \sqrt{1 - \gamma}\,\ket{00\cdots 0}\bra{00\cdots 0} + \ket{00\cdots 0}\bra{10\cdots 0}$ by sandwiching with appropriate unitaries before and after the post-selection step, setting one post-selection strength to zero and the others to one.
+It can be implemented as $K = \sqrt{1 - \gamma}\,\ket{00\cdots 0}\bra{00\cdots 0} + \ket{00\cdots 0}\bra{10\cdots 0}$ by sandwiching with appropriate unitaries before and after the post-selection step, **setting one post-selection strength to zero and the others to one**.
 
 ---
 
@@ -840,37 +865,6 @@ Each cell splits cleanly into a $z$-piece plus a transverse rotation. Choosing $
 
 ---
 
-# Hybrid DDrf: Two Limits and Their Combination
-
-The per-cell picture exposes two distinct mechanisms, each producing a conditional rotation:
-
-- **CPMG limit** ($\Omega_{\text{RF}} \to 0$): pure dynamical decoupling. At $\tau \simeq (2k - 1)\pi/(2\omega_0 + A_\parallel)$, the change-of-frame between $R_0$ and $R_1$ alone yields a hyperfine-driven conditional rotation.
-- **Taminiau limit** ($\beta \to 0$, $\omega_{\text{RF}} = \omega_1$): pure RF driving. The conditional rotation comes from $\Omega_{\text{RF}}$ alone, independent of $A_\parallel$.
-
-**Hybrid idea.** Pick $\tau$ at the CPMG resonance and add RF driving on top. The two mechanisms add coherently:
-$$
-\theta_{\text{cond}} \;\approx\; \underbrace{N\,\theta_{\text{CPMG}}(\tau)}_{\text{frame-swap}} \;+\; \underbrace{N\,\Omega_{\text{RF}}\,\tau}_{\text{RF drive}}.
-$$
-
----
-
-# Hybrid DDrf: Taylor Expansion in $\beta$
-
-The hybrid regime sits between the two clean limits, but $\beta$ is small. Treat it as a perturbation around the Taminiau limit:
-$$
-V_s^{(k)} \;\simeq\; \left.V_s^{(k)}\right|_{\beta = 0} \;+\; \beta\,\frac{\partial}{\partial\beta}\left.V_s^{(k)}\right|_{\beta = 0} \;+\; \mathcal{O}(\beta^2).
-$$
-
-**Limit checks** (the reason this approach is trustworthy):
-- $\beta \to 0$ recovers the Taminiau result.
-- $\Omega \to 0$ recovers the CPMG mechanism.
-
-**Outcome (qualitative).** The leading $\beta$-correction adds a small $k$-dependent rotation around an axis mixing $I_z, I_x, I_y$. With an appropriate choice of $\phi_k$ and $\tau$, these corrections build up — the effective rotation angle exceeds bare $\Omega\tau$, realizing the speed-up promised on the previous slide.
-
-(The explicit form is messy and not load-bearing for this talk.)
-
----
-
 # Side-Peak Problem: Observation
 
 In the Taminiau limit, $U_s = R_z(N(\omega_L - \omega_1)\tau) \cdot R_\phi(\pm N\Omega_{\text{RF}}\tau)$.
@@ -1081,16 +1075,22 @@ with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is gu
 
 Special thanks to WD Lee.
 
-<!-- TODO: Add Screen shot -->
+<style scoped>
+img { display: block; margin: 0.6rem auto; max-height: 480px; }
+</style>
+
+![width:900px](./media/outline-wiki.png)
 
 ---
 
 # Required Features
 
+<!-- Todo: Add CSS for these todo list -->
+
 - [x] Mattermost: private channel
-- [?] Send alert from Outline changes to Mattermost
-- [ ] Code / PPT update
-- [ ] Cool-paper channel update to Outline
+- [!] Send alert from Outline changes to Mattermost
+- [?] Code / PPT update
+- [!] Cool-paper channel update to Outline
 - [?] Equipment directory / Diamond sample
 - [x] Emergency contact list
 
@@ -1098,29 +1098,119 @@ Special thanks to WD Lee.
 
 # Outline – Mattermost Channel: Cool-Paper Updates
 
-<!-- TODO: Add Screenshot -->
+<style scoped>
+.row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; max-height: 480px; }
+</style>
+
+<div class="row2">
+<div>
+
+![width:520px](./media/mattermost-example-cool-paper.png)
+
+</div>
+<div>
+
+![width:520px](./media/outline-example-cool-paper.png)
+
+</div>
+</div>
 
 ---
 
 # Outline – Mattermost Channel: Alerts for Outline Updates
 
-<!-- TODO: Add Screenshot -->
+<style scoped>
+.row2 { display: flex; gap: 0.8rem; align-items: center; justify-content: center; margin-bottom: 0.5rem; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; max-height: 320px; }
+ul { font-size: 0.8rem; }
+</style>
 
-- A new document has been added.
-- A comment has been added.
-- A document has been modified.
-- An alert is sent if and only if the *collection* has a corresponding Mattermost channel.
+<div class="row2">
+<div>
+
+![width:480px](./media/outline-example-alert.png)
+
+</div>
+<div>
+
+![width:480px](./media/mattermost-example-alert.png)
+
+</div>
+</div>
+
+An alert is sent when:
+- a new document is added, a comment is added, or a document is modified;
+- and only if the *collection* has a corresponding Mattermost channel.
 
 ---
 
 # Dataview Feature on Outline
 
-<!-- TODO: Add Screenshot -->
+<style scoped>
+.row2 { display: flex; gap: 0.6rem; align-items: center; justify-content: center; margin-bottom: 0.3rem; }
+.row2 > div { flex: 1; text-align: center; }
+.row2 img { max-width: 100%; max-height: 200px; }
+ul { font-size: 0.8rem; }
+</style>
+
+<div class="row2">
+<div>
+
+![width:420px](./media/outline-example-table.png)
+
+</div>
+<div>
+
+![width:420px](./media/outline-example-kanban.png)
+
+</div>
+</div>
+
+<div class="row2">
+<div>
+
+![width:420px](./media/outline-example-calendar.png)
+
+</div>
+<div>
+
+![width:420px](./media/outline-example-timeline.png)
+
+</div>
+</div>
 
 - Notion-like dataview (requires SQL-like embedding).
 - Table, Kanban, Calendar, and timeline views are supported.
 
+---
 
+# Datafield Feature on Outline
+
+<style scoped>
+img { display: block; margin: 0.4rem auto; max-height: 420px; }
+</style>
+
+![width:720px](./media/outline-example-datafield.png)
+
+Datafield values are not searchable as keywords on their own — the dataview feature on the previous slide is the workaround.
+
+---
+
+# Others
+
+<style scoped>
+img { display: block; margin: 0.6rem auto; max-height: 260px; }
+</style>
+
+- Set up a desktop with an RTX 3090, accessible remotely from anywhere.
+- Borrowing a server from Prof. Yosep Kim (Korea University).
+- (personal) Promoted to principal candidate for the Fulbright STEM scholarship on Apr 16; Cornell Applied Physics initially responded positively but ultimately rejected my application, so I formally declined the Fulbright STEM scholarship.
+- (personal) Now an official research intern here!
+
+![width:300px](./media/ID_card.jpg)
 
 ---
 
