@@ -168,6 +168,37 @@ Last time, I've tried numerical simulation to gain insight on which state and th
 
 <!-- Todo: Add screen shot -->
 
+---
+
+# Post-Selection: Set-up
+
+Under such set-up, the state evolves:
+$$\ket\psi \rightarrow\ket{\psi_0} =  e^{-i H_B \tau}\ket\psi \rightarrow \rho = \mathcal{D}(\rho_0) \rightarrow  \frac{K\rho K^{\dagger}}{\mathrm{Tr}~ K\rho K^{\dagger} }.$$
+
+Without loss of generality, we can write pure state in a computational basis: $$\ket{\psi} = \sum_x a_x \ket{x}, $$where $x$ is computational basis and $\sum_x |a_x |^2 = 1$. 
+### 1.2. Time evo
+After time-evolution under detuned magnetic field, we have:$$\ket{\psi_0} =  e^{-i H_B \tau}\ket\psi = \sum_x a_x e^{i\theta |x|} \ket{x}.$$ where $|x|$ denotes Hamming weight. Accordingly, its density matrix representation is:$$\rho_0 = \sum_{x,y} a_x \bar{a}_y e^{i\theta (|x| - |y|)} \ket{x}\bra{y}.$$
+### 1.3. Phase damping channel
+After applying phase damping noise, the off-diagonal elements undergoes damping proportional to $\eta^{d(x,y)}$ where $d(x,y) = |x\oplus y|$ is the Hamming distance. 
+$$
+\begin{align}
+\rho_0 \rightarrow \rho &= \sum_{x,y} a_x \bar{a}_y e^{i\theta (|x| - |y|)} \eta^{d(x,y)} \ket{x}\bra{y} \\
+&= \sum_{x,y} e^{i\theta |x|}\left( a_x \right) \left(\eta^{d(x,y)} \ket{x}\bra{y} \right)\left( \bar{a}_y\right) e^{-i\theta|y|} \\
+&= U(\theta) D_a C_N D_a^{\dagger} U^\dagger (\theta),
+\end{align}
+$$
+where $D_a = \mathrm{diag} (a_x)$ and $C_N = (I+\eta X)^{\otimes N}$. 
+
+Phase damping kills off-diagonal elements between computational-basis states at different Hamming weights, but preserves populations $|a_x|^2$. Thus $\rho$ has the eigenvalue structure of a mixed state on $\mathrm{supp} \rho \subseteq \mathrm{span} \{|x\rangle:a_x\neq 0\}$, even when $\rho_0$ is rank-1. Hence $\rho^{-1/2}$, used in the operator $M=\rho^{-1/2}\dot\rho\,\rho^{-1/2}$, is well-defined on $\mathrm{supp}\,\rho$ as a pseudoinverse, and the contraction $\|W_j\|_\infty<1$ analysis applies. 
+### 1.4. Post-Selection
+A $\theta$-independent Kraus operator $K$ (with $K^\dagger K\preceq I$) is applied to $\rho$, producing the success branch
+
+$$
+
+\sigma = \frac{K\rho K^\dagger}{p_s}, \qquad p_s = \mathrm{Tr}\bigl[ K\rho K^\dagger\bigr].
+
+$$
+The conditional phase QFI $F^{\mathrm{ps}}_{\theta,Q}=\mathrm{Tr}(\sigma L_\sigma^2)$ is the object we bound and optimize.
 
 ---
 
@@ -177,6 +208,7 @@ In $N$-qubit system, now we recognize that the phase Quantum Fisher Information 
 $$
 F^{\mathrm{ps}}_{\theta,Q} \le \frac{N^2 \eta^2}{1-\eta^2}, \qquad \eta=e^{-\tau}, \tau=\left(\tau/T_2\right)^p.
 $$
+**Strategy**: chaining inequality, analyze saturation condition, it is expected to gain some insight. 
 Accordingly, we can furthur analyze when the equality condition holds.
 - Which state satisfy equality condition? What are the corresponding filter basis?
 - Is there entanglement-related gain? 
@@ -246,8 +278,390 @@ Saturation condtition is $p_k = p_i$.
 # Post-seleciton
 
 At here, $\sigma$ lives in the subspace of $\rho$ filtered by $K$. Accordingly, $M$ lives in the same subspace and its maximum operator norm also bound to $M_\rho$. 
-Therefore, $\mathrm{Tr} \sigma M^2 \leq \| M \|_\infty^2$. 
+Therefore, $\mathrm{Tr} \sigma M^2 \leq \| M_\rho \|_\infty^2$. 
 
+On the other hand, 
+$$
+M_\rho = \rho^{-\frac{1}{2}}\dot\rho\rho^{-\frac{1}{2}}
+$$
+and 
+$$
+\dot\rho = -i [H_B , \rho] = \sum_i -\frac{i}{2} [Z_i , \rho]
+$$
+$M_\rho = \sum_i \rho^{-\frac{1}{2}}-\frac{i}{2} [Z_i , \rho]\rho^{-\frac{1}{2}} = \sum_i M_i .$
+Hence, 
+$$
+\|M_\rho \| \leq \sum_i \|M_i \|_\infty
+$$
+equality holds when each partition is symmetrized. 
+
+---
+
+# Post-selection
+
+We can chain inequality, 
+$$
+F_Q = \mathrm{Tr} \sigma L^2 \leq \mathrm{Tr} \sigma M_\sigma^2 \leq \|M_\rho\|^2 \leq \left(\sum_i \|M_i \|_\infty \right)^2
+$$
+When all the saturation condition is satisfied at once, QFI is bound 
+$$
+F_Q \leq N^2 \| M_i \|_\infty^2 .
+$$
+
+We see three inequality. First is saturate when $\sigma$ is fully mixed state for subspace. The second one is saturated when optimal filter is selected. The last one is saturated when the whole system is symmetrized. 
+
+
+Now, lets find such $\|M_i \|$ first.
+
+
+---
+
+# Post-selection
+
+To derive eigenvalue and eigenvectors of $M$, it is helpful to solve Generalized eigenvalue problem. 
+$$
+\begin{align}
+M\ket{v} = \lambda\ket{v} \\
+\rho^{-1/2}\dot\rho_j\rho^{-1/2}\ket{v} = \lambda{v}\\
+\dot\rho_j \left(\rho^{-1/2}\ket{v}\right) = \lambda\rho\left(\rho^{-1/2}\ket{v}\right) \\
+\dot\rho_j \ket{w} = \lambda\rho\ket{w}
+\end{align}
+$$
+where the last line is generalized eigenvalue problem(GEP). 
+
+---
+
+# Post-selection
+
+It is trivial:
+$$
+\dot\rho_j = \begin{pmatrix}
+0 & -i\eta B_j \\
+i \eta B^\dagger_j & 0 
+\end{pmatrix}.
+$$
+Then, the GEP is reduced to
+$$
+\begin{pmatrix}
+0 & -i\eta B_j \\
+i \eta B^\dagger_j & 0 
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix} 
+=
+\lambda 
+\begin{pmatrix}
+A_j & \eta B_j \\
+\eta B^\dagger_j & D_j 
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix} 
+$$
+
+---
+
+# Post-selection
+
+Applying Schur decomposition, we derive:
+$$
+\begin{align}
+\begin{pmatrix}
+0 & -i\eta A_j^{\frac{1}{2}}W_j D_{j}^{\frac{1}{2}} \\
+i \eta {D_j^{\frac{1}{2}}}^\dagger W_j^\dagger {A_j^{\frac{1}{2}}}  & 0 
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix} 
+&=
+\lambda 
+\begin{pmatrix}
+A_j & \eta A_j^{\frac{1}{2}}W_j D_{j}^{\frac{1}{2}} \\
+\eta {D_j^{\frac{1}{2}}}^\dagger W_j^\dagger {A_j^{\frac{1}{2}}} & D_j 
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix} \\
+\begin{pmatrix}
+A_j^{\frac{1}{2}} & 0 \\
+0 & D_j^{\frac{1}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+0 & -i\eta W_j \\
+i\eta W_j^\dagger & 0
+\end{pmatrix}
+\begin{pmatrix}
+A_j^{\frac{1}{2}} & 0 \\
+0 & D_j^{\frac{1}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix}
+&= \lambda
+\begin{pmatrix}
+A_j^{\frac{1}{2}} & 0 \\
+0 & D_j^{\frac{1}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+I & \eta W_j \\
+\eta W_j^\dagger & I
+\end{pmatrix}
+\begin{pmatrix}
+A_j^{\frac{1}{2}} & 0 \\
+0 & D_j^{\frac{1}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+w_1\\
+w_2
+\end{pmatrix}
+\end{align} 
+$$
+
+Hence, 
+$$
+\begin{pmatrix}
+0 & -i\eta W_j \\
+i\eta W_j^\dagger & 0
+\end{pmatrix}
+\begin{pmatrix}
+\tilde{w}_1\\
+\tilde{w}_2
+\end{pmatrix}
+= \lambda
+\begin{pmatrix}
+I & \eta W_j \\
+\eta W_j^\dagger & I
+\end{pmatrix}
+\begin{pmatrix}
+\tilde{w}_1\\
+\tilde{w}_2
+\end{pmatrix}
+$$
+
+---
+
+# Post-selection
+
+
+Taking SVD to $W_j = U \Sigma_j V^\dagger$, with singular value $\Sigma = \mathrm{diag}(s_jk)$ , we have: 
+$$
+\begin{pmatrix}
+0 & -i\eta s_{jk} \\
+i\eta s_{jk} & 0
+\end{pmatrix}
+\begin{pmatrix}
+\tilde{u}_{jk1}\\
+\tilde{u}_{jk2}
+\end{pmatrix}
+= \lambda_{jk}
+\begin{pmatrix}
+1 & \eta s_{jk} \\
+\eta s_{jk} & 1
+\end{pmatrix}
+\begin{pmatrix}
+\tilde{u}_{jk1}\\
+\tilde{u}_{jk2}
+\end{pmatrix}
+$$
+
+Solving this, 
+$$
+\det \begin{pmatrix}
+-\lambda & - \eta s_{jk} (\lambda + i) \\
+\eta s_{jk} (-\lambda + i) & - \lambda
+\end{pmatrix} = 0
+$$
+resulting in, 
+$$
+\lambda_{jk} = \pm \sqrt\frac{\eta^2 s_{jk}^2}{1-\eta^2 s_{jk}^2}.
+$$
+
+---
+
+# Post-selection
+
+
+The singular value is bound to $0\leq s_{jk} \leq 1$, then, the magnitude of eigenvalue is maximized at $s_{jk}=1$. Therefore,
+$$
+\|M_j\|_\infty \leq \frac{\eta}{\sqrt{1 - \eta^2}}.
+$$
+
+At here, we see one more inequality. This should be satisfied whichever qubit we choose. The value $s_{jk}$ is generally less than 1 for mixed state generally. However, $s_{jk}$ can be satisfied if we make fully symmetric state (symmetric under exchange, bit-flip operation).
+
+Therefore, at saturation condition, 
+$$
+\|M\|_\infty = \frac{N\eta}{\sqrt{1 - \eta^2}},
+$$
+accordingly,
+$$
+F_Q \leq \|M\|_\infty^2 = \frac{N^2 \eta^2}{1 - \eta^2}.
+$$
+
+---
+
+# Post-selection
+
+Every pure-state at stage 1, $\ket{\psi_0} = \sum_x a_x\ket{x}$, for all pauli-string $x$ saturates the global bound
+$$
+F^{\mathrm{ps}}_{\theta,Q} = \frac{N^2 \eta^2}{1-\eta^2}.
+$$
+The saturating class is open (the condition $|a_x|>0$ is open) and dense (full-support probes are generic) in the projective Hilbert space $\mathbb{CP}^{2^N-1}$. 
+
+---
+
+# Post-selection
+
+As shown above, phase damped state can be written as: $\rho = D_a C_N D_a^\dagger$ with $C_N = (I + \eta X)^{\otimes N}$. $D_a$ is invertible iff $a_x \neq 0$ for all $x$. Let's return to GEP,
+$$
+\dot\rho_j \ket{w} = \lambda\rho\ket{w}
+$$
+Then, 
+$$
+\begin{align}
+-i [H_B , D_a C_N D_a^\dagger ] \ket{w} = \lambda D_a C_N D_a^\dagger \ket{w} \\
+-i D_a [H_B , C_N]D_a^\dagger \ket{w} = \lambda D_a C_N D_a^\dagger \ket{w}
+\end{align}
+$$
+As $H_B$ and $D_a$ are commutable. And let $\ket{\epsilon} = D_a^\dagger \ket{w}$, we have another GEP, 
+$$
+-i [H_B , C_N] \ket{\epsilon}= \lambda C_N \ket\epsilon .
+$$
+
+---
+
+# Post-selection
+
+
+Given $C_N = (1+\eta X)^{\otimes N} = C^{\otimes N}$ and $H_B = \sum_i \frac{1}{2} Z_i$, we have $$-\frac{i}{2} \sum_i \left[Z_i , C^{\otimes N}\right] \ket\epsilon = \lambda_i C^{\otimes N} \ket\epsilon .$$For product ansatz $\ket\epsilon = \otimes_i \ket{\epsilon_i}$. Then, each term satisfies a single-qubit GEP. 
+$$
+-\frac{i}{2}\left[Z , C\right]\ket{\epsilon_i} = \lambda C \ket{\epsilon_i}. 
+$$
+
+Then, $\frac{-i}{2}[Z,C] = \eta Y$. It is reduced to 
+$$
+\begin{pmatrix}
+-\lambda & -\eta (\lambda + i) \\
+-\eta(\lambda - i) & -\lambda
+\end{pmatrix} 
+\ket{\epsilon_i} = 0
+$$
+Then, $\lambda_\pm = \pm\frac{\eta}{\sqrt{1-\eta^2}}$ and $\ket{\epsilon_i^\pm} = \frac{1}{2}(\ket{0} + e^{\pm i\alpha}\ket{1})$ where $\cos\alpha = -\eta$, $\sin\alpha = \sqrt{1-\eta^2}$. Returning to $N$-qubit system, the product of $\ket{\epsilon^\pm}$ is eigenstate whose eigenvalue is $\lambda = \sum_i \lambda_i$. Especially, GEP has $\ket{\epsilon^\pm}^{\otimes N}$ has eigenvalue $\pm\frac{N\eta}{\sqrt{1-\eta^2}}$. 
+
+
+---
+
+# Post-selection
+
+
+Going back to $\ket{w}$:
+$$\ket{w^\pm} = {D_a^{-1}}^{\dagger}\ket{\epsilon^\pm}$$
+then, 
+$$\dot\rho \ket{w^\pm} = \pm \frac{N\eta}{\sqrt{1-\eta^2}}\rho\ket{w^\pm}.$$
+
+Therefore, $M=\rho^{-\frac{1}{2}}\dot\rho\rho^{-\frac{1}{2}}$ contains $\pm\frac{N\eta}{\sqrt{1-\eta^2}}$, and  $\|M\|_\infty = \frac{N\eta}{\sqrt{1-\eta^2}}$, resulting in
+$$F^{\mathrm{ps}}_{\theta,Q} = \frac{N^2 \eta^2}{1-\eta^2},$$
+with filter basis $\ket{w^\pm}$. 
+
+
+---
+
+# Post-selection
+
+As given above, $\ket{w} = \rho^{-\frac{1}{2}}\ket{v}$, then, we can derive filter basis(denoted as $\ket{\Psi^\pm}$), 
+$$\ket{\Psi^\pm} = \ket{v^\pm} = \frac{\rho^{\frac{1}{2}} \ket{w^\pm}}{(1-c^2)^{\frac{N}{2}}}.$$
+Each basis is orthogonal to each other, 
+$$
+\bra{\Psi^+}\ket{\Psi^-} = \frac{\bra{w^+}\rho\ket{w^-}}{(1-c^2)^N} = 0,
+$$
+inherited from $\rho$-biorthogonality (which is $C_1$-biorthogonality lifted to $N$ qubits).
+
+
+---
+
+# Post-selection
+
+The filter is a rank-2 projector onto $\mathrm{span}\{|\Psi^+\rangle,|\Psi^-\rangle\}$:
+$$
+P_\pm \;=\; |\Psi^+\rangle\langle\Psi^+| + |\Psi^-\rangle\langle\Psi^-|.
+$$
+The matched Kraus operator is
+$$
+K =\sqrt{\frac{p_s}{2}} P_\pm \rho^{-1/2}.
+$$
+Apply it to $\rho$:
+$$
+K\rho K^\dagger \;=\; \frac{p_s}{2}\,P_\pm\rho^{-1/2}\rho\,\rho^{-1/2}P_\pm \;=\; \frac{p_s}{2}\,P_\pm^2 \;=\; \frac{p_s}{2}\,P_\pm.
+$$
+
+---
+
+# Post-selection
+
+The accepted state is
+$$
+\sigma\;=\;\frac{K\rho K^\dagger}{p_s} \;=\; \frac{P_\pm}{2}\;=\;\frac{|\Psi^+\rangle\langle\Psi^+|+|\Psi^-\rangle\langle\Psi^-|}{2}.
+$$
+The accepted state is the *maximally mixed state on the filter subspace*. This is the structural requirement for QFI saturation.
+
+Such form looks unfamilar. We should implement, 
+$$K=\ket{\Psi^+}\bra{w^+} + \ket{\Psi^-}\bra{w^-}.$$
+
+Then this Kraus operation can be implemented by $K = \sqrt{1-\gamma}\ket{00\cdots 0}\bra{00\cdots 0}+\ket{00\cdots 0}\bra{10\cdots 0}$ by applying appropriate unitary operation before and after Post-selection operation with choosing one post-selection strength zero, others are all-one.
+
+---
+
+# Post-selection:
+
+The POVM constraint is $K^\dagger K \preceq I$. 
+$$K^\dagger K = \ket{w^+}\bra{w^+} + \ket{w^-}\bra{w^-}={D_a^{-1}}^\dagger \Pi D_a^{-1}$$
+where $\Pi = \ket{\epsilon^+}^{\otimes N }\bra{\epsilon^+}^{\otimes N } + \ket{\epsilon^-}^{\otimes N }\bra{\epsilon^-}^{\otimes N }$. Its component form is given as:
+$$\Pi_{xy} = \frac{1}{2^{N-1}}\cos(\alpha (|x| - |y|)).$$
+Then, $(K^\dagger K)_{xy} = \frac{\Pi_{xy}}{\bar{a}_x a_y}$.
+
+---
+
+# Post-selection
+
+the equation is $\Pi|u\rangle = \mu D_p|u\rangle$, equivalently $D_p^{-1/2}\Pi D_p^{-1/2}|w\rangle = \mu|w\rangle$ with $|w\rangle = D_p^{1/2}|u\rangle$. So we want the eigenvalues of the symmetric operator $D_p^{-1/2}\Pi D_p^{-1/2}$.
+
+In the 2D image of $\Pi$ (basis $\{|v^+\rangle^{\otimes N},|v^-\rangle^{\otimes N}\}$), $\Pi$ acts as the rank-2 identity. The Gram matrix of $\{D_p^{-1/2}|v^\pm\rangle^{\otimes N}\}$ is
+$$
+G \;=\; \begin{pmatrix}\hat S & \hat T\\ \overline{\hat T} & \hat S\end{pmatrix},
+$$
+and the eigenvalues of $D_p^{-1/2}\Pi D_p^{-1/2}$ in this basis are the eigenvalues of $G$, namely $\hat S\pm|\hat T|$.
+
+So $\lambda_{\max}(\Xi)=\hat S+|\hat T| = (S+|T|)/2^N$. Therefore
+$$
+\boxed{\quad p_s^* \;=\; \frac{2(1-c^2)^N}{\lambda_{\max}(\Xi)}\;=\;\frac{2\cdot 2^N(1-c^2)^N}{S+|T|}\;=\;\frac{2^{N+1}(1-c^2)^N}{S+|T|}.\quad}
+$$
+
+---
+
+# Post-selection
+
+The optimization is over all pure probe magnitudes $\{|a_x|^2\}_x$ subject to $\sum_x|a_x|^2=1$. The objective $S+|T|$ depends on the magnitudes via
+$$
+S\;=\;\sum_x \frac{1}{|a_x|^2}, \qquad T\;=\;\sum_x \frac{e^{-2i\beta|x|}}{|a_x|^2}, \qquad \beta\;=\;\pi-\arccos c.
+$$
+The objective is **invariant under permutations of the $N$ qubits** because both $S$ and the *magnitude* $|T|$ depend on $|a_x|^2$ only through the Hamming weight $|x|$ (the phase factor in $T$ is permutation-invariant). It is also **invariant under bit-flip $x\to\bar x$** because $e^{-2i\beta|\bar x|}=e^{-2i\beta(N-|x|)}=e^{-2i\beta N}e^{2i\beta|x|}$, which conjugates $T$ — a global phase invisible to $|T|$.
+
+These two symmetries are baked into the noise model and the optimization, so by a standard symmetrization argument (averaging any candidate probe over the symmetry group does not increase $S+|T|$, by convexity), **the optimum lies in the permutation-symmetric and bit-flip-symmetric subclass.**
+
+In this subclass, $|a_x|^2$ depends only on $|x|=k$. Parametrize via *Dicke populations* $p_k$, $k=0,1,\ldots,N$:
+$$
+|a_x|^2 \;=\; \frac{p_k}{\binom{N}{k}} \quad\text{for }|x|=k, \qquad \sum_k p_k \;=\; 1, \qquad p_k\;=\;p_{N-k}.
+$$
+The corresponding probe state, in Dicke basis $|D_k^N\rangle = \binom{N}{k}^{-1/2}\sum_{|x|=k}|x\rangle$, is
+$$
+|\psi_0\rangle \;=\; \sum_{k=0}^N q_k\,|D_k^N\rangle, \qquad q_k\;=\;\sqrt{p_k}\;\;(\text{up to phase}).
+$$
+This collapses the optimization from $2^N$ variables to $\lfloor N/2\rfloor+1$ variables.
 
 
 ---
