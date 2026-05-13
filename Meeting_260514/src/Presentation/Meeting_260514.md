@@ -43,6 +43,54 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
    align-items: center;
    justify-content: center;
 }
+
+/* === Category pills (used in every slide H1) === */
+.cat {
+   display: inline-block;
+   font-size: 0.50em;
+   font-weight: 600;
+   padding: 0.20em 0.75em;
+   border-radius: 0.85em;
+   color: #ffffff;
+   vertical-align: middle;
+   margin-right: 0.55em;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+   line-height: 1.2;
+}
+.cat-intro    { background: #2563eb; }   /* blue   */
+.cat-method   { background: #475569; }   /* slate  */
+.cat-strategy { background: #7c3aed; }   /* violet */
+.cat-results  { background: #059669; }   /* green  */
+.cat-ongoing  { background: #d97706; }   /* amber  */
+
+/* === Status chips for Required-Features list === */
+.status {
+   display: inline-block;
+   font-size: 0.78em;
+   font-weight: 600;
+   padding: 0.10em 0.55em;
+   border-radius: 0.4em;
+   color: #ffffff;
+   margin-right: 0.6em;
+   min-width: 4.5em;
+   text-align: center;
+   letter-spacing: 0.03em;
+   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+.status-done       { background: #059669; }   /* green  */
+.status-progress   { background: #d97706; }   /* amber  */
+.status-tentative  { background: #6b7280; }   /* gray   */
+.status-todo       { background: #94a3b8; }   /* light  */
+
+ul.req-list { list-style: none; padding-left: 0; }
+ul.req-list li { margin: 0.35em 0; }
+
+/* === Outline legend === */
+.legend { font-size: 0.85rem; margin: 0.4rem 0 1.0rem; }
+.legend .cat { font-size: 0.65em; margin-right: 0.4em; }
+.legend-row { margin: 0.15em 0; }
 </style>
 
 <div class="container">
@@ -80,93 +128,59 @@ Paulee Group, Center for Quantum Technology, Korea Institute of Science and Tech
 # Outline
 
 <style scoped>
-.container{
-   display: flex;
-   align-items: center;
-   width: 100%;
-   height: 100%;
-}
-.col-left-content{
-   margin-left: -100px;
-   flex: 0 0 70%;
-   padding-right: 0.5rem;
-   padding-left: 0.5rem;
-   padding-bottom: 6.5rem;
-}
-
-.col-right-content{
-   margin-left: 0px;
-   flex: 0 0 25%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding-bottom: 5rem;
-}
-
-li {
-   font-size: 0.85rem;
-}
-
+.outline-wrap { padding: 0 1.5rem; }
+.legend-block { margin: 0.3rem 0 1.0rem; font-size: 0.85rem; color: #444; }
+.legend-block .legend-row { margin: 0.18em 0; }
+.projects { font-size: 0.95rem; }
+.projects li { margin: 0.25em 0; }
+.projects li ul li { font-size: 0.82rem; color: #555; }
 </style>
 
-<div class="container">
-<div class="col-left-content">
+<div class="outline-wrap">
 
-1. **Post-Selection**
-   - Analytical bound on the post-selected QFI and its saturating probes
-2. **DDrf**
-   - Hybrid driving, side-peak suppression, Gaussian pulse shaping
-3. **Mattermost–Outline**
-   - Lab tooling update
+<div class="legend-block">
+
+<div class="legend-row"><span class="cat cat-intro">Intro</span> <span class="cat cat-method">Method</span> <span class="cat cat-strategy">Strategy</span> <span class="cat cat-results">Results</span> <span class="cat cat-ongoing">Ongoing</span> </div>
 
 </div>
 
-<div class="col-right-content">
+<div class="projects">
 
+1. **Post-Selection** — analytical bound on the post-selected QFI and its saturating probes
+2. **DDrf** — hybrid driving, side-peak suppression, Gaussian pulse shaping
+3. **Mattermost–Outline** — lab tooling update
 
 </div>
+
 </div>
 
 ---
 
-# Post-Selection: Sensing
+# <span class="cat cat-intro">Intro</span> Post-Selection: Sensing
 
-<!--
-IMAGE NEEDED: Two-panel schematic illustrating magnetic-field sensing with an NV center.
+<style scoped>
+.figcard { text-align: center; margin: 0.4rem auto 0; }
+.figcard img {
+  max-width: 720px;
+  max-height: 220px;
+  border: 1px solid #d0d4da;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+</style>
 
-Aspect ratio: 16:6 (wide, fits below the slide title with room for math).
-Style: clean physics-textbook line illustration on white background; thin black outlines; flat fills; no shadows; no perspective tricks; no photorealism. Label fonts: sans-serif (Inter / Helvetica), ~14pt for axis labels, ~12pt for annotations. Keep the figure self-contained — no caption needed (the slide provides it).
+Regardless of the quantity being sensed, quantum sensing requires an interaction between the system and the target. In our NV center system, we sense an external magnetic field, captured by the Hamiltonian $\mathcal{H}_B = \gamma B S_z$, where $\gamma$ is the gyromagnetic ratio. Through this interaction term and the time evolution $e^{-i\mathcal{H}_B t}$, information about the $B$-field is imprinted onto the state: $\ket{\psi} \rightarrow e^{-i\mathcal{H}_B t}\ket{\psi}$.
 
-Left panel (≈45% of width) — "Physical system":
-- Draw a small cube of diamond lattice (3×3 carbon atoms shown as gray circles connected by thin tetrahedral bonds; partial lattice is fine).
-- Inside, place one nitrogen atom (blue circle, labeled "N") adjacent to a vacancy (dashed-outline circle, labeled "V"), oriented along the [111] axis — the canonical NV center geometry.
-- Three external arrows entering the lattice from the upper-right, all parallel, labeled "B" once near the topmost arrow. Color the arrows a saturated blue (#1f6feb) with arrowheads.
-- A small curved double-headed arrow over the NV pair representing the electron spin S=1, labeled "S_z".
+<div class="figcard">
 
-Middle (≈10%): a thin right-pointing arrow with the label "phase encoding e^{-i H_B t}" above it, to suggest the mapping from physical system to abstract state.
+![](./media/sensing-diagram.png)
 
-Right panel (≈45% of width) — "Quantum state on the Bloch sphere":
-- A Bloch sphere (clean circle with dashed equator and dashed back-half meridian). Axes labeled "x", "y", "z" at the tips.
-- The initial state vector |ψ⟩ drawn as a solid arrow from origin to a point on the equator (say, +x direction), colored gray.
-- After time evolution, a second arrow at the same polar angle but rotated by angle θ around z, colored red (#d22). Connect the two arrow tips with a curved dashed arc on the equator, labeled "θ = γ B t".
-- Small text near the red arrow: "phase imprinted".
-
-Overall: the figure should make the reader see at a glance that an external B field rotates the NV spin's Bloch vector around z by an angle proportional to B.
--->
-
-
-Regardless of the quantity being sensed, quantum sensing requires an interaction between the system and the target. In our NV center system, we sense an external magnetic field, captured by the Hamiltonian
-$$
-\mathcal{H}_B = \gamma B S_z,
-$$
-where $\gamma$ is the gyromagnetic ratio. Through this interaction term and the time evolution $e^{-i\mathcal{H}_B t}$, information about the $B$-field is imprinted onto the state:
-$$
-\ket{\psi} \;\rightarrow\; e^{-i\mathcal{H}_B t}\ket{\psi}.
-$$
+</div>
 
 ---
 
-# Post-Selection: Quantum Fisher Information
+# <span class="cat cat-intro">Intro</span> Post-Selection: Quantum Fisher Information
 
 The quantum Fisher information (QFI) quantifies how rapidly a quantum state — represented by a density matrix — changes with respect to the $B$-field. The faster the change, the greater the sensitivity:
 $$
@@ -176,7 +190,19 @@ where $\rho = \sum_k \lambda_k \ket{k}\bra{k}$.
 
 ---
 
-# Post-Selection
+# <span class="cat cat-intro">Intro</span> Post-Selection: Hypothesis
+
+<style scoped>
+.figcard { text-align: center; margin: 0.1rem auto 0; }
+.figcard img {
+  max-width: 1560px;
+  max-height: 280px;
+  border: 1px solid #d0d4da;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+</style>
 
 We hypothesize that adding a post-selection step can be advantageous. Intuitively, the $B$-field information is encoded in the phase, and post-selection lets us discard the unnecessary part of the state into an ancillary qubit (or the other energy level). For a probe coupled to an ancilla,
 $$
@@ -187,59 +213,58 @@ $$
 \end{cases}
 $$
 
-<!--
-IMAGE NEEDED: Horizontal block-diagram of the four-stage post-selection pipeline, with a branching at the final filter step.
+<div class="figcard">
 
-Aspect ratio: 16:5 (wide and thin, fits a single horizontal flow under one paragraph of text).
-Style: physics-talk block diagram. White background. Each stage is a rounded rectangle (~140×80 px) with a thin black border (~1.5px) and a soft pastel fill (no gradients). Arrows are solid black with simple arrowheads (~2px stroke). Math labels rendered as LaTeX-style italics (use a math font like STIX or Latin Modern Math). No drop shadows. No 3D.
+![](./media/Post-selection-pipeline.png)
 
-Layout, left-to-right:
-
-  Stage 1 — "Probe preparation"
-    Fill: very pale blue (#e7f0fb).
-    Inside: |ψ⟩ = Σ_x a_x |x⟩  (centered).
-    Below the box, small caption: "pure N-qubit probe".
-
-  Arrow →
-
-  Stage 2 — "Phase encoding"
-    Fill: very pale yellow (#fdf6d9).
-    Inside: e^{-i H_B τ}, with H_B = γ B S_z below it.
-    Below caption: "B-field interaction, time τ".
-
-  Arrow →
-
-  Stage 3 — "Phase damping"
-    Fill: very pale orange (#fde6cf).
-    Inside: 𝒟(ρ_0) → ρ,  with η = e^{-(τ/T_2)^p} written below the main symbol.
-    Below caption: "decoherence channel".
-
-  Arrow →
-
-  Stage 4 — "Kraus filter K (post-selection)"
-    Fill: very pale red (#fad6d6).
-    Inside: K with K†K ⪯ I.
-    Below caption: "θ-independent measurement".
-
-  After Stage 4, the arrow splits into two diverging arrows:
-    - Upper branch (solid green arrow, #2e8b57) labeled "accept, prob. p_s" leading to a final rounded rectangle with pale green fill containing σ = KρK†/p_s and a small caption underneath: "carries QFI F^{ps}_{θ,Q}".
-    - Lower branch (dashed gray arrow, #888) labeled "reject, prob. 1−p_s" leading to a smaller rounded rectangle with light gray fill containing "discard" and no further annotation.
-
-Above the entire diagram, a thin horizontal title bar in small gray text: "Post-selected quantum metrology pipeline".
-
-Overall composition: the reader should immediately see four sequential operations followed by a binary accept/reject branching, with the accepted branch being the object of analysis.
--->
-
+</div>
 
 ---
 
-# Post-Selection: Analytical Approach for Maximum QFI
+# <span class="cat cat-strategy">Strategy</span> Post-Selection: Analytical Approach
 
-Last time I ran numerical simulations to identify which probe state and post-selection filter achieve the maximum QFI. GH then shared a ChatGPT-generated report that gave useful insight into how to compute the bound. Building on that, I reorganized the proof and analyzed the solution with Claude Opus 4.7.
+<style scoped>
+.split { display: flex; gap: 1.4rem; align-items: center; margin-top: 0.6rem; }
+.split .text { flex: 1 1 55%; }
+.split .papercard { flex: 0 0 42%; text-align: center; }
+.split .papercard img {
+  max-width: 100%;
+  max-height: 320px;
+  border: 1px solid #cfd3d8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+  background: #fff;
+}
+.split .papercard .caption {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+</style>
+
+<div class="split">
+<div class="text">
+
+Last time I ran numerical simulations to identify which probe state and post-selection filter achieve the maximum QFI.
+
+GH then shared a ChatGPT-generated report that gave useful insight into how to compute the bound.
+
+Building on that, I reorganized the proof and analyzed the solution with Claude Opus 4.7.
+
+</div>
+<div class="papercard">
+
+![](./media/GH-paper.png)
+
+<div class="caption">Shared by GH — analytic two-qubit derivation.</div>
+
+</div>
+</div>
 
 ---
 
-# Post-Selection: Setup
+# <span class="cat cat-method">Method</span> Post-Selection: Setup
 
 The state evolves through four stages:
 $$
@@ -260,7 +285,7 @@ where $|x|$ is the Hamming weight.
 
 ---
 
-# Post-Selection: Phase-Damping Channel
+# <span class="cat cat-method">Method</span> Post-Selection: Phase-Damping Channel
 
 The density matrix before damping is
 $$
@@ -281,7 +306,7 @@ Phase damping kills coherences across different Hamming weights but preserves po
 
 ---
 
-# Post-Selection: Filter Step
+# <span class="cat cat-method">Method</span> Post-Selection: Filter Step
 
 A $\theta$-independent Kraus operator $K$ (with $K^\dagger K \preceq I$) is applied to $\rho$, producing the success branch
 $$
@@ -296,7 +321,7 @@ is the quantity we bound and optimize in the remaining slides.
 
 ---
 
-# Post-Selection: Quick Summary
+# <span class="cat cat-strategy">Strategy</span> Post-Selection: Quick Summary
 
 For an $N$-qubit system, the phase QFI of the post-selected state obeys
 $$
@@ -313,7 +338,7 @@ $$
 
 ---
 
-# Post-Selection: Quick Summary — Answers
+# <span class="cat cat-results">Results</span> Post-Selection: Quick Summary — Answers
 
 For an $N$-qubit system, the phase QFI of the post-selected state obeys
 $$
@@ -329,7 +354,7 @@ $$
 
 ---
 
-# Post-Selection: SLD and the $M$ Operator
+# <span class="cat cat-method">Method</span> Post-Selection: SLD and the $M$ Operator
 
 The post-selected density matrix is
 $$
@@ -344,7 +369,7 @@ Computing the SLD directly is generally hard, so we work with another operator i
 
 ---
 
-# Post-Selection: Bounding via $M$
+# <span class="cat cat-method">Method</span> Post-Selection: Bounding via $M$
 
 Introduce $M = \sigma^{-1/2}\dot\sigma\,\sigma^{-1/2}$. Substituting the SLD definition,
 $$
@@ -366,7 +391,7 @@ Term by term, $m_{ab}/l_{ab} = (p_a+p_b)^2/(4 p_a p_b) \ge 1$, with **saturation
 
 ---
 
-# Post-Selection: Lifting to $\rho$
+# <span class="cat cat-method">Method</span> Post-Selection: Lifting to $\rho$
 
 Here, $\sigma$ lives in the subspace of $\rho$ selected by $K$. Accordingly, $M$ lives in that same subspace, and its operator norm is bounded by that of $M_\rho$:
 $$
@@ -381,13 +406,14 @@ $$
 
 Writing $M_\rho = \sum_i M_i$ with $M_i = \rho^{-1/2}\bigl(-\tfrac{i}{2}[Z_i, \rho]\bigr)\rho^{-1/2}$,
 $$
-\|M_\rho\|_\infty \;\le\; \sum_i \|M_i\|_\infty,
+\|M_\rho\|_\infty \;\le\; \sum_i \|M_i\|_\infty.
 $$
-Generically, equality requires each single-qubit contribution to be symmetrized. Here, however, $C_N = C^{\otimes N}$ together with $[H_B, D_a] = 0$ makes any $\ket{\psi} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for all $x$ already saturate this inequality.
+
+Here, $C_N = C^{\otimes N}$ and $[H_B, D_a] = 0$ force equality for any full-support probe.
 
 ---
 
-# Post-Selection: Chained Inequality
+# <span class="cat cat-method">Method</span> Post-Selection: Chained Inequality
 
 Putting it together,
 $$
@@ -407,7 +433,7 @@ Next, we evaluate $\|M_i\|_\infty$.
 
 ---
 
-# Post-Selection: GEP for $M$
+# <span class="cat cat-method">Method</span> Post-Selection: GEP for $M$
 
 To extract the eigenvalues and eigenvectors of $M$, it helps to recast the problem as a generalized eigenvalue problem:
 $$
@@ -422,7 +448,7 @@ with $\ket{w} = \rho^{-1/2}\ket{v}$. The last line is the GEP we solve.
 
 ---
 
-# Generalized Eigenvalue Problem
+# <span class="cat cat-method">Method</span> Post-Selection: Generalized Eigenvalue Problem
 
 The standard eigenvalue problem is $A\mathbf{x} = \lambda\mathbf{x}$, with eigenvalues from $\det(A - \lambda I) = 0$.
 
@@ -439,7 +465,7 @@ a GEP whose generalized eigenvalues are the squared normal-mode frequencies.
 
 ---
 
-# Post-Selection: Block Form of the GEP
+# <span class="cat cat-method">Method</span> Post-Selection: Block Form of the GEP
 
 The relevant block-form is
 $$
@@ -456,7 +482,7 @@ $$
 
 ---
 
-# Post-Selection: Schur Decomposition
+# <span class="cat cat-method">Method</span> Post-Selection: Schur Decomposition
 
 Applying a Schur-style decomposition with $B_j = A_j^{1/2} W_j D_j^{1/2}$,
 $$
@@ -484,7 +510,7 @@ $$
 
 ---
 
-# Post-Selection: Reducing via SVD
+# <span class="cat cat-method">Method</span> Post-Selection: Reducing via SVD
 
 Take the SVD $W_j = U \Sigma_j V^\dagger$ with $\Sigma_j = \mathrm{diag}(s_{jk})$:
 $$
@@ -506,7 +532,7 @@ $$
 
 ---
 
-# Post-Selection: Single-Qubit Bound
+# <span class="cat cat-results">Results</span> Post-Selection: Single-Qubit Bound
 
 Since $0 \le s_{jk} \le 1$, the magnitude of $\lambda_{jk}$ is maximized at $s_{jk} = 1$, giving
 $$
@@ -523,7 +549,7 @@ $$
 
 ---
 
-# Post-Selection: Saturating Probe States
+# <span class="cat cat-results">Results</span> Post-Selection: Saturating Probe States
 
 Every pure state $\ket{\psi_0} = \sum_x a_x \ket{x}$ with $a_x \neq 0$ for **all** computational-basis strings $x$ saturates the global bound
 $$
@@ -534,7 +560,7 @@ The saturating class is **open** (the condition $|a_x| > 0$ for all $x$ is open)
 
 ---
 
-# Post-Selection: Back to the GEP
+# <span class="cat cat-method">Method</span> Post-Selection: Back to the GEP
 
 As shown above, the phase-damped state factorizes as $\rho = D_a C_N D_a^\dagger$ with $C_N = (I + \eta X)^{\otimes N}$. $D_a$ is invertible iff $a_x \neq 0$ for all $x$. Return to the GEP:
 $$
@@ -554,7 +580,7 @@ $$
 
 ---
 
-# Post-Selection: Single-Qubit GEP
+# <span class="cat cat-method">Method</span> Post-Selection: Single-Qubit GEP
 
 With $C_N = (I + \eta X)^{\otimes N} = C^{\otimes N}$ and $H_B = \tfrac{1}{2}\sum_i Z_i$,
 $$
@@ -575,7 +601,7 @@ For the $N$-qubit system, $\ket{\epsilon^\pm}^{\otimes N}$ has eigenvalue $\pm N
 
 ---
 
-# Post-Selection: Filter Vectors $\ket{w^\pm}$
+# <span class="cat cat-results">Results</span> Post-Selection: Filter Vectors $\ket{w^\pm}$
 
 Returning to $\ket{w}$:
 $$
@@ -594,7 +620,7 @@ with filter vectors $\ket{w^\pm}$.
 
 ---
 
-# Post-Selection: Filter Basis $\ket{\Psi^\pm}$
+# <span class="cat cat-results">Results</span> Post-Selection: Filter Basis $\ket{\Psi^\pm}$
 
 Since $\ket{w} = \rho^{-1/2}\ket{v}$, the filter basis (denoted $\ket{\Psi^\pm}$) is
 $$
@@ -609,7 +635,7 @@ inherited from $\rho$-biorthogonality (the $C$-biorthogonality lifted to $N$ qub
 
 ---
 
-# Post-Selection: Matched Kraus Operator
+# <span class="cat cat-method">Method</span> Post-Selection: Matched Kraus Operator
 
 The filter is a rank-2 projector onto $\mathrm{span}\{\ket{\Psi^+}, \ket{\Psi^-}\}$:
 $$
@@ -626,7 +652,7 @@ $$
 
 ---
 
-# Post-Selection: Accepted State
+# <span class="cat cat-results">Results</span> Post-Selection: Accepted State
 
 The accepted state is
 $$
@@ -643,7 +669,7 @@ It can be implemented as $K = \sqrt{1 - \gamma}\,\ket{00\cdots 0}\bra{00\cdots 0
 
 ---
 
-# Post-Selection: POVM Constraint
+# <span class="cat cat-method">Method</span> Post-Selection: POVM Constraint
 
 The POVM constraint is $K^\dagger K \preceq I$. Explicitly,
 $$
@@ -661,7 +687,7 @@ so $(K^\dagger K)_{xy} = \Pi_{xy}/(\bar{a}_x a_y)$.
 
 ---
 
-# Post-Selection: Success Probability — Setup
+# <span class="cat cat-method">Method</span> Post-Selection: Success Probability — Setup
 
 The condition $\Pi\ket{u} = \mu D_p\ket{u}$ is equivalent to $D_p^{-1/2}\Pi D_p^{-1/2}\ket{w} = \mu\ket{w}$ with $\ket{w} = D_p^{1/2}\ket{u}$, so we want the eigenvalues of the symmetric operator $D_p^{-1/2}\Pi D_p^{-1/2}$.
 
@@ -669,7 +695,7 @@ In the 2D image of $\Pi$ (basis $\{\ket{v^+}^{\otimes N}, \ket{v^-}^{\otimes N}\
 
 ---
 
-# Post-Selection: Success Probability — Result
+# <span class="cat cat-results">Results</span> Post-Selection: Success Probability — Result
 
 The Gram matrix of $\{D_p^{-1/2}\ket{v^\pm}^{\otimes N}\}$ is
 $$
@@ -684,7 +710,7 @@ $$
 
 ---
 
-# Post-Selection: Optimal Probe — Symmetries
+# <span class="cat cat-results">Results</span> Post-Selection: Optimal Probe — Symmetries
 
 The optimization is over all probe magnitudes $\{|a_x|^2\}_x$ with $\sum_x |a_x|^2 = 1$. The objective $S + |T|$ depends on the magnitudes through
 $$
@@ -697,7 +723,7 @@ By a standard symmetrization argument (averaging over the symmetry group does no
 
 ---
 
-# Post-Selection: Optimal Probe — Dicke Parametrization
+# <span class="cat cat-results">Results</span> Post-Selection: Optimal Probe — Dicke Parametrization
 
 In the symmetric subclass, $|a_x|^2$ depends only on $|x| = k$. Parametrize by Dicke populations $p_k$ for $k = 0, 1, \ldots, N$:
 $$
@@ -712,7 +738,7 @@ This collapses the optimization from $2^N$ variables to $\lfloor N/2 \rfloor + 1
 
 ---
 
-# DDrf: Hamiltonian Engineering
+# <span class="cat cat-intro">Intro</span> DDrf: Hamiltonian Engineering
 
 DDrf = selective, phase-controlled RF driving of nuclear spins, interleaved with dynamical decoupling on the electron spin.
 
@@ -728,13 +754,13 @@ Generically $U_0 \neq U_1$ — a **conditional gate**.
 
 ---
 
-# DDrf: Pulse Sequence
+# <span class="cat cat-method">Method</span> DDrf: Pulse Sequence
 
 ![](./media/DDrf_pulse.png)
 
 ---
 
-# DDrf Spectroscopy: NV–${}^{13}$C Hamiltonian
+# <span class="cat cat-method">Method</span> DDrf: Spectroscopy — NV–${}^{13}$C Hamiltonian
 
 For NV–${}^{13}$C with RF driving:
 $$
@@ -748,7 +774,7 @@ The $\ket{1}$ branch has a **tilted** nuclear quantization axis (angle $\beta$, 
 
 ---
 
-# DDrf Spectroscopy: Rotating Frame
+# <span class="cat cat-method">Method</span> DDrf: Spectroscopy — Rotating Frame
 
 <style scoped>
 .split { display: flex; gap: 1rem; align-items: center; }
@@ -779,7 +805,7 @@ At resonance ($\omega_{\text{RF}} = \omega_1$), with $\omega_0 - \omega_{\text{R
 
 ---
 
-# DDrf Spectroscopy: Full Time Evolution
+# <span class="cat cat-method">Method</span> DDrf: Spectroscopy — Full Time Evolution
 
 Each MW $\pi$-pulse acts as an **instantaneous frame swap** $\Lambda_{s,\bar s}(t) \equiv R_s(t) R_{\bar s}(t)^\dagger$ between the two rotating frames. The full unitary $U = \sum_s \ket{s}\bra{s} \otimes U_s$ is a chain of $H_s'$-segments separated by frame swaps:
 $$
@@ -792,7 +818,7 @@ This is exact under the assumption of negligible MW pulse duration, and **much f
 
 ---
 
-# DDrf Spectroscopy: Procedure & Results
+# <span class="cat cat-method">Method</span> DDrf: Spectroscopy — Procedure
 
 <style scoped>
 .split { display: flex; gap: 1rem; align-items: center; }
@@ -825,7 +851,7 @@ Peaks appear at $\omega_{\text{RF}} = \omega_1$.
 
 ---
 
-# DDrf Spectroscopy: Reproduced Taminiau Results
+# <span class="cat cat-results">Results</span> DDrf: Spectroscopy — Reproduced Taminiau
 
 <style scoped>
 img { display: block; margin: 0.15rem auto; }
@@ -839,7 +865,7 @@ img { display: block; margin: 0.15rem auto; }
 
 ---
 
-# DDrf: Per-Cell Decomposition
+# <span class="cat cat-method">Method</span> DDrf: Per-Cell Decomposition
 
 The DDrf sequence is built from identical $4\tau$ cells. Each cell is itself block-diagonal:
 $$
@@ -851,7 +877,7 @@ $$
 
 ---
 
-# DDrf: Commutation Trick
+# <span class="cat cat-method">Method</span> DDrf: Commutation Trick
 
 A $z$-rotation can be commuted through a transverse rotation by shifting its azimuthal angle:
 $$
@@ -865,7 +891,7 @@ Each cell splits cleanly into a $z$-piece plus a transverse rotation. Choosing $
 
 ---
 
-# Side-Peak Problem: Observation
+# <span class="cat cat-results">Results</span> DDrf: Side-Peak Problem — Observation
 
 In the Taminiau limit, $U_s = R_z(N(\omega_L - \omega_1)\tau) \cdot R_\phi(\pm N\Omega_{\text{RF}}\tau)$.
 
@@ -875,7 +901,7 @@ In the Taminiau limit, $U_s = R_z(N(\omega_L - \omega_1)\tau) \cdot R_\phi(\pm N
 
 ---
 
-# Side-Peak Problem: Detuned Rotating Frame
+# <span class="cat cat-method">Method</span> DDrf: Side-Peak Problem — Detuned Rotating Frame
 
 Restoring finite detuning $\delta_1 = \omega_1 - \omega_{\text{RF}}$ (with $\beta = 0$ for clarity):
 $$
@@ -892,7 +918,7 @@ $$
 
 ---
 
-# Side-Peak Problem: Detuned-Rabi Formula vs. Numerics
+# <span class="cat cat-results">Results</span> DDrf: Side-Peak Problem — Detuned-Rabi vs. Numerics
 
 $$
 \boxed{\;
@@ -923,7 +949,7 @@ The detuned-Rabi formula reproduces both the envelope and the side-lobe period:
 
 ---
 
-# Suppression: Apodized Pulse Idea
+# <span class="cat cat-strategy">Strategy</span> DDrf: Suppression — Apodized Pulse Idea
 
 Replace the constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\,f(k)$, where $f$ is a discrete window function (Hanning, Hamming, Blackman, …):
 
@@ -933,7 +959,7 @@ Replace the constant RF amplitude with a per-cell envelope $\Omega_k = \Omega\,f
 
 ---
 
-# Suppression: Window Catalogue
+# <span class="cat cat-method">Method</span> DDrf: Suppression — Window Catalogue
 
 <style scoped>
 img { display: block; margin: 1rem auto; }
@@ -945,7 +971,7 @@ The four windows we compare: rectangular (the baseline that produces the side-lo
 
 ---
 
-# Suppression: Numerical Result
+# <span class="cat cat-results">Results</span> DDrf: Suppression — Numerical Result
 
 <style scoped>
 .row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
@@ -970,7 +996,7 @@ Apodized envelopes flatten the off-resonant region while preserving the on-reson
 
 ---
 
-# Suppression: Window Comparison
+# <span class="cat cat-results">Results</span> DDrf: Suppression — Window Comparison
 
 The normalized spectral response factorizes into a window-independent `sinc` and a window-dependent kernel:
 $$
@@ -989,7 +1015,7 @@ $$
 
 ---
 
-# Suppression: Build-up Mismatch
+# <span class="cat cat-results">Results</span> DDrf: Suppression — Build-up Mismatch
 
 <style scoped>
 .split { display: flex; gap: 1rem; align-items: center; }
@@ -1017,7 +1043,7 @@ where $\Delta f_k = f(k+1) - f(k)$. So the non-commutativity enters at order $\d
 
 ---
 
-# Outlook: Beyond Constant $\Omega_{\text{RF}}$
+# <span class="cat cat-ongoing">Ongoing</span> DDrf: Outlook — Beyond Constant $\Omega_{\text{RF}}$
 
 The full-evolution formalism above assumes $\Omega_{\text{RF}}$ is time-independent (compatible with the RWA). With a Gaussian envelope
 $$
@@ -1029,7 +1055,7 @@ the per-segment propagator $e^{-iH_{0,1}'\tau}$ is no longer exact, and direct S
 
 ---
 
-# Outlook: Magnus Expansion
+# <span class="cat cat-ongoing">Ongoing</span> DDrf: Outlook — Magnus Expansion
 
 For $\partial_t U = -iH(t)U$, write $U = e^{\Omega(t)}$ with $\Omega(t) = \sum_n \Omega_n(t)$:
 $$
@@ -1048,7 +1074,7 @@ with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is gu
 
 ---
 
-# Outlook: Gaussian Pulse Shaping — Spectroscopy
+# <span class="cat cat-ongoing">Ongoing</span> DDrf: Outlook — Gaussian Pulse Shaping
 
 <style scoped>
 .row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
@@ -1071,7 +1097,7 @@ with $c_1 = \int_0^T f$ and $K_{1,2}$ triple integrals of $f$. Convergence is gu
 
 ---
 
-# Mattermost–Outline Update
+# <span class="cat cat-intro">Intro</span> Mattermost–Outline: Update
 
 Special thanks to WD Lee.
 
@@ -1083,20 +1109,20 @@ img { display: block; margin: 0.6rem auto; max-height: 480px; }
 
 ---
 
-# Required Features
+# <span class="cat cat-intro">Intro</span> Mattermost–Outline: Required Features
 
-<!-- Todo: Add CSS for these todo list -->
-
-- [x] Mattermost: private channel
-- [!] Send alert from Outline changes to Mattermost
-- [?] Code / PPT update
-- [!] Cool-paper channel update to Outline
-- [?] Equipment directory / Diamond sample
-- [x] Emergency contact list
+<ul class="req-list">
+<li><span class="status status-done">DONE</span> Mattermost: private channel</li>
+<li><span class="status status-progress">WIP</span> Send alert from Outline changes to Mattermost</li>
+<li><span class="status status-tentative">MAYBE</span> Code / PPT update</li>
+<li><span class="status status-progress">WIP</span> Cool-paper channel update to Outline</li>
+<li><span class="status status-tentative">MAYBE</span> Equipment directory / Diamond sample</li>
+<li><span class="status status-done">DONE</span> Emergency contact list</li>
+</ul>
 
 ---
 
-# Outline – Mattermost Channel: Cool-Paper Updates
+# <span class="cat cat-results">Results</span> Mattermost–Outline: Cool-Paper Updates
 
 <style scoped>
 .row2 { display: flex; gap: 1rem; align-items: center; justify-content: center; }
@@ -1119,7 +1145,7 @@ img { display: block; margin: 0.6rem auto; max-height: 480px; }
 
 ---
 
-# Outline – Mattermost Channel: Alerts for Outline Updates
+# <span class="cat cat-results">Results</span> Mattermost–Outline: Alerts for Outline Updates
 
 <style scoped>
 .row2 { display: flex; gap: 0.8rem; align-items: center; justify-content: center; margin-bottom: 0.5rem; }
@@ -1147,7 +1173,7 @@ An alert is sent when:
 
 ---
 
-# Dataview Feature on Outline
+# <span class="cat cat-results">Results</span> Mattermost–Outline: Dataview Feature
 
 <style scoped>
 .row2 { display: flex; gap: 0.6rem; align-items: center; justify-content: center; margin-bottom: 0.3rem; }
@@ -1187,7 +1213,7 @@ ul { font-size: 0.8rem; }
 
 ---
 
-# Datafield Feature on Outline
+# <span class="cat cat-results">Results</span> Mattermost–Outline: Datafield Feature
 
 <style scoped>
 img { display: block; margin: 0.4rem auto; max-height: 420px; }
@@ -1199,18 +1225,38 @@ Datafield values are not searchable as keywords on their own — the dataview fe
 
 ---
 
-# Others
+# <span class="cat cat-ongoing">Ongoing</span> Others
 
 <style scoped>
-img { display: block; margin: 0.6rem auto; max-height: 260px; }
+.split { display: flex; gap: 1.5rem; align-items: center; }
+.split .text { flex: 1 1 65%; }
+.split .text ul { font-size: 0.9rem; }
+.split .idcard { flex: 0 0 30%; text-align: center; }
+.split .idcard img {
+  max-width: 100%;
+  max-height: 340px;
+  border: 1px solid #cfd3d8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+}
 </style>
+
+<div class="split">
+<div class="text">
 
 - Set up a desktop with an RTX 3090, accessible remotely from anywhere.
 - Borrowing a server from Prof. Yosep Kim (Korea University).
 - (personal) Promoted to principal candidate for the Fulbright STEM scholarship on Apr 16; Cornell Applied Physics initially responded positively but ultimately rejected my application, so I formally declined the Fulbright STEM scholarship.
 - (personal) Now an official research intern here!
 
-![width:300px](./media/ID_card.jpg)
+</div>
+<div class="idcard">
+
+![](./media/ID_card.jpg)
+
+</div>
+</div>
+
 
 ---
 
