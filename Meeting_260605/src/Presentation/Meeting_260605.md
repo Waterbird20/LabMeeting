@@ -116,41 +116,12 @@ Paulee Group, Center for Quantum Technology, Korea Institute of Science and Tech
 </div>
 
 <div class="col-right">
-<img src="../../../media/images/PauleeLogo.png" style="max-width: 100%; height: 100%; object-fit: contain;">
+<img src="./media/images/PauleeLogo.png" style="max-width: 100%; height: 100%; object-fit: contain;">
 </div>
 
 </div>
 
----
 
-<!-- backgroundColor: white -->
-
-# Outline
-
-<style scoped>
-.outline-wrap { padding: 0 1.5rem; }
-.legend-block { margin: 0.3rem 0 1.0rem; font-size: 0.85rem; color: #444; }
-.legend-block .legend-row { margin: 0.18em 0; }
-.projects { font-size: 0.95rem; }
-.projects li { margin: 0.25em 0; }
-.projects li ul li { font-size: 0.82rem; color: #555; }
-</style>
-
-<div class="outline-wrap">
-
-<div class="legend-block">
-
-<div class="legend-row"><span class="cat cat-intro">Intro</span> <span class="cat cat-method">Method</span> <span class="cat cat-strategy">Strategy</span> <span class="cat cat-results">Results</span> <span class="cat cat-ongoing">Ongoing</span> </div>
-
-</div>
-
-<div class="projects">
-
-1. 
-
-</div>
-
-</div>
 
 ---
 
