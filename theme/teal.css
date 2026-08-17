@@ -1,0 +1,151 @@
+/* @theme teal */
+/*
+  Technical Teal — lab-meeting kit theme (3 of 3).
+  Near-white background, Inter / IBM Plex, teal slab headers, cool palette that
+  pairs well with plots and diagrams. Same class contract as indigo / serif.
+*/
+@import 'default';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:      #f8fafc;
+  --ink:     #0f172a;
+  --body:    #1e293b;
+  --muted:   #475569;
+  --primary: #0d9488;
+  --accent:  #06b6d4;
+  --rule:    #cbd5e1;
+  --code-bg: #ecfeff;
+
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 26px;
+  color: var(--body);
+  letter-spacing: -0.1px;
+}
+
+section {
+  background: var(--bg);
+  padding: 56px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 1.5;
+}
+
+/* ---- headings: teal slab band ---- */
+section h1 {
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  padding: 0.34em 0.7em;
+  border-radius: 8px;
+  margin: 0 0 0.7em;
+}
+section h2 { font-size: 1.05em; font-weight: 600; color: var(--primary); margin: 0.6em 0 0.2em; }
+section h3 { font-size: 0.95em; font-weight: 600; color: var(--ink); margin: 0.5em 0 0.2em; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--muted); }
+a { color: var(--primary); text-decoration: none; }
+
+/* ---- lists ---- */
+section ul, section ol { margin: 0.3em 0; padding-left: 1.4em; }
+section li { margin: 0.18em 0; }
+section ul > li::marker { color: var(--primary); }
+
+/* ---- code ---- */
+code { font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace; font-size: 0.82em; }
+:not(pre) > code { background: var(--code-bg); color: #0e7490; padding: 0.1em 0.35em; border-radius: 4px; }
+pre { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 0.7em 1em; font-size: 0.84em; }
+
+/* ---- tables ---- */
+table { border-collapse: collapse; font-size: 0.9em; margin: 0.4em 0; }
+th { background: var(--primary); color: #fff; font-weight: 600; text-align: left; padding: 0.45em 0.8em; }
+td { border-bottom: 1px solid var(--rule); padding: 0.4em 0.8em; }
+tr:nth-child(even) td { background: #eef2f6; }
+
+/* ---- blockquote ---- */
+blockquote { border-left: 3px solid var(--accent); color: var(--muted); margin: 0.5em 0; padding-left: 1em; }
+
+/* ---- pagination, header, footer ---- */
+section::after { color: var(--muted); font-size: 0.6em; font-weight: 500; }
+footer { color: var(--muted); font-size: 0.62em; }
+header { color: var(--muted); font-size: 0.62em; }
+
+/* =====================================================================
+   Reusable kit classes — identical names across indigo / serif / teal
+   ===================================================================== */
+
+.cat {
+  display: inline-block; vertical-align: middle;
+  font-size: 0.50em; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #fff; padding: 0.28em 0.7em; border-radius: 999px; margin-right: 0.5em;
+  position: relative; top: -0.10em;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.25);
+}
+.cat.intro    { background: #0369a1; }
+.cat.method   { background: #334155; }
+.cat.strategy { background: #7c3aed; }
+.cat.results  { background: #047857; }
+.cat.ongoing  { background: #c2410c; }
+
+.chip {
+  display: inline-block; min-width: 5.0em; text-align: center;
+  font-size: 0.62em; font-weight: 700; letter-spacing: 0.03em;
+  color: #fff; padding: 0.18em 0.6em; border-radius: 6px; margin-right: 0.7em;
+}
+.chip.done { background: #047857; }
+.chip.wip  { background: #c2410c; }
+.chip.todo { background: #94a3b8; }
+.chip.tentative { background: #64748b; }
+ul.reqs { list-style: none; padding-left: 0; }
+ul.reqs li { margin: 0.45em 0; }
+
+.legend { margin-top: 1em; font-size: 0.8em; }
+.legend .cat { top: 0; box-shadow: none; }
+
+.columns { display: flex; gap: 1.6rem; align-items: flex-start; margin-top: 0.4em; }
+.columns .col { flex: 1 1 0; min-width: 0; }
+
+figure.figure { text-align: center; margin: 0.3em auto; }
+figure.figure img { border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 2px 10px rgba(15,23,42,0.08); background: #fff; }
+figure.figure figcaption { color: var(--muted); font-size: 0.72em; font-style: italic; margin-top: 0.4em; }
+
+.callout {
+  border-left: 4px solid var(--accent); background: #ecfeff;
+  border-radius: 0 8px 8px 0; padding: 0.5em 1em; margin: 0.7em 0; font-size: 0.95em;
+}
+.callout p { margin: 0.2em 0; }
+
+.lead { font-size: 1.1em; color: var(--ink); }
+.ref { font-size: 0.74em; color: var(--body); line-height: 1.7; }
+.ref ol, .ref ul { padding-left: 1.4em; }
+
+/* =====================================================================
+   Special slides
+   ===================================================================== */
+
+/* TITLE */
+section.title { justify-content: center; padding: 72px 80px; }
+section.title h1 { background: none; color: var(--ink); border-radius: 0; padding: 0; margin: 0.1em 0 0.2em; font-size: 2.0em; letter-spacing: -1px; }
+section.title .kicker { color: var(--primary); font-weight: 600; font-size: 0.80em; letter-spacing: 0.14em; text-transform: uppercase; }
+section.title .subtitle { color: var(--muted); font-size: 1.05em; font-weight: 400; max-width: 82%; }
+section.title .meta { margin-top: 1.6em; display: flex; flex-direction: column; gap: 0.1em; border-top: 3px solid var(--primary); padding-top: 0.7em; width: max-content; }
+section.title .author { color: var(--ink); font-weight: 600; font-size: 0.95em; }
+section.title .affil { color: var(--muted); font-size: 0.8em; }
+section.title .logo { position: absolute; top: 72px; right: 80px; max-height: 64px; }
+
+/* SECTION */
+section.section { justify-content: center; padding: 72px 80px; }
+section.section h1 { background: none; color: var(--ink); border-radius: 0; padding: 0; margin: 0.1em 0 0; font-size: 1.8em; }
+section.section .sec-num { font-size: 3.2em; font-weight: 700; color: var(--primary); opacity: 0.25; line-height: 1; }
+section.section .subtitle { color: var(--muted); font-size: 1.0em; margin-top: 0.3em; }
+
+/* CLOSING */
+section.closing { justify-content: center; align-items: center; text-align: center; }
+section.closing h1 { background: none; color: var(--primary); border-radius: 0; padding: 0; margin: 0; font-size: 2.4em; }
+section.closing .subtitle { color: var(--muted); font-size: 1.1em; margin-top: 0.3em; }
+section.closing .meta { margin-top: 1.4em; display: flex; flex-direction: column; gap: 0.1em; }
+section.closing .author { color: var(--ink); font-weight: 600; }
+section.closing .affil { color: var(--muted); font-size: 0.85em; }
