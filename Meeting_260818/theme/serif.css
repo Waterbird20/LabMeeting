@@ -1,0 +1,149 @@
+/* @theme serif */
+/*
+  Editorial Serif — lab-meeting kit theme (2 of 3).
+  Cream background, Spectral serif headings + Inter body, crimson accent, hairline
+  underlines, generous whitespace. Same class contract as indigo / teal.
+*/
+@import 'default';
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg:      #fafaf7;
+  --ink:     #111111;
+  --body:    #2a2a2a;
+  --muted:   #6b7280;
+  --primary: #b91c1c;
+  --accent:  #b91c1c;
+  --rule:    #e5e1d8;
+  --code-bg: #f1efe8;
+
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 26px;
+  color: var(--body);
+}
+
+section {
+  background: var(--bg);
+  padding: 62px 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 1.58;
+}
+
+/* ---- headings (serif) ---- */
+section h1, section h2, section h3 { font-family: 'Spectral', 'Source Serif 4', Georgia, serif; color: var(--ink); }
+section h1 {
+  font-size: 1.48em;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin: 0 0 0.6em;
+  padding: 0 0 0.22em;
+  border-bottom: 1px solid var(--rule);
+}
+section h2 { font-size: 1.12em; font-weight: 600; margin: 0.6em 0 0.2em; }
+section h3 { font-size: 1.0em; font-weight: 600; margin: 0.5em 0 0.2em; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--muted); font-style: italic; }
+a { color: var(--primary); text-decoration: none; border-bottom: 1px solid rgba(185,28,28,0.3); }
+
+/* ---- lists ---- */
+section ul, section ol { margin: 0.3em 0; padding-left: 1.4em; }
+section li { margin: 0.2em 0; }
+section ul > li::marker { color: var(--primary); }
+
+/* ---- code ---- */
+code { font-family: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', monospace; font-size: 0.82em; }
+:not(pre) > code { background: var(--code-bg); color: #9a1313; padding: 0.1em 0.35em; border-radius: 4px; }
+pre { background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 0.7em 1em; font-size: 0.86em; }
+
+/* ---- tables ---- */
+table { border-collapse: collapse; font-size: 0.9em; margin: 0.4em 0; }
+th { border-bottom: 2px solid var(--ink); color: var(--ink); font-weight: 600; text-align: left; padding: 0.45em 0.8em; }
+td { border-bottom: 1px solid var(--rule); padding: 0.4em 0.8em; }
+
+/* ---- blockquote ---- */
+blockquote { border-left: 3px solid var(--rule); color: var(--muted); font-style: italic; margin: 0.5em 0; padding-left: 1em; }
+
+/* ---- pagination, header, footer ---- */
+section::after { color: var(--muted); font-size: 0.6em; font-family: 'Spectral', serif; }
+footer { color: var(--muted); font-size: 0.62em; }
+header { color: var(--muted); font-size: 0.62em; }
+
+/* =====================================================================
+   Reusable kit classes — identical names across indigo / serif / teal
+   ===================================================================== */
+
+.cat {
+  display: inline-block; vertical-align: middle;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.46em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; padding: 0.32em 0.7em; border-radius: 4px; margin-right: 0.5em;
+  position: relative; top: -0.14em;
+}
+.cat.intro    { background: #1f6feb; }
+.cat.method   { background: #44403c; }
+.cat.strategy { background: #7e22ce; }
+.cat.results  { background: #15803d; }
+.cat.ongoing  { background: #b45309; }
+
+.chip {
+  display: inline-block; min-width: 5.0em; text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6em; font-weight: 700; letter-spacing: 0.03em;
+  color: #fff; padding: 0.2em 0.6em; border-radius: 4px; margin-right: 0.7em;
+}
+.chip.done { background: #15803d; }
+.chip.wip  { background: #b45309; }
+.chip.todo { background: #a8a29e; }
+.chip.tentative { background: #78716c; }
+ul.reqs { list-style: none; padding-left: 0; }
+ul.reqs li { margin: 0.45em 0; }
+
+.legend { margin-top: 1em; font-size: 0.8em; }
+.legend .cat { top: 0; }
+
+.columns { display: flex; gap: 1.8rem; align-items: flex-start; margin-top: 0.4em; }
+.columns .col { flex: 1 1 0; min-width: 0; }
+
+figure.figure { text-align: center; margin: 0.3em auto; }
+figure.figure img { border: 1px solid var(--rule); border-radius: 4px; box-shadow: 0 2px 10px rgba(17,17,17,0.07); background: #fff; }
+figure.figure figcaption { color: var(--muted); font-family: 'Spectral', serif; font-size: 0.74em; font-style: italic; margin-top: 0.4em; }
+
+.callout {
+  border-left: 3px solid var(--primary); background: #fbf2f2;
+  padding: 0.5em 1em; margin: 0.7em 0; font-size: 0.95em;
+}
+.callout p { margin: 0.2em 0; }
+
+.lead { font-size: 1.1em; color: var(--ink); font-family: 'Spectral', serif; }
+.ref { font-size: 0.74em; color: var(--body); line-height: 1.8; }
+.ref ol, .ref ul { padding-left: 1.4em; }
+
+/* =====================================================================
+   Special slides
+   ===================================================================== */
+
+/* TITLE */
+section.title { justify-content: center; padding: 80px 88px; }
+section.title h1 { border: none; padding: 0; margin: 0.1em 0 0.25em; font-size: 2.1em; line-height: 1.1; }
+section.title .kicker { color: var(--primary); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.74em; letter-spacing: 0.18em; text-transform: uppercase; }
+section.title .subtitle { color: var(--muted); font-family: 'Spectral', serif; font-style: italic; font-size: 1.1em; max-width: 82%; }
+section.title .meta { margin-top: 1.6em; display: flex; flex-direction: column; gap: 0.1em; border-top: 1px solid var(--ink); padding-top: 0.7em; width: max-content; }
+section.title .author { color: var(--ink); font-weight: 600; font-size: 0.95em; }
+section.title .affil { color: var(--muted); font-size: 0.8em; }
+section.title .logo { position: absolute; top: 80px; right: 88px; max-height: 64px; }
+
+/* SECTION */
+section.section { justify-content: center; padding: 80px 88px; }
+section.section h1 { border: none; padding: 0; margin: 0.1em 0 0; font-size: 1.9em; }
+section.section .sec-num { font-family: 'Spectral', serif; font-size: 3.0em; font-weight: 600; color: var(--rule); line-height: 1; }
+section.section .subtitle { color: var(--muted); font-style: italic; font-size: 1.0em; margin-top: 0.3em; }
+
+/* CLOSING */
+section.closing { justify-content: center; align-items: center; text-align: center; }
+section.closing h1 { border: none; padding: 0; margin: 0; font-size: 2.6em; color: var(--ink); }
+section.closing .subtitle { color: var(--primary); font-family: 'Spectral', serif; font-style: italic; font-size: 1.15em; margin-top: 0.3em; }
+section.closing .meta { margin-top: 1.4em; display: flex; flex-direction: column; gap: 0.1em; }
+section.closing .author { color: var(--ink); font-weight: 600; }
+section.closing .affil { color: var(--muted); font-size: 0.85em; }
