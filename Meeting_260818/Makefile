@@ -26,13 +26,17 @@ $(HTML): $(SOURCE_DIR)/$(SOURCE_FILE)
 	cd $(SOURCE_DIR) && $(MARP) $(SOURCE_FILE) --html --theme-set $(THEME) -o $(HTML) --allow-local-files
 	cp $(HTML) $(ROOT)/index.html
 
-# PDF: build from the repo root so the root-relative image paths resolve.
+# PDF: marp resolves relative image paths against the MARKDOWN's own directory, not the
+# working directory, so building in place drops every figure silently. Stage a copy of the
+# source at the repo root, where the root-relative paths do resolve, and build that.
 .PHONY: pdf
 pdf: $(PDF)
 
 $(PDF): $(SOURCE_DIR)/$(SOURCE_FILE)
-	cd $(ROOT) && $(MARP) $(BASENAME)/$(SOURCE_DIR)/$(SOURCE_FILE) --html \
+	cp $(SOURCE_DIR)/$(SOURCE_FILE) $(ROOT)/.$(BASENAME).build.md
+	cd $(ROOT) && $(MARP) .$(BASENAME).build.md --html \
 	  --theme-set $(BASENAME)/theme/serif.css --pdf -o $(PDF) --allow-local-files
+	rm -f $(ROOT)/.$(BASENAME).build.md
 
 .PHONY: clean
 clean:

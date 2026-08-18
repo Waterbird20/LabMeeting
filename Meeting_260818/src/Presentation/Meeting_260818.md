@@ -208,6 +208,20 @@ The structure is a composite pulse in which all the design freedom sits in the $
 ---
 
 
+# <span class="cat method">Method</span> The same sequence, drawn as a pulse ladder
+
+<figure class="figure">
+
+![h:465](./Meeting_260818/src/Presentation/media/qsp_ladder.png)
+
+*Eq. (3) box by box; factors appear in written order, so the bottom box acts on the state first. Redrawn in this deck's notation from our ongoing-work slide of 2026-08-05, where the signal is the detuning $\delta$.*
+
+</figure>
+
+
+---
+
+
 # <span class="cat intro">Intro</span> Composite pulses: signal processing on the Bloch sphere
 
 <div class="columns">
