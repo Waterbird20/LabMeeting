@@ -37,9 +37,7 @@ the spherical coordinates of a unit vector. $\theta$ is the polar angle from $\k
 
 <figure class="figure">
 
-<video src="media/bloch-angles.mp4" poster="media/bloch-angles.png" width="620" controls autoplay loop muted playsinline preload="none"></video>
-
-*The same products for the general ket, then the arrow with the polar angle $\theta$ (blue arc from the $z$ axis) and the azimuth $\phi$ (green arc from the $x$ axis) following it as both angles are swept.*
+<video src="media/bloch-angles.mp4" poster="media/bloch-angles.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

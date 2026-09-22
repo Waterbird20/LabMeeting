@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: $H_0$ is written in the spin-1 form ($S_z^2$, $S_z$) because that is the
+<!-- TODO (speaker to confirm): $H_0$ is written in the spin-1 form ($S_z^2$, $S_z$) because that is the
      honest NV ground-state Hamiltonian, while the rest of chapter 1 works at the qubit level
      ($Y$, $Z$). If the speaker prefers one convention throughout, replace this block with the
      rotating-frame qubit form $H=\tfrac{\delta}{2}Z+\tfrac{\Omega(t)}{2}Y$. -->

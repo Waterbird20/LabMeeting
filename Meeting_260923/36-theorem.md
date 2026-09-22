@@ -14,6 +14,5 @@ math: mathjax
 
 </div>
 
-The forward direction is nothing but the convolution recursion: each step appends one tap and raises the degree by one, which is what flips the parity in the $W_x$ form, while unitarity is inherited because every factor is unitary on the circle.
+The forward direction is nothing but the convolution recursion: each step appends one coefficient and raises the degree by one, which is what flips the parity in the $W_x$ form, while unitarity is inherited because every factor is unitary on the circle.
 
-The converse is the direction we use. It says the design space is a **complete** list rather than a perturbative family: any bounded polynomial of degree $d$ is a sequence we can actually build. For example, a polynomial that vanishes exactly at three chosen detunings is a gate that is exactly blind to three spectral lines.

@@ -24,16 +24,14 @@ $$
 M_1M_2=\sum_n c_n e^{in\theta},\qquad c_n=\sum_k c^{(1)}_k\,c^{(2)}_{n-k}=\big(c^{(1)}*c^{(2)}\big)_n .
 $$
 
-The degrees add, so the lists get longer. Chapter 3 turns this around: a QSP sequence multiplies degree-one factors on purpose, so it convolves its list one tap at a time.
+The degrees add, so the lists get longer. 
 
 </div>
 <div class="col">
 
 <figure class="figure">
 
-<video src="media/response-product.mp4" poster="media/response-product.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*Two nuclei give two dips $M_1(\theta)$ and $M_2(\theta)$; the measured response is their pointwise product, and its Fourier list is the convolution of the two coefficient lists (degree $2+2=4$).*
+<video src="media/response-product.mp4" poster="media/response-product.png" width="720" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

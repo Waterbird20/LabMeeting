@@ -34,9 +34,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/qsp-blocks.mp4" poster="media/qsp-blocks.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*Four pulses $R_y(\pi/2)$ and three waits, one coloured block at a time: every wait raises the degree by one, and the left column of $\tilde U(z)$ is $P(z)$ over $Q(z)$.*
+<video src="media/qsp-blocks.mp4" poster="media/qsp-blocks.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

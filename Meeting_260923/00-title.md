@@ -25,6 +25,7 @@ footer: 'Donghun Jung · Journal Meeting'
 
 <style>
 section { padding: 50px 54px; }
+section.title h1 { font-size: 1.5em; }
 .columns { gap: 1.1rem; }
 figure.figure p { color: #6b6b6b; font-size: 0.74em; font-style: italic; margin-top: 0.35em; }
 figure.figure video { border-radius: 4px; display: block; margin: 0 auto; }

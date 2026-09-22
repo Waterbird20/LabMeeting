@@ -31,9 +31,7 @@ Two lists of length $6$ overlap at $11$ displacements, the sums $2$ to $12$.
 
 <figure class="figure">
 
-<video src="media/dice-slide.mp4" poster="media/dice-slide.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*The second row is reversed and slid across the first. The pairs that line up are exactly the anti-diagonal of the table, now read as a moving window.*
+<video src="media/dice-slide.mp4" poster="media/dice-slide.png" width="720" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

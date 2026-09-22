@@ -6,11 +6,11 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: this page is the concrete, numerical example; `37-pq-reachable.md`
+<!-- TODO (speaker to confirm): this page is the concrete, numerical example; `37-pq-reachable.md`
      makes the same Chebyshev statement again inside the general theory. Keep the
      example here and trim the repeat there, or the other way round. -->
 
-# <span class="cat method">Method</span> A concrete example
+# <span class="cat method">Method</span> An example
 
 <style scoped>
 .columns { gap: 1.0rem; }
@@ -34,9 +34,7 @@ with $a=\cos(\delta\tau/2)$. At $d=1$ that is $a$, at $d=2$ it is $2a^{2}-1$, an
 
 <figure class="figure">
 
-<video src="media/qsp-chebyshev.mp4" poster="media/qsp-chebyshev.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*Pulses off at $d=1,2,5$, then on at $d=2$: same degree, new polynomial.*
+<video src="media/qsp-chebyshev.mp4" poster="media/qsp-chebyshev.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

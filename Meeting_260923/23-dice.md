@@ -11,14 +11,14 @@ math: mathjax
 .columns .col:first-child { flex: 0 0 430px; }
 </style>
 
-<!-- EDIT-FORWARD: the loaded-dice numbers are read off the dice-weighted animation; they are illustrative, not data. -->
+<!-- TODO (speaker to confirm): the loaded-dice numbers are read off the dice-weighted animation; they are illustrative, not data. -->
 
 # <span class="cat intro">Intro</span> Uneven dice
 
 <div class="columns">
 <div class="col">
 
-Now load the dice, so the faces are no longer equally likely. The bookkeeping does not change. The same anti-diagonal is summed, and each cell carries the product of two unequal weights,
+Now load the dice, so the faces are no longer equally likely. The same anti-diagonal is summed, and each cell carries the product of two unequal weights,
 
 $$
 P(Z=n)=\sum_k P(X=k)\,P(Y=n-k)=\big[P_X*P_Y\big](n).
@@ -30,16 +30,14 @@ $$
 P(Z=4)=0.16\cdot 0.24+0.21\cdot 0.22+0.17\cdot 0.11 .
 $$
 
-We did not choose to convolve anything. Adding two independent random variables **is** a convolution of their distributions.
+Adding two independent random variables is a convolution of their distributions.
 
 </div>
 <div class="col">
 
 <figure class="figure">
 
-<video src="media/dice-weighted.mp4" poster="media/dice-weighted.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*Loaded dice: the same table and the same anti-diagonals, now weighted cell by cell.*
+<video src="media/dice-weighted.mp4" poster="media/dice-weighted.png" width="720" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

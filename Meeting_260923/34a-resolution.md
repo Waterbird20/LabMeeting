@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: page 42 of the first draft is now two slides, 34-response.md (the
+<!-- TODO (speaker to confirm): page 42 of the first draft is now two slides, 34-response.md (the
      series and its autocorrelation, with the d = 1 Ramsey case) and this one (the two
      consequences plus the figure). The figure is optional: drop it and fold these two
      paragraphs back onto 34 if the section runs long. -->
@@ -34,9 +34,9 @@ The total sequence time $T=d\tau$ is a **record length**. This is the statement 
 
 <figure class="figure">
 
-![w:410](media/response-fourier.png)
+![w:430](media/response-fourier.png)
 
-*The same sequence as the clip, $G_k=R_x(\pi/5)$ with $d$ equal waits. Top: the $d=4$ curve over three periods, the shaded band being one period. Bottom: the notch at $d=1,2,4$, with dots at half its depth. Fig. by `fig_response.py`, 2026-09-22.*
+*Top: the $d=4$ curve over three periods, one period shaded. Bottom: the notch at $d=1,2,4$. Fig. by `fig_response.py`.*
 
 </figure>
 

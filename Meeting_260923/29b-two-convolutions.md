@@ -29,7 +29,7 @@ figure.figure { margin: 0.1em auto; }
 </div>
 <div class="col">
 
-**2. The processing.** The sequence we run is a kernel $K(\omega)$, so the read-out is the convolution $S*K$ once more. This one we design. Its taps are our pulses, so it can exclude what we do not want, or make the response we intended.
+**2. The processing.** The sequence we run is a kernel $K(\omega)$, so the read-out is the convolution $S*K$ once more. This one we design. Its coefficients are our pulses, so it can exclude what we do not want, or make the response we intended.
 
 </div>
 </div>

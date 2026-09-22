@@ -11,7 +11,7 @@ math: mathjax
 .columns .col:first-child { flex: 0 0 420px; }
 </style>
 
-<!-- EDIT-FORWARD: $N$ counts repetitions of the unit here, so the clip runs $N=32$ units, that is $64$ pulses; the paper counts $\pi$ pulses ($N=32$ in its Fig. 2) and writes $\phi$ for half the Bloch angle, which makes the printed formula identical. Say which convention you prefer out loud. -->
+<!-- TODO (speaker to confirm): $N$ counts repetitions of the unit here, so the clip runs $N=32$ units, that is $64$ pulses; the paper counts $\pi$ pulses ($N=32$ in its Fig. 2) and writes $\phi$ for half the Bloch angle, which makes the printed formula identical. Say which convention you prefer out loud. -->
 
 # <span class="cat intro">Intro</span> Same angle, different axis: the dips that name one nucleus
 
@@ -35,9 +35,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/dd-cpmg.mp4" poster="media/dd-cpmg.png" width="680" controls autoplay loop muted playsinline preload="none"></video>
-
-*Spin 3 of the paper's Table I ($B_0=401$ G, $N=32$ units): the axes coincide, open up as $\tau$ nears $\tau_7,\tau_8,\tau_9$, and anti-align there, where $M$ plunges. The nucleus starts in $\ket{0}$, and at the resonance the two branches run round opposite halves of one great circle, antipodal after $16$ units. The curve $P_x(\tau)$ is computed for $\rho_n=I/2$, so it does not depend on that choice.*
+<video src="media/dd-cpmg.mp4" poster="media/dd-cpmg.png" width="730" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: dense -->
 
-<!-- EDIT-FORWARD: this is pulsed ODMR, one fixed $\pi$ pulse per point. The thesis measures continuous-wave ESR, laser and microwaves on together, whose lineshape is a Lorentzian rather than the sinc-like curve above; say which one the lab runs. -->
+<!-- TODO (speaker to confirm): this is pulsed ODMR, one fixed $\pi$ pulse per point. The thesis measures continuous-wave ESR, laser and microwaves on together, whose lineshape is a Lorentzian rather than the sinc-like curve above; say which one the lab runs. -->
 
 # <span class="cat intro">Intro</span> ODMR
 
@@ -21,8 +21,6 @@ The resulting signal is approximately a sinc function.
 
 <figure class="figure">
 
-<video src="media/seq-odmr.mp4" poster="media/seq-odmr.png" width="400" autoplay loop muted playsinline preload="none"></video>
-
-*The axis tilts as $\delta$ is stepped across $[-4\Omega,4\Omega]$, and one $\pi$ pulse per step draws out the dip and its side lobes.*
+<video src="media/seq-odmr.mp4" poster="media/seq-odmr.png" width="520" autoplay loop muted playsinline preload="none"></video>
 
 </figure>

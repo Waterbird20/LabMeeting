@@ -20,7 +20,7 @@ Since $S=1-|P|^{2}\ge0$ is exactly such a polynomial, the partner exists. To bui
 </div>
 <div class="col">
 
-With $P$ and $Q$ in hand every tap of $\tilde U(z)=\sum_nC_nz^{n}$ is known. Its two ends are single terms, since only one choice of projector per wait reaches an extreme power:
+With $P$ and $Q$ in hand every coefficient of $\tilde U(z)=\sum_nC_nz^{n}$ is known. Its two ends are single terms, since only one choice of projector per wait reaches an extreme power:
 $$
 \begin{aligned}
 C_d&=G_d\,\Pi_1G_{d-1}\Pi_1\cdots\Pi_1G_0,\\

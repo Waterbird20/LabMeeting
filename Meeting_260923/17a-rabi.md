@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: confirm the read-out convention. These slides plot $P(0)$, the population of $\ket{0}$, which rises with fluorescence; the thesis plots normalised fluorescence contrast, so its minima are the $\pi$ pulses just as they are here. -->
+<!-- TODO (speaker to confirm): confirm the read-out convention. These slides plot $P(0)$, the population of $\ket{0}$, which rises with fluorescence; the thesis plots normalised fluorescence contrast, so its minima are the $\pi$ pulses just as they are here. -->
 
 <style scoped>
 .columns { gap: 1.2rem; align-items: center; margin-top: 0.15em; font-size: 0.95em; }
@@ -36,8 +36,6 @@ Sweep the pulse length and the fluorescence oscillates at $\Omega$.
 
 ![w:430](media/pulse-rabi.png)
 
-*One microwave pulse, its length $t$ swept.*
-
 </figure>
 
 </div>
@@ -45,9 +43,7 @@ Sweep the pulse length and the fluorescence oscillates at $\Omega$.
 
 <figure class="figure">
 
-<video src="media/seq-rabi.mp4" poster="media/seq-rabi.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*The state turns about $y$ through the arc $\Omega t$, the dashed line projects it onto $z$, and each read-out adds one point to $P(0)$.*
+<video src="media/seq-rabi.mp4" poster="media/seq-rabi.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

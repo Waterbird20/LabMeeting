@@ -25,22 +25,19 @@ $$
 =4+13x+28x^2+27x^3+18x^4 .
 $$
 
-The coefficient of $x^n$ collects every pair of powers that adds up to $n$, which is the flip-and-slide sum again:
+The coefficient of $x^n$ collects every pair of powers that adds up to $n$, which leads to the same result as the convolution:
 
 $$
 c_n=\sum_{i+j=n}a_i\,b_j=(a*b)[n].
 $$
 
-Multiplying by $x^j$ **shifts** the list by $j$, so the product is a weighted sum of shifted copies.
 
 </div>
 <div class="col">
 
 <figure class="figure">
 
-<video src="media/polynomial.mp4" poster="media/polynomial.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*Each power of $x$ collects one diagonal of the table of pairwise products, and the diagonals are exactly the sums $i+j=n$.*
+<video src="media/polynomial.mp4" poster="media/polynomial.png" width="720" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

@@ -42,9 +42,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/unitary-rotation.mp4" poster="media/unitary-rotation.png" width="620" controls autoplay loop muted playsinline preload="none"></video>
-
-*$H=2X+Y+2Z$ has $\vec c=(2,1,2)$, so $\hat n=(2,1,2)/3$ and $\theta=6t$; the state $\ket{0}$ precesses on a cone about $\hat n$. Then $\tfrac{\Omega}{2}Y$ turns $\ket{0}$ toward $\ket{+}$ by $\Omega t$, and $\tfrac{\delta}{2}Z$ turns $\ket{+}$ about $z$ by $\delta t$.*
+<video src="media/unitary-rotation.mp4" poster="media/unitary-rotation.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

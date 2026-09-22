@@ -11,7 +11,7 @@ math: mathjax
 .columns .col:first-child { flex: 0 0 400px; }
 </style>
 
-<!-- EDIT-FORWARD: confirm the source of the figure and what alpha counts (Bradley et al. 2019?) -->
+<!-- TODO (speaker to confirm): confirm the source of the figure and what alpha counts (Bradley et al. 2019?) -->
 
 # <span class="cat intro">Intro</span> The read-out is one number: how well the two branches agree
 
@@ -36,9 +36,7 @@ The electron Bloch vector has length $|M|$ and purity $\operatorname{Tr}\rho_e^{
 
 <figure class="figure">
 
-![w:470](media/dd-t2-vs-pulses.png)
-
-*More decoupling, longer coherence: the decay to the $0.5$ floor moves from about $1.5\,$s at $\alpha=1$ out to about $25\,$s at $\alpha=256$, as the unconditional picture predicts.*
+![w:520](media/dd-t2-vs-pulses.png)
 
 </figure>
 

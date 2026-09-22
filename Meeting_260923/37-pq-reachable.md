@@ -11,7 +11,7 @@ math: mathjax
 <div class="columns">
 <div class="col">
 
-Switch every pulse off. The sequence is bare free precession, $U=W(\delta)^{d}$, whose tap list has a single nonzero entry, so its response is one pure harmonic,
+Switch every pulse off. The sequence is bare free precession, $U=W(\delta)^{d}$, whose coefficient list has a single nonzero entry, so its response is one pure harmonic,
 $$
 \langle 0|U|0\rangle=e^{-id\delta\tau/2},\qquad
 \mathrm{Re}\,\langle 0|U|0\rangle=\cos (dx)=T_d(a),
@@ -23,9 +23,9 @@ with $a=\cos x$ and $x=\delta\tau/2$. In the textbook labelling this is the triv
 
 <figure class="figure">
 
-![w:360](media/chebyshev.png)
+![w:400](media/chebyshev.png)
 
-*$P(a)=T_d(a)$ at trivial phases for $d=1,2,5$, from our evaluator (agrees to $10^{-12}$).*
+*$P(a)=T_d(a)$ at trivial phases, $d=1,2,5$. From our evaluator.*
 
 </figure>
 

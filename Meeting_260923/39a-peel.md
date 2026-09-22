@@ -15,11 +15,11 @@ section p { margin: 0.42em 0; }
 <div class="columns">
 <div class="col">
 
-Now strip $G_d$ away. In $G_d^{\dagger}\tilde U(z)=A(z)G_{d-1}\cdots A(z)G_0$ the top tap carries $\Pi_1$ on the left and the bottom tap carries $\Pi_0$, so the $\bra{0}$ row has no $z^{d}$ and the $\bra{1}$ row no $z^{0}$. Dividing that row by $z$ is legal, and
+Now strip $G_d$ away. In $G_d^{\dagger}\tilde U(z)=A(z)G_{d-1}\cdots A(z)G_0$ the top coefficient carries $\Pi_1$ on the left and the bottom coefficient carries $\Pi_0$, so the $\bra{0}$ row has no $z^{d}$ and the $\bra{1}$ row no $z^{0}$. Dividing that row by $z$ is legal, and
 $$
 A(z)^{-1}G_d^{\dagger}\tilde U(z)=G_{d-1}A(z)\cdots A(z)G_0
 $$
-is the same object with one wait fewer, so $d$ steps leave $G_0$. This is deconvolution: one two-tap kernel $G_k\Pi_0+zG_k\Pi_1$ per step built the sequence, and the recursion divides one out per step, in reverse order.
+is the same object with one wait fewer, so $d$ steps leave $G_0$. This is deconvolution: one two-term kernel $G_k\Pi_0+zG_k\Pi_1$ per step built the sequence, and the recursion divides one out per step, in reverse order.
 
 </div>
 <div class="col">
@@ -34,4 +34,4 @@ Both determinants vanish and $C_1C_0^{\dagger}=0$ exactly. The column directions
 </div>
 </div>
 
-Optimization over the areas and phases skips the factorization altogether, the route of `pyqsp` and QSPPACK and of our own fits of 2026-08-18, at the price of local minima. For a **gate** target the design is instead a linear program in $P$ with a global optimum, whose pulses this same peel-off returns [3].
+Optimization over the areas and phases skips the factorization altogether, the route of `pyqsp` and QSPPACK and of our own fits of 2026-08-18, at the price of local minima. For a **gate** target the design is instead a linear program in $P$ with a global optimum, whose pulses this same peel-off returns.

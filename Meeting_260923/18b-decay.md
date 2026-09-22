@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: speaker will supply the extended-T2 plot -->
+<!-- TODO (speaker to confirm): speaker will supply the extended-T2 plot -->
 
 # <span class="cat intro">Intro</span> Interaction is the source of entanglement.
 

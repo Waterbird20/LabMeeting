@@ -7,6 +7,7 @@ math: mathjax
 <!-- _class: tight -->
 
 <style scoped>
+section { font-size: 20px; }
 .columns { gap: 1.0rem; }
 .columns .col:first-child { flex: 0 0 450px; }
 </style>
@@ -32,9 +33,7 @@ This has rank two, while a ket gives $\rho=\ket{\psi}\bra{\psi}$ of rank one: no
 
 <figure class="figure">
 
-<video src="media/bell-mixed.mp4" poster="media/bell-mixed.png" width="620" controls autoplay loop muted playsinline preload="none"></video>
-
-*The reduced Bloch vector of qubit $1$: from $\ket{0}$ to $\ket{+}$ under the Hadamard, then to the origin during the CNOT, with $\langle X\rangle$, $\langle Y\rangle$, $\langle Z\rangle$ read off the partial trace.*
+<video src="media/bell-mixed.mp4" poster="media/bell-mixed.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

@@ -24,20 +24,14 @@ $$
 
 For example, at the displacement $n=3$ the window holds $2\cdot 6+3\cdot 5=27$. Two lists of length $3$ overlap at $5$ displacements, so the output has length $5$.
 
-This is the discrete definition. The continuous one is the same sentence with an integral in place of the sum:
-
-$$
-(f*g)(x)=\int f(y)\,g(x-y)\,dy .
-$$
+This is the discrete definition. 
 
 </div>
 <div class="col">
 
 <figure class="figure">
 
-<video src="media/simple-example.mp4" poster="media/simple-example.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*One list reversed and slid across the other; each frame is one output entry.*
+<video src="media/simple-example.mp4" poster="media/simple-example.png" width="720" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

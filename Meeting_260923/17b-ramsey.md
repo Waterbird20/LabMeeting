@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: confirm the phase convention of the second pulse. Written here with the first $\pi/2$ about $+y$ and the second about $-y$, which gives $P(0)=\tfrac12(1+\cos\delta\tau)$; with both pulses about $+y$ the fringe is inverted, $P(0)=\tfrac12(1-\cos\delta\tau)$. The thesis runs both and subtracts them to reject common-mode noise. -->
+<!-- TODO (speaker to confirm): confirm the phase convention of the second pulse. Written here with the first $\pi/2$ about $+y$ and the second about $-y$, which gives $P(0)=\tfrac12(1+\cos\delta\tau)$; with both pulses about $+y$ the fringe is inverted, $P(0)=\tfrac12(1-\cos\delta\tau)$. The thesis runs both and subtracts them to reject common-mode noise. -->
 
 <style scoped>
 .columns { gap: 1.2rem; align-items: center; margin-top: 0.15em; font-size: 0.95em; }
@@ -33,8 +33,6 @@ The frequency is the detuning itself. A field shift moves $\delta$, and the frin
 
 ![w:430](media/pulse-ramsey.png)
 
-*Two fixed $\pi/2$ pulses, the wait $\tau$ swept.*
-
 </figure>
 
 </div>
@@ -42,9 +40,7 @@ The frequency is the detuning itself. A field shift moves $\delta$, and the frin
 
 <figure class="figure">
 
-<video src="media/seq-ramsey.mp4" poster="media/seq-ramsey.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
-
-*For each $\tau$: $\pi/2$ about $y$, precession about $z$ by $\delta\tau$, $\pi/2$ about $-y$, then the projection onto $z$ gives one point.*
+<video src="media/seq-ramsey.mp4" poster="media/seq-ramsey.png" width="700" controls autoplay loop muted playsinline preload="none"></video>
 
 </figure>
 

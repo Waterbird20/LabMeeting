@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: dense -->
 
-<!-- EDIT-FORWARD: the middle lane is labelled "microwave" because the operation we design
+<!-- TODO (speaker to confirm): the middle lane is labelled "microwave" because the operation we design
      drives the NV electron spin. If the sequence in question drives a nuclear spin, relabel
      that lane "radio frequency". -->
 
@@ -15,8 +15,6 @@ math: mathjax
 <figure class="figure">
 
 <div class="seqfig"><div class="seqrow"><span class="seqname">laser</span><span class="seqbar"><span class="pulse p-init">initialise</span><span class="pulse p-read">read out</span></span></div><div class="seqrow"><span class="seqname">microwave</span><span class="seqbar"><span class="pulse p-op">operation</span></span></div><div class="seqrow"><span class="seqname"></span><span class="seqaxis"><span class="seqtime">time</span></span></div></div>
-
-*A laser pulse pumps the spin into $\ket{0}$, the unitary we designed acts, and a second laser pulse returns a photon count.*
 
 </figure>
 
