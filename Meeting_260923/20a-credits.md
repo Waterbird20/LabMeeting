@@ -11,9 +11,9 @@ math: mathjax
 .three .col { flex: 1 1 0; min-width: 0; }
 </style>
 
-# <span class="cat intro">Intro</span> Credits: this chapter follows 3Blue1Brown
+# <span class="cat intro">Intro</span> Credits
 
-Everything in this chapter is told the way Grant Sanderson tells it in *But what is a convolution?* on the 3Blue1Brown channel, and the dice and polynomial clips are cut from his published source code (MIT licence). The Bloch-sphere and QSP clips of the other chapters were made with the community edition of Manim, the animation engine written for that channel.
+This chapter follows Grant Sanderson's *But what is a convolution?* on the 3Blue1Brown channel. The dice and polynomial clips are cut from his published source code, which is MIT licensed. The Bloch sphere and QSP clips of the other chapters were made with the community edition of Manim, the animation engine written for that channel.
 
 <div class="three">
 <div class="col">

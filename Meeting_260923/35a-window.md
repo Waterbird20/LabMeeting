@@ -12,7 +12,7 @@ math: mathjax
      transfer. Confirm that reading, and say whether the $N=136$ panel should sit next
      to it as the resolution-versus-length statement. -->
 
-# <span class="cat results">Results</span> Shaping the areas is apodization, in our data too
+# <span class="cat results">Results</span> Apodization in our data
 
 <div class="columns">
 <div class="col">
@@ -39,4 +39,4 @@ math: mathjax
 </div>
 </div>
 
-Shaping the $\beta_k$ is apodization, so in this limit QSP **is** classical window design. At large pulse areas the linear map from amplitudes to taps is replaced by the exact matrix convolution we started from, and that is where QSP goes further.
+Shaping the $\beta_k$ is apodization, so in this limit QSP **is** classical window design. At large pulse areas the linear map from the amplitudes to the taps is replaced by the exact matrix convolution we started from, and that is where QSP goes further.

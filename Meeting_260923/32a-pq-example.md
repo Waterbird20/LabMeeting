@@ -10,7 +10,7 @@ math: mathjax
      makes the same Chebyshev statement again inside the general theory. Keep the
      example here and trim the repeat there, or the other way round. -->
 
-# <span class="cat method">Method</span> A concrete example: what a polynomial response means
+# <span class="cat method">Method</span> A concrete example
 
 <style scoped>
 .columns { gap: 1.0rem; }
@@ -27,7 +27,7 @@ $$
 \mathrm{Re}\,\bra{0}U\ket{0}&=\cos\!\big(d\,\tfrac{\delta\tau}{2}\big)=T_d(a),
 \end{aligned}
 $$
-with $a=\cos(\delta\tau/2)$: at $d=1$ that is $a$, at $d=2$ it is $2a^{2}-1$, at $d=5$ it is $16a^{5}-20a^{3}+5a$. These are the Chebyshev polynomials, the textbook's $P=T_d(a)$ and $Q=U_{d-1}(a)$.
+with $a=\cos(\delta\tau/2)$. At $d=1$ that is $a$, at $d=2$ it is $2a^{2}-1$, and at $d=5$ it is $16a^{5}-20a^{3}+5a$. These are the Chebyshev polynomials, the textbook's $P=T_d(a)$ and $Q=U_{d-1}(a)$.
 
 </div>
 <div class="col">
@@ -43,4 +43,4 @@ with $a=\cos(\delta\tau/2)$: at $d=1$ that is $a$, at $d=2$ it is $2a^{2}-1$, at
 </div>
 </div>
 
-Now switch three pulses on at $d=2$, areas $\beta=(\tfrac{\pi}{4},\tfrac{\pi}{2},\tfrac{\pi}{4})$ about $y$: the same read-out becomes $\mathrm{Re}\,\bra{0}U\ket{0}=a^{2}-1=\tfrac12T_2(a)-\tfrac12$, a different polynomial of the same degree. **The waits fix the degree, the pulses choose which polynomial of that degree we measure.**
+Now switch three pulses on at $d=2$, with the areas $\beta=(\tfrac{\pi}{4},\tfrac{\pi}{2},\tfrac{\pi}{4})$ about $y$. The same read-out becomes $\mathrm{Re}\,\bra{0}U\ket{0}=a^{2}-1=\tfrac12T_2(a)-\tfrac12$, a different polynomial of the same degree. **The waits fix the degree, and the pulses choose which polynomial of that degree we measure.**

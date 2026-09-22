@@ -11,20 +11,20 @@ math: mathjax
 .columns .col:first-child { flex: 0 0 430px; }
 </style>
 
-# <span class="cat intro">Intro</span> Two dice: the table of outcomes
+# <span class="cat intro">Intro</span> Two dice
 
 <div class="columns">
 <div class="col">
 
-Roll two independent dice $X$ and $Y$ and ask for the probability of their sum, $Z=X+Y$. The natural picture is a table: $36$ cells, one per pair $(X,Y)$, each with weight $\tfrac{1}{36}$.
+Roll two independent dice $X$ and $Y$, and ask for the probability of their sum, $Z=X+Y$. The natural picture is a table of $36$ cells, one per pair $(X,Y)$, each with weight $\tfrac{1}{36}$.
 
-The event $Z=n$ happens whenever $X=k$ **and** $Y=n-k$, for any $k$, so the cells with a fixed sum lie on one anti-diagonal of the table:
+The event $Z=n$ happens whenever $X=k$ **and** $Y=n-k$, for any $k$. So the cells with a fixed sum lie on one anti-diagonal of the table:
 
 $$
 P(Z=n)=\sum_k P(X=k)\,P(Y=n-k).
 $$
 
-Counting the anti-diagonal for $n=7$ gives six cells, so $P(Z=7)=6/36$, the largest of all.
+For example, the anti-diagonal of $n=7$ holds six cells, so $P(Z=7)=6/36$, the largest of all.
 
 </div>
 <div class="col">

@@ -24,12 +24,12 @@ figure.figure { margin: 0.1em auto; }
 <div class="two">
 <div class="col">
 
-**1. The sources.** Many spins each emit their own response $M_j(\omega)$; the signal is their product $S=\prod_j M_j$, which is a convolution of their coefficient lists. What we measure is already a convolved signal.
+**1. The sources.** Many spins each emit their own response $M_j(\omega)$. The signal is their product $S=\prod_j M_j$, which is a convolution of their coefficient lists, so what we measure is already a convolved signal.
 
 </div>
 <div class="col">
 
-**2. The processing.** The sequence we run is a kernel $K(\omega)$, and the read-out is the convolution $S*K$ once more. This one we design: its taps are our pulses, so it can exclude what we do not want or make the response we intended.
+**2. The processing.** The sequence we run is a kernel $K(\omega)$, so the read-out is the convolution $S*K$ once more. This one we design. Its taps are our pulses, so it can exclude what we do not want, or make the response we intended.
 
 </div>
 </div>

@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: dense -->
 
-# <span class="cat method">Method</span> The QSP theorem: the reachable responses are known exactly
+# <span class="cat method">Method</span> The QSP theorem
 
 <div class="callout">
 
@@ -14,4 +14,6 @@ math: mathjax
 
 </div>
 
-The forward direction is nothing but the convolution recursion: each step appends one tap and raises the degree by one, which is what flips the parity in the $W_x$ form, while unitarity is inherited because every factor is unitary on the circle. The converse is the direction we use, because it says the design space is a **complete** list rather than a perturbative family: any bounded polynomial of degree $d$ is a sequence we can actually build, so a polynomial that vanishes exactly at three chosen detunings is a gate that is exactly blind to three spectral lines.
+The forward direction is nothing but the convolution recursion: each step appends one tap and raises the degree by one, which is what flips the parity in the $W_x$ form, while unitarity is inherited because every factor is unitary on the circle.
+
+The converse is the direction we use. It says the design space is a **complete** list rather than a perturbative family: any bounded polynomial of degree $d$ is a sequence we can actually build. For example, a polynomial that vanishes exactly at three chosen detunings is a gate that is exactly blind to three spectral lines.

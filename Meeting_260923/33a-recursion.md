@@ -15,7 +15,7 @@ math: mathjax
 
 <style scoped>
 .columns { gap: 1.2rem; }
-.columns .col:first-child { flex: 0 0 495px; font-size: 0.92em; }
+.columns .col:first-child { flex: 0 0 495px; font-size: 0.88em; }
 </style>
 
 <div class="columns">
@@ -29,7 +29,7 @@ The coefficient of $z^{n}$ in $G_kA(z)\,\tilde U_{k-1}$ is
 $$
 v^{(k)}_n=K^{(0)}_k v^{(k-1)}_n+K^{(1)}_k v^{(k-1)}_{n-1} ,
 $$
-a flip-and-slide sum with matrix taps, $\big(K_k*v^{(k-1)}\big)_n$. Unrolled from $v^{(0)}_0=G_0\ket{0}$:
+which is a flip-and-slide sum with matrix taps, $\big(K_k*v^{(k-1)}\big)_n$. Unrolled from $v^{(0)}_0=G_0\ket{0}$:
 $$
 \begin{aligned}
 v^{(1)}_0&=K^{(0)}_1v^{(0)}_0 , & v^{(1)}_1&=K^{(1)}_1v^{(0)}_0 ,\\
@@ -37,7 +37,7 @@ v^{(2)}_0&=K^{(0)}_2v^{(1)}_0 , & v^{(2)}_2&=K^{(1)}_2v^{(1)}_1 ,\\
 v^{(2)}_1&=K^{(0)}_2v^{(1)}_1 &&+\,K^{(1)}_2v^{(1)}_0 .
 \end{aligned}
 $$
-At either end the kernel hangs off the list and only one term survives, so each step adds exactly one entry: **the degree is the number of waits**.
+At either end the kernel hangs off the list, so only one term survives and each step adds one entry. **The degree is the number of waits.**
 
 </div>
 <div class="col">

@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-# <span class="cat intro">Intro</span> The same picture for two curves: flip, slide, integrate
+# <span class="cat intro">Intro</span> Continuous case
 
 <style scoped>
 .columns { gap: 1.2rem; }
@@ -22,9 +22,9 @@ $$
 (f*g)(x)=\int f(y)\,g(x-y)\,dy .
 $$
 
-Hold $f$ still, reverse $g$, slide it by $x$, multiply point by point, and add up over a continuum.
+So hold $f$ still, reverse $g$, slide it by $x$, multiply point by point, and add up over a continuum.
 
-The polynomial product just seen is the discrete case of this picture, since a list is a function on the integers.
+The polynomial product we just saw is the discrete case of this picture, since a list is a function on the integers.
 
 If $f$ and $g$ are two probability densities, then $f*g$ is the density of their sum.
 

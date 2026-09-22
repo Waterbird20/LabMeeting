@@ -11,7 +11,7 @@ math: mathjax
 .columns .col:first-child { flex: 0 0 430px; }
 </style>
 
-# <span class="cat intro">Intro</span> The same sum, seen as flip and slide
+# <span class="cat intro">Intro</span> Flip and slide
 
 <div class="columns">
 <div class="col">
@@ -22,7 +22,7 @@ $$
 (f*g)[n]=\sum_{k} f[k]\,g[n-k].
 $$
 
-The minus sign is the **flip** and $n$ is the **slide**. The only rule is that the two indices add up to the output index, since $k+(n-k)=n$; everything else is bookkeeping.
+The minus sign is the **flip**, and $n$ is the **slide**. The only rule is that the two indices add up to the output index, $k+(n-k)=n$.
 
 Two lists of length $6$ overlap at $11$ displacements, the sums $2$ to $12$.
 

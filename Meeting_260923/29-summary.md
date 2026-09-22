@@ -19,8 +19,8 @@ math: mathjax
 <div class="col">
 
 - **Convolution was never a choice.** It appeared on its own in the sum of two dice, in the product of two polynomials, and in the product of many nuclear responses.
-- **One factor is the response, the other is the kernel.** In $(f*g)(x)=\int f(y)\,g(x-y)\,dy$ one factor is the response of the system, the other is the kernel, also called the filter function, and which is which is our own choice.
-- **So the kernel is ours to design.** A filter that excludes a part of the response we do not want is apodization, a filter that makes the response we intended is signal processing, and chapter 3 is the exact version of the second.
+- **One factor is the response, the other is the kernel.** In $(f*g)(x)=\int f(y)\,g(x-y)\,dy$ one factor is the response of the system, and the other is the kernel, also called the filter function. Which is which is our own choice.
+- **So the kernel is ours to design.** A filter that excludes a part of the response we do not want is apodization. A filter that makes the response we intended is signal processing, and chapter 3 is the exact version of the second.
 
 </div>
 <div class="col">

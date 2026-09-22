@@ -14,6 +14,6 @@ math: mathjax
 
 <div class="sec-num">03</div>
 
-# Quantum signal processing
+# Quantum Signal Processing
 
-<div class="subtitle">The sequence is a polynomial, the polynomial is built by convolution, and the response is the transform of the taps</div>
+<div class="subtitle"></div>

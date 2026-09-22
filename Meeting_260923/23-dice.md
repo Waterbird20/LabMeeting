@@ -13,12 +13,12 @@ math: mathjax
 
 <!-- EDIT-FORWARD: the loaded-dice numbers are read off the dice-weighted animation; they are illustrative, not data. -->
 
-# <span class="cat intro">Intro</span> Uneven dice: the same picture with weights
+# <span class="cat intro">Intro</span> Uneven dice
 
 <div class="columns">
 <div class="col">
 
-Now load the dice, so the faces are no longer equally likely. Nothing changes in the bookkeeping: the same anti-diagonal is summed, only each cell now carries the product of two unequal weights,
+Now load the dice, so the faces are no longer equally likely. The bookkeeping does not change. The same anti-diagonal is summed, and each cell carries the product of two unequal weights,
 
 $$
 P(Z=n)=\sum_k P(X=k)\,P(Y=n-k)=\big[P_X*P_Y\big](n).
@@ -30,7 +30,7 @@ $$
 P(Z=4)=0.16\cdot 0.24+0.21\cdot 0.22+0.17\cdot 0.11 .
 $$
 
-Nobody chose to convolve anything. Adding two independent random variables **is** a convolution of their distributions.
+We did not choose to convolve anything. Adding two independent random variables **is** a convolution of their distributions.
 
 </div>
 <div class="col">

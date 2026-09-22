@@ -14,7 +14,7 @@ $$
 (a*b)_n=\sum_{i+j=n}a_i\,b_j=\sum_{i}a_i\,b_{n-i}.
 $$
 
-**Up to now we have only added two independent random variables.** The convolution was not a choice; it is what addition looks like in the distributions.
+**Up to now we have only added two independent random variables.** The convolution was not a choice. It is what the addition looks like in the distributions.
 
 <div class="columns">
 <div class="col">

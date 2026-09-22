@@ -19,7 +19,7 @@ Now strip $G_d$ away. In $G_d^{\dagger}\tilde U(z)=A(z)G_{d-1}\cdots A(z)G_0$ th
 $$
 A(z)^{-1}G_d^{\dagger}\tilde U(z)=G_{d-1}A(z)\cdots A(z)G_0
 $$
-is the same object with one wait fewer, so $d$ steps leave $G_0$. This is literally deconvolution: one two-tap kernel $G_k\Pi_0+zG_k\Pi_1$ per step built the sequence, and the recursion divides one out per step, in reverse order.
+is the same object with one wait fewer, so $d$ steps leave $G_0$. This is deconvolution: one two-tap kernel $G_k\Pi_0+zG_k\Pi_1$ per step built the sequence, and the recursion divides one out per step, in reverse order.
 
 </div>
 <div class="col">

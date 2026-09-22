@@ -6,7 +6,7 @@ math: mathjax
 
 <!-- _class: tight -->
 
-# <span class="cat strategy">Strategy</span> From a target to the pulses: first the partner
+# <span class="cat strategy">Strategy</span> From a target to the pulses
 
 <div class="columns">
 <div class="col">
@@ -31,7 +31,7 @@ Each $\Pi_b=\ket{b}\bra{b}$ cuts its product into scalars,
 $$
 C_d=\Big(\textstyle\prod_{k=1}^{d-1}\bra{1}G_k\ket{1}\Big)\,G_d\ket{1}\bra{1}G_0 ,
 $$
-so both ends have rank one, with column spaces $G_d\ket{1}$ and $G_d\ket{0}$. Unitarity makes those orthogonal: on the circle $\tilde U^{\dagger}=\sum_nC_n^{\dagger}z^{-n}$, so $\tilde U\tilde U^{\dagger}=I$ reads coefficient by coefficient as $\sum_nC_{n+m}C_n^{\dagger}=\delta_{m0}I$, whose top power $m=d$ is the single term $C_dC_0^{\dagger}=0$. **The last pulse is read off the two ends of the list.**
+so both ends have rank one, with the column spaces $G_d\ket{1}$ and $G_d\ket{0}$. Unitarity makes those orthogonal: on the circle $\tilde U^{\dagger}=\sum_nC_n^{\dagger}z^{-n}$, so $\tilde U\tilde U^{\dagger}=I$ reads coefficient by coefficient as $\sum_nC_{n+m}C_n^{\dagger}=\delta_{m0}I$, whose top power $m=d$ is the single term $C_dC_0^{\dagger}=0$. **The last pulse is read off the two ends of the list.**
 
 </div>
 </div>

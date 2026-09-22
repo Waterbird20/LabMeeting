@@ -16,7 +16,7 @@ math: mathjax
 <div class="columns">
 <div class="col">
 
-Use the same numbers as coefficients and multiply two polynomials, which is an ordinary **pointwise** product of two functions of $x$:
+Use the same numbers as coefficients and multiply two polynomials, an ordinary **pointwise** product of two functions of $x$:
 
 $$
 (1+2x+3x^2)(4+5x+6x^2)
@@ -25,13 +25,13 @@ $$
 =4+13x+28x^2+27x^3+18x^4 .
 $$
 
-The coefficient of $x^n$ collects every pair of powers that adds up to $n$, and that is the flip-and-slide sum again:
+The coefficient of $x^n$ collects every pair of powers that adds up to $n$, which is the flip-and-slide sum again:
 
 $$
 c_n=\sum_{i+j=n}a_i\,b_j=(a*b)[n].
 $$
 
-Multiplying by $x^j$ **shifts** the coefficient list by $j$, so a product of polynomials is a weighted sum of shifted copies, which is what a convolution is.
+Multiplying by $x^j$ **shifts** the list by $j$, so the product is a weighted sum of shifted copies.
 
 </div>
 <div class="col">

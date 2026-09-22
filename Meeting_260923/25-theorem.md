@@ -13,7 +13,7 @@ section p { margin: 0.35em 0; }
 mjx-container[display] { margin: 0.2em 0 !important; }
 </style>
 
-# <span class="cat method">Method</span> One identity: convolve here, multiply there
+# <span class="cat method">Method</span> Convolution theorem
 
 $$
 \widehat{f*g}=\hat f\cdot\hat g
@@ -30,7 +30,7 @@ exponentials $e^{i\omega x}$ are its eigenfunctions. In that basis the operation
 
 Read the other way, a product of two records in time is a convolution of their spectra.
 
-A trigonometric polynomial $F(\theta)=\sum_n c_n e^{in\theta}$ is the polynomial slide with $x=e^{i\theta}$, so multiplying two such responses **convolves their coefficient lists**. That is the case we live in.
+For example, a trigonometric polynomial $F(\theta)=\sum_n c_n e^{in\theta}$ is the polynomial slide with $x=e^{i\theta}$. So multiplying two such responses **convolves their coefficient lists**, and this is our case.
 
 </div>
 <div class="col">

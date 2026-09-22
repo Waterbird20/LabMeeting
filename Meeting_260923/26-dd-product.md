@@ -13,9 +13,9 @@ mjx-container[display] { margin: 0.15em 0 !important; }
 figure.figure { margin: 0.3em auto 0; }
 </style>
 
-# <span class="cat method">Method</span> Our case: many nuclei, and the responses multiply
+# <span class="cat method">Method</span> Our case: many nuclei
 
-The electron is prepared in $\ket{+}$, a dynamical decoupling sequence runs, and it is read out at azimuth $\varphi$, where $V_0$ and $V_1$ are the propagators the **nuclear** spin experiences with the electron in $\ket{0}$ and in $\ket{1}$.
+Prepare the electron in $\ket{+}$, run a dynamical decoupling sequence, and read it out at the azimuth $\varphi$. Here $V_0$ and $V_1$ are the propagators the **nuclear** spin experiences with the electron in $\ket{0}$ and in $\ket{1}$.
 
 $$
 P(\varphi)=\tfrac12+\tfrac12|M|\cos(\varphi-\arg M),
@@ -23,13 +23,13 @@ P(\varphi)=\tfrac12+\tfrac12|M|\cos(\varphi-\arg M),
 M=\tfrac12\operatorname{Tr}\,V_0V_1^{\dagger}
 $$
 
-For several nuclei that do not interact with each other the trace factorizes.
+For several nuclei that do not interact with each other, the trace factorizes.
 
 $$
 M=\prod\nolimits_j M_j,\qquad M_j=\tfrac12\operatorname{Tr}\,V_0^{(j)}V_1^{(j)\dagger}
 $$
 
-Each dip below is one nucleus telling the branches apart, the several combs multiply, and the plotted $P_x=\tfrac12(1+M)$ is exactly this **pointwise product**; losses multiply, and for shallow dips they add, $1-|M|\simeq\sum_j(1-|M_j|)$.
+Each dip below is one nucleus telling the branches apart. The several combs multiply, so the plotted $P_x=\tfrac12(1+M)$ is exactly this **pointwise product**. Losses multiply, and for shallow dips they add, $1-|M|\simeq\sum_j(1-|M_j|)$.
 
 <figure class="figure">
 
