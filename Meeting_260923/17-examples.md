@@ -25,6 +25,12 @@ $$
 
 The detuning $\delta$ is where the field enters and $\Omega=\gamma B_1$ is the drive strength.
 
+<figure class="figure">
+
+![w:400](media/levels.png)
+
+</figure>
+
 </div>
 <div class="col">
 

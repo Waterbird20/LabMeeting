@@ -29,7 +29,7 @@ The coefficient of $z^{n}$ in $G_kA(z)\,\tilde U_{k-1}$ is
 $$
 v^{(k)}_n=K^{(0)}_k v^{(k-1)}_n+K^{(1)}_k v^{(k-1)}_{n-1} ,
 $$
-which is a flip-and-slide sum with matrix coefficients, $\big(K_k*v^{(k-1)}\big)_n$. Each $v^{(k)}_n$ is a two-component vector, the $\ket{0}$ amplitude above the $\ket{1}$ amplitude, which is what the clip prints in every box. Unrolled from $v^{(0)}_0=G_0\ket{0}$:
+which is a flip-and-slide sum with matrix coefficients, $\big(K_k*v^{(k-1)}\big)_n$. Each $v^{(k)}_n$ is a two-component vector, the $\ket{0}$ amplitude above the $\ket{1}$ amplitude, which the clip prints as a column in every box. Unrolled from $v^{(0)}_0=G_0\ket{0}$:
 $$
 \begin{aligned}
 (v^{(1)}_0 , v^{(1)}_1)&=(K^{(0)}_1v^{(0)}_0,  K^{(1)}_1v^{(0)}_0) \\
