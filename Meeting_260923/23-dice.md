@@ -4,7 +4,12 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
+
+<style scoped>
+.columns { gap: 1.0rem; }
+.columns .col:first-child { flex: 0 0 430px; }
+</style>
 
 <!-- EDIT-FORWARD: the loaded-dice numbers are read off the dice-weighted animation; they are illustrative, not data. -->
 
@@ -32,7 +37,7 @@ Nobody chose to convolve anything. Adding two independent random variables **is*
 
 <figure class="figure">
 
-<video src="media/dice-weighted.mp4" poster="media/dice-weighted.png" width="520" autoplay loop muted playsinline preload="none"></video>
+<video src="media/dice-weighted.mp4" poster="media/dice-weighted.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
 
 *Loaded dice: the same table and the same anti-diagonals, now weighted cell by cell.*
 

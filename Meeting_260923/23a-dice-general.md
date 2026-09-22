@@ -4,7 +4,7 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
 
 # <span class="cat intro">Intro</span> Convolution of $(a_i)$ and $(b_i)$
 
@@ -21,7 +21,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/dice-general.mp4" poster="media/dice-general.png" width="400" autoplay loop muted playsinline preload="none"></video>
+<video src="media/dice-general.mp4" poster="media/dice-general.png" width="470" controls autoplay loop muted playsinline preload="none"></video>
 
 *Symbolic weights, one window position per output entry.*
 
@@ -32,7 +32,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/dice-formula.mp4" poster="media/dice-formula.png" width="400" autoplay loop muted playsinline preload="none"></video>
+<video src="media/dice-formula.mp4" poster="media/dice-formula.png" width="470" controls autoplay loop muted playsinline preload="none"></video>
 
 *The same products as a table, then the formula.*
 

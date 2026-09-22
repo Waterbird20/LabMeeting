@@ -4,15 +4,34 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
 
-# <span class="cat strategy">Strategy</span> Finding the pulses is deconvolution
+# <span class="cat strategy">Strategy</span> From a target to the pulses: first the partner
 
-Given a target $P$ with $|P|\le1$ on the circle, a partner $Q$ with $|Q|^{2}=1-|P|^{2}$ exists by the Fejér–Riesz factorization, and the pulses are then peeled off one at a time [2]. The two end taps of the matrix list are
+<div class="columns">
+<div class="col">
+
+Everything so far designed a polynomial. The bench needs the $2(d+1)$ numbers $\beta_k$ and $\varphi_k$, so the design is finished only once $P$ is turned back into pulses. Complete the matrix first: unitarity on the circle asks for a partner with $|Q|^{2}=1-|P|^{2}$, and the bound $|P|\le1$ is the only obstruction, because no entry of a unitary matrix can exceed one in modulus.
+
+**Fejér and Riesz:** a trigonometric polynomial that is non-negative everywhere on the circle is the squared modulus of an ordinary polynomial of the same degree.
+
+Since $S=1-|P|^{2}\ge0$ is exactly such a polynomial, the partner exists. To build it, note that $z^{d}S(z)$ has $2d$ roots which pair up as $(r,1/\bar r)$ because $S$ is real on the circle, and keeping one root of each pair fixes $Q$ [2].
+
+</div>
+<div class="col">
+
+With $P$ and $Q$ in hand every tap of $\tilde U(z)=\sum_nC_nz^{n}$ is known. Its two ends are single terms, since only one choice of projector per wait reaches an extreme power:
 $$
-C_d=G_d\,\Pi_1 G_{d-1}\Pi_1\cdots\Pi_1 G_0 ,\qquad
-C_0=G_d\,\Pi_0 G_{d-1}\Pi_0\cdots\Pi_0 G_0 ,
+\begin{aligned}
+C_d&=G_d\,\Pi_1G_{d-1}\Pi_1\cdots\Pi_1G_0,\\
+C_0&=G_d\,\Pi_0G_{d-1}\Pi_0\cdots\Pi_0G_0 .
+\end{aligned}
 $$
-each containing a projector, hence each of rank one, and unitarity on the circle forces $C_dC_0^{\dagger}=0$. Their column directions are therefore the two orthogonal columns $G_d\ket{1}$ and $G_d\ket{0}$: **the last pulse is read directly off the two ends of the tap list.** Removing it, $A(z)^{-1}G_d^{\dagger}\tilde U$ has degree $d-1$, and $d$ repetitions give every pulse. Dividing out one two-tap factor per step is the exact inverse of the step-by-step convolution that built the sequence.
+Each $\Pi_b=\ket{b}\bra{b}$ cuts its product into scalars,
+$$
+C_d=\Big(\textstyle\prod_{k=1}^{d-1}\bra{1}G_k\ket{1}\Big)\,G_d\ket{1}\bra{1}G_0 ,
+$$
+so both ends have rank one, with column spaces $G_d\ket{1}$ and $G_d\ket{0}$. Unitarity makes those orthogonal: on the circle $\tilde U^{\dagger}=\sum_nC_n^{\dagger}z^{-n}$, so $\tilde U\tilde U^{\dagger}=I$ reads coefficient by coefficient as $\sum_nC_{n+m}C_n^{\dagger}=\delta_{m0}I$, whose top power $m=d$ is the single term $C_dC_0^{\dagger}=0$. **The last pulse is read off the two ends of the list.**
 
-Two practical alternatives exist. Optimization over the phases is what `pyqsp` and QSPPACK do and what our own fits of 2026-08-18 did. For a **gate** target the whole design is even convex: maximizing the smallest projection of $P$ on the target phase subject to $|P|\le1$ is a linear program with a global optimum.
+</div>
+</div>

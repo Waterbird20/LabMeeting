@@ -4,7 +4,12 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
+
+<style scoped>
+.columns { gap: 1.0rem; }
+.columns .col:first-child { flex: 0 0 430px; }
+</style>
 
 # <span class="cat intro">Intro</span> A product of polynomials is a convolution of coefficients
 
@@ -33,7 +38,7 @@ Multiplying by $x^j$ **shifts** the coefficient list by $j$, so a product of pol
 
 <figure class="figure">
 
-<video src="media/polynomial.mp4" poster="media/polynomial.png" width="520" autoplay loop muted playsinline preload="none"></video>
+<video src="media/polynomial.mp4" poster="media/polynomial.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
 
 *Each power of $x$ collects one diagonal of the table of pairwise products, and the diagonals are exactly the sums $i+j=n$.*
 

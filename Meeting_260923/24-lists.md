@@ -4,7 +4,12 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
+
+<style scoped>
+.columns { gap: 1.0rem; }
+.columns .col:first-child { flex: 0 0 430px; }
+</style>
 
 # <span class="cat intro">Intro</span> Forget the dice: any two lists convolve the same way
 
@@ -30,7 +35,7 @@ $$
 
 <figure class="figure">
 
-<video src="media/simple-example.mp4" poster="media/simple-example.png" width="520" autoplay loop muted playsinline preload="none"></video>
+<video src="media/simple-example.mp4" poster="media/simple-example.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
 
 *One list reversed and slid across the other; each frame is one output entry.*
 

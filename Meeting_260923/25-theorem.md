@@ -6,6 +6,13 @@ math: mathjax
 
 <!-- _class: tight -->
 
+<style scoped>
+.columns { gap: 1.2rem; }
+.columns .col:first-child { flex: 0 0 420px; line-height: 1.44; }
+section p { margin: 0.35em 0; }
+mjx-container[display] { margin: 0.2em 0 !important; }
+</style>
+
 # <span class="cat method">Method</span> One identity: convolve here, multiply there
 
 $$
@@ -21,19 +28,18 @@ A convolution treats all positions alike, so it commutes with shifts, and the co
 exponentials $e^{i\omega x}$ are its eigenfunctions. In that basis the operation is
 **diagonal**, and diagonal means multiply entry by entry.
 
-Read the other way, a product of two records in time is a convolution of their spectra, so a
-finite measurement window smears every line by the transform of that window.
+Read the other way, a product of two records in time is a convolution of their spectra.
 
-A trigonometric polynomial $F(\theta)=\sum_n c_n e^{in\theta}$ is the polynomial slide with $x=e^{i\theta}$: multiplying two such responses **convolves their coefficient lists** $c_n$. That is the case we live in, because our response is a product.
+A trigonometric polynomial $F(\theta)=\sum_n c_n e^{in\theta}$ is the polynomial slide with $x=e^{i\theta}$, so multiplying two such responses **convolves their coefficient lists**. That is the case we live in.
 
 </div>
 <div class="col">
 
 <figure class="figure">
 
-<video src="media/conv-to-mult.mp4" poster="media/conv-to-mult.png" width="480" autoplay loop muted playsinline preload="none"></video>
+<video src="media/conv-identity.mp4" poster="media/conv-identity.png" width="660" controls autoplay loop muted playsinline preload="none"></video>
 
-*The same two lists, convolved on the left and multiplied entry by entry on the right. A transform carries one picture into the other.*
+*Convolving $a=(1,2,3)$ with $b=(4,5,6)$ on the left, multiplying $|\hat a(\theta)|$ by $|\hat b(\theta)|$ on the right: the dashed curve, the transform of the convolution, lands exactly on the product. The panels plot moduli, since $|\hat a\hat b|=|\hat a|\,|\hat b|$.*
 
 </figure>
 

@@ -4,25 +4,52 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
 
 <!-- EDIT-FORWARD: confirm the read-out convention. These slides plot $P(0)$, the population of $\ket{0}$, which rises with fluorescence; the thesis plots normalised fluorescence contrast, so its minima are the $\pi$ pulses just as they are here. -->
 
+<style scoped>
+.columns { gap: 1.2rem; align-items: center; margin-top: 0.15em; font-size: 0.95em; }
+.columns .col:first-child { flex: 0 0 452px; }
+mjx-container[display="true"] { margin: 0.3em 0 !important; }
+figure.figure { margin: 0.25em auto 0; }
+figure.figure p { margin-top: 0.2em; }
+</style>
+
 # <span class="cat intro">Intro</span> Rabi: calibrating the rotation angle
 
-Setting pulse on resonance, $\delta=0$, so $H=\frac{\Omega}{2}X$ and the pulse is a rotation about $y$ by the angle $\Omega t$:
+<div class="columns">
+<div class="col">
+
+Set the pulse on resonance, $\delta=0$, so $H=\frac{\Omega}{2}Y$ and the pulse is a rotation about $y$ by the angle $\Omega t$:
 
 $$
-P(0)=\big|\bra{0}e^{-i\Omega X t/2}\ket{0}\big|^{2} =\cos^{2}\!\Big(\frac{\Omega t}{2}\Big).
+\begin{aligned}
+P(0)&=\big|\bra{0}e^{-i\Omega Y t/2}\ket{0}\big|^{2}\\
+&=\cos^{2}\!\Big(\frac{\Omega t}{2}\Big).
+\end{aligned}
 $$
 
-Sweep the pulse length and the fluorescence oscillates at $\Omega$. 
+Sweep the pulse length and the fluorescence oscillates at $\Omega$.
 
 <figure class="figure">
 
-<video src="media/seq-rabi.mp4" poster="media/seq-rabi.png" width="520" autoplay loop muted playsinline preload="none"></video>
+![w:430](media/pulse-rabi.png)
+
+*One microwave pulse, its length $t$ swept.*
 
 </figure>
 
-<!-- TODO: Fix animation. x-axis should be lied on -y axis in current animation. As the other animation did, show measurement explicitly, which show z-projection. Then draw dot on the plot. -->
-<!-- TODO: Draw angle $\Omega t$ in the plot -->
+</div>
+<div class="col">
+
+<figure class="figure">
+
+<video src="media/seq-rabi.mp4" poster="media/seq-rabi.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
+
+*The state turns about $y$ through the arc $\Omega t$, the dashed line projects it onto $z$, and each read-out adds one point to $P(0)$.*
+
+</figure>
+
+</div>
+</div>

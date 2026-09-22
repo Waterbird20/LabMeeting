@@ -6,33 +6,24 @@ math: mathjax
 
 <!-- _class: tight -->
 
-<!-- EDIT-FORWARD: the clip writes the two components of v_n as p_n and u_n with <1|U|0> = -i sum u_n z^n, so that an R_x(beta) pulse gives the real two-tap kernel (c, -s; s, c) with c = cos(beta/2), s = sin(beta/2). That is the same recursion as the boxed one; say which notation you want on the slide. -->
+<!-- EDIT-FORWARD: page 41 of the first draft is now two slides, this one (the kernel,
+     with the explicit R_x matrices) and 33a-recursion.md (the recursion, the k = 1 and
+     k = 2 unrolling, and the clip). Merge them back if the section runs long. -->
 
-# <span class="cat method">Method</span> Each added step convolves the coefficient list
+# <span class="cat method">Method</span> One wait and one pulse are a two-tap kernel
 
-<div class="columns">
-<div class="col">
-
-The wait leaves the $\ket{0}$ component alone and advances the $\ket{1}$ component by one power of $z$, so $A(z)=\Pi_0+z\,\Pi_1$ with $\Pi_b=\ket{b}\bra{b}$, and one step is a **two-tap kernel**
+Let $\Pi_b=\ket{b}\bra{b}$ be the projector onto $\ket{b}$, so that $\Pi_0+\Pi_1=I$. During a wait only $\ket{1}$ collects the phase $\delta\tau$ relative to $\ket{0}$, so the wait leaves the $\ket{0}$ component where it is and advances the $\ket{1}$ component by one power of $z$:
 $$
-G_k A(z)=K^{(0)}_k+z\,K^{(1)}_k ,\qquad K^{(b)}_k=G_k\,\Pi_b .
+A(z)=\mathrm{diag}(1,z)=\Pi_0+z\,\Pi_1 ,\qquad z=e^{i\delta\tau} .
 $$
-Write the state after $k$ steps as a list of $2$-vectors, $\tilde U_k\ket{0}=\sum_n v^{(k)}_n z^n$. Multiplying by the new factor gives
+**One power of $z$ is one wait.** The pulse that follows is a fixed matrix while $z$ is a scalar, so it multiplies straight through both terms:
 $$
-v^{(k)}_n=K^{(0)}_k v^{(k-1)}_n+K^{(1)}_k v^{(k-1)}_{n-1}\equiv\big(K_k * v^{(k-1)}\big)_n .
+G_k\,A(z)=K^{(0)}_k+z\,K^{(1)}_k ,\qquad K^{(0)}_k=G_k\,\Pi_0 ,\quad K^{(1)}_k=G_k\,\Pi_1 .
 $$
-This is the identity of Section 2 with matrix-valued taps: a product of polynomials is a convolution of coefficients. Starting from one tap $v^{(0)}_0=G_0\ket{0}$, each step lengthens the list by exactly one, which is why **degree $=$ number of waits**.
-
-</div>
-<div class="col">
-
-<figure class="figure">
-
-<video src="media/qsp-coeff-conv.mp4" poster="media/qsp-coeff-conv.png" width="500" autoplay loop muted playsinline preload="none"></video>
-
-*Left: the two coefficient lists of $\langle0|U|0\rangle$ and $\langle1|U|0\rangle$, each gaining one tap per wait and pulse. Right: the response $|\langle0|U|0\rangle|^{2}$ over $\delta\tau$, which sharpens with the degree $d$ and changes shape when the pulse areas are windowed.*
-
-</figure>
-
-</div>
-</div>
+Multiplying by $\Pi_0$ keeps the first column of $G_k$ and deletes the second, and $\Pi_1$ does the reverse. For a pulse about $x$ of area $\beta_k$, writing $c=\cos\frac{\beta_k}{2}$ and $s=\sin\frac{\beta_k}{2}$,
+$$
+G_k=R_x(\beta_k)=\begin{pmatrix} c & -is\\ -is & c\end{pmatrix},\qquad
+K^{(0)}_k=\begin{pmatrix} c & 0\\ -is & 0\end{pmatrix},\qquad
+K^{(1)}_k=\begin{pmatrix} 0 & -is\\ 0 & c\end{pmatrix}.
+$$
+Each step of the sequence is therefore a **two-tap kernel whose taps are matrices**. The tap at $z^{0}$ sends the $\ket{0}$ amplitude through the pulse at the same power of $z$, and the tap at $z^{1}$ sends the $\ket{1}$ amplitude through the pulse one power of $z$ later.

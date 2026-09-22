@@ -35,3 +35,4 @@ table { font-size: 0.86em; }
 section.dense { font-size: 23px; }
 section.tight { font-size: 21px; }
 </style>
+

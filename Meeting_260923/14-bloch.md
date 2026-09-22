@@ -4,7 +4,12 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
+
+<style scoped>
+.columns { gap: 1.0rem; }
+.columns .col:first-child { flex: 0 0 430px; }
+</style>
 
 # <span class="cat intro">Intro</span> Bloch sphere
 
@@ -34,7 +39,7 @@ with $\langle Y\rangle=\langle Z\rangle=0$, so $\ket{+}$ sits at $\vec{r}=(1,0,0
 
 <figure class="figure">
 
-<video src="media/bloch-plus.mp4" poster="media/bloch-plus.png" width="550" autoplay loop muted playsinline preload="none"></video>
+<video src="media/bloch-plus.mp4" poster="media/bloch-plus.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
 <!-- TODO: Split the video. The $\ket{\psi}= \cos\frac{\theta}{2} \ket{0} + \sin\frac{\theta}{2}e^{i\phi}\ket{1} is for next slide -->
 <!-- TODO: For the video, show full matrix multiplication. For both +-state and general form. -->
 <!-- TODO: In representing Bloch sphere with vector, add elevation angle $\theta$ and azimutal angle $\phi$ in the plot.   -->

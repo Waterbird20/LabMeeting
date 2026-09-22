@@ -4,7 +4,12 @@ theme: serif
 math: mathjax
 ---
 
-<!-- _class: dense -->
+<!-- _class: tight -->
+
+<style scoped>
+.columns { gap: 1.0rem; }
+.columns .col:first-child { flex: 0 0 430px; }
+</style>
 
 # <span class="cat intro">Intro</span> The same sum, seen as flip and slide
 
@@ -26,7 +31,7 @@ Two lists of length $6$ overlap at $11$ displacements, the sums $2$ to $12$.
 
 <figure class="figure">
 
-<video src="media/dice-slide.mp4" poster="media/dice-slide.png" width="520" autoplay loop muted playsinline preload="none"></video>
+<video src="media/dice-slide.mp4" poster="media/dice-slide.png" width="640" controls autoplay loop muted playsinline preload="none"></video>
 
 *The second row is reversed and slid across the first. The pairs that line up are exactly the anti-diagonal of the table, now read as a moving window.*
 
