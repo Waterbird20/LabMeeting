@@ -12,11 +12,7 @@ math: mathjax
 
 # <span class="cat intro">Intro</span> Our case: prepare $\ket{0}$, read out along $z$
 
-<figure class="figure">
-
 <div class="seqfig"><div class="seqrow"><span class="seqname">laser</span><span class="seqbar"><span class="pulse p-init">initialise</span><span class="pulse p-read">read out</span></span></div><div class="seqrow"><span class="seqname">microwave</span><span class="seqbar"><span class="pulse p-op">operation</span></span></div><div class="seqrow"><span class="seqname"></span><span class="seqaxis"><span class="seqtime">time</span></span></div></div>
-
-</figure>
 
 Strictly, the last step is a projective measurement on $\ket{0}$ rather than a measurement of $Z$, because a photon count is intrinsically positive. The observable is the projector $\Pi_0=\ket{0}\bra{0}$, not an operator with eigenvalues $\pm 1$. The two are one affine step apart, since $\Pi_0=\tfrac12(I+Z)$:
 
@@ -29,7 +25,7 @@ $$
 The mean count is linear in $P(0)$ between a bright and a dark reference level, so dividing by that contrast turns photons into $P(0)$. **After contrast normalisation the readout is effectively a $Z$ measurement**, and $\langle Z\rangle$ is what every curve in this talk plots.
 
 <style>
-.seqfig { width: 86%; margin: 0.15em auto 0.15em; font-family: 'Inter', system-ui, sans-serif; }
+.seqfig { width: 88%; margin: 0.15em auto 0.15em; font-family: 'Inter', system-ui, sans-serif; }
 .seqrow { display: flex; align-items: center; height: 38px; }
 .seqname { width: 130px; flex: none; text-align: right; padding-right: 14px; color: #6b7280; font-size: 0.60em; }
 .seqbar { position: relative; flex: 1 1 0; height: 32px; border-bottom: 2px solid #ddd8cc; }
