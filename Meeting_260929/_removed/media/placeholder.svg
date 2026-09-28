@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" viewBox="0 0 760 380">
+  <rect x="1" y="1" width="758" height="378" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="380" y="190" font-family="Inter, Segoe UI, sans-serif" font-size="26" fill="#94a3b8" text-anchor="middle">figure placeholder</text>
+  <text x="380" y="224" font-family="Inter, Segoe UI, sans-serif" font-size="18" fill="#b4becc" text-anchor="middle">drop your image in media/ and update the path</text>
+</svg>

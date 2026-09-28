@@ -1,0 +1,17 @@
+# References used by the qml section (20-section-qml.md to 24-optimism.md)
+
+All venues were checked by web search on 2026-09-28 (publisher or arXiv abstract page), or read from the filed PDF where noted.
+
+1. I. Cong, S. Choi and M. D. Lukin, "Quantum convolutional neural networks," *Nature Physics* **15**, 1273–1278 (2019). DOI: 10.1038/s41567-019-0648-8; arXiv:1810.03787. Convolution layers of quasi-local unitaries, pooling by measurement with outcome-conditioned rotations, a final unitary $F$; $O(\log N)$ parameters. Cited on 21-qcnn.md and 22-nonlinearity.md.
+2. J. Bowles, S. Ahmed and M. Schuld, "Better than classical? The subtle art of benchmarking quantum machine learning models," arXiv:2403.07059 (2024). Filed: `1. raw/papers/bowles2024betterclassicalsubtleart/`; wiki: `3. wiki/papers/@bowles2024better.md`. Cited on 23-skepticism.md.
+3. J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush and H. Neven, "Barren plateaus in quantum neural network training landscapes," *Nature Communications* **9**, 4812 (2018). DOI: 10.1038/s41467-018-07090-4. Cited on 23-skepticism.md.
+4. M. Cerezo, M. Larocca, D. García-Martín, N. L. Diaz, P. Braccia, E. Fontana, M. S. Rudolph, P. Bermejo, A. Ijaz, S. Thanasilp, E. R. Anschuetz and Z. Holmes, "Does provable absence of barren plateaus imply classical simulability?," *Nature Communications* **16**, 7907 (2025). DOI: 10.1038/s41467-025-63099-6; arXiv:2312.09121. Cited on 23-skepticism.md.
+5. P. Bermejo, P. Braccia, M. S. Rudolph, Z. Holmes, L. Cincio and M. Cerezo, "Quantum convolutional neural networks are effectively classically simulable," *PRX Quantum* **7**, 020304 (2026). DOI: 10.1103/8qt9-72ts; arXiv:2408.12739 (v1 title: "... are (effectively) classically simulable"). Cited on 23-skepticism.md.
+6. S. Aaronson, "Read the fine print," *Nature Physics* **11**, 291–293 (2015). DOI: 10.1038/nphys3272. Cited on 23-skepticism.md.
+7. M. Kempkes, E. Gil-Fuster, C. Bravo-Prieto, A. Ijaz, A. Wilms, J. Eisert, E. van Nieuwenburg and V. Dunjko, "Cautious optimism for deep parameterized quantum circuits," arXiv:2607.21409 (2026). Filed: `1. raw/papers/kempkes2026cautious/` (abstract, Fig. 1 and Discussion read from the PDF, v2 of 5 Aug 2026). Cited on 24-optimism.md.
+8. A. Pesah, M. Cerezo, S. Wang, T. Volkoff, A. T. Sornborger and P. J. Coles, "Absence of barren plateaus in quantum convolutional neural networks," *Physical Review X* **11**, 041011 (2021). DOI: 10.1103/PhysRevX.11.041011; arXiv:2011.02966. Cited on 24-optimism.md.
+9. Y. Liu, S. Arunachalam and K. Temme, "A rigorous and robust quantum speed-up in supervised machine learning," *Nature Physics* **17**, 1013–1017 (2021). DOI: 10.1038/s41567-021-01287-z; arXiv:2010.02174. Cited on 24-optimism.md.
+10. H.-Y. Huang, M. Broughton, J. Cotler, S. Chen, J. Li, M. Mohseni, H. Neven, R. Babbush, R. Kueng, J. Preskill and J. R. McClean, "Quantum advantage in learning from experiments," *Science* **376**, 1182–1186 (2022). DOI: 10.1126/science.abn7293; arXiv:2112.00778. Cited on 24-optimism.md.
+11. V. Belis, J. Bowles, R. Gupta, E. Peters and M. Schuld, "Spectral methods: crucial for machine learning, natural for quantum computers?," arXiv:2603.24654 (2026). Filed: `1. raw/papers/belis2026spectral/`; wiki: `3. wiki/papers/@belis2026spectral.md`. Cited on 24-optimism.md.
+
+Not in `1. raw/references.bib` (proposal for the human, via `aleph-ref add`): 1, 3, 4, 5, 6, 8, 9, 10. The clip `media/qcnn-pooling.mp4` (`code/lm-260929-animations/scenes_qml.py`) is a schematic, not taken from a reference.
