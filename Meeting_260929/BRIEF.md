@@ -287,7 +287,7 @@ Scratch space: `/private/tmp/claude-501/-Users-hun-Aleph/ded9d751-38df-429f-b1b8
 | `embed` | `40-section-model.md`, `41-overview.md`, `42-slice.md`, `43-fourier.md`, `44-fourier-why.md` | `data-slice`, `fourier-embed-gates` (`fourier-embed` on no slide since 2026-09-29); `model-overview.png`, `embed-circuit.png`, `coherence-argand.png` | `scenes_embed.py`, `scenes_embed_gates.py`, `fig_model_overview.py`, `fig_embed_circuit.py`, `fig_coherence.py` |
 | `circuit` | `45-pqc.md`, `46-pooling.md`, `47-reuse.md` | `pool-round` | `scenes_circuit.py` |
 | `link` | `48-link.md`, `48a-trainable.md`, `48b-patterns.md` | `link-rule` | `scenes_link.py` |
-| `readout` | `49-readout.md`, `49-readout2.md` (round 3), `49a-loss.md`, `49b-augmentation.md` | `augment`; `readout-trained-examples-crop.png`, `readout-trained.png` (`fig_readout.py`); `poe-readout` unused since round 3 | `scenes_readout.py`, `fig_readout.py` |
+| `readout` | `49-readout.md` (equation + illustrative `poe-readout` clip, restored at the speaker's request), `49-readout1.md` (trained model, Fig. 9), `49-readout2.md` (round 3), `49a-loss.md`, `49b-augmentation.md` | `augment`; `readout-trained-examples-crop.png`, `readout-trained.png` (`fig_readout.py`); `poe-readout` unused since round 3 | `scenes_readout.py`, `fig_readout.py` |
 | `resacc` | `50-section-results.md`, `51-accuracy.md`, `52-fourier-gain.md`, `53-linear.md`, `54-one-qpu.md` | `media/linear-classifier*.png` | `fig_linear.py` |
 | `rescomm` | `55-patterns.md` (`56-shuffle.md` and `57-quantum-channel.md` were removed to `_removed/` on 2026-09-29) | wiki figs; optional `fig_rescomm.py` | `fig_rescomm.py` |
 | `resabcd` | `58-links-trained.md`, `58a-trajectory.md`, `59-d-scan.md`, `59a-clusters.md` | `d-sweep` | `scenes_resabcd.py` |
