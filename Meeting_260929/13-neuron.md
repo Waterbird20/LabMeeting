@@ -9,8 +9,6 @@ math: mathjax
 
 # <span class="cat intro">Intro</span> One neuron: a weighted sum and a threshold
 
-<!-- src: speaker's outline item 3 (BRIEF.md); weights and truth tables checked by 3. wiki/code/lm-260929-animations/scenes_neuron.py _verify() -->
-
 $$y=\sigma(w_1x_1+w_2x_2+b),\qquad \sigma(z)=\begin{cases}1, & z>0\\ 0, & z\le 0\end{cases}$$
 
 <div class="columns">
@@ -33,5 +31,3 @@ $$y=\sigma(w_1x_1+w_2x_2+b),\qquad \sigma(z)=\begin{cases}1, & z>0\\ 0, & z\le 0
 
 </div>
 </div>
-
-<!-- Speaker note: a neuron forms a weighted sum of its inputs and passes it through a threshold. The weight w_i says how much input x_i counts; the bias b shifts the decision boundary. The sigmoid is the smooth version of the step. In the clip: the neuron, then the corners of the unit square; gold corners output 1, hollow corners output 0. Raising b from -1.5 to -0.5 shifts the line and turns AND into OR. Linearly separable: one line splits the 1s from the 0s. -->

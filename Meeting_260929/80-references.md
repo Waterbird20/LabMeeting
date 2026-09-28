@@ -44,9 +44,6 @@ math: mathjax
 
 </div>
 
-<!-- 2026-09-29 integrator: rewritten in APS style (no article titles) to cut words, and matched to the citations visible on the slides: added Rumelhart et al. Nature 1986 and Goodfellow et al. 2016 (15-fc-network.md), Kandala et al. 2017 (45-pqc.md), Manim and the 3b1b/videos scene code (00a-manim.md, formerly 85-manim.md; 16-conv-image.md); dropped Nakkiran et al. 2021 (double descent), which only the removed backup slide cited. Full titles, DOIs and verification notes: REFS-*.md. Licences: 3b1b/videos README and LICENSE.txt (clone ~/.cache/3b1b-videos, commit ae2b911), CC BY-NC-SA 4.0 for the scene code, MIT for the Manim library; versions from the installed packages (00a-manim.md src comment). -->
-<!-- 2026-09-29 (speaker: "squeeze them"): the three reference pages merged into two, in two columns; numbering and entries unchanged. -->
-
 ---
 
 <!-- _class: tight -->
@@ -86,7 +83,3 @@ math: mathjax
 My research notes on the DQML runs of 2026-09-25 to 09-28 and on MNIST-1D.
 
 </div>
-
-<!-- Project results: 3. wiki/projects/dqml/dqml-physics-results.md, mnist1d-eda.md, mnist1d-repro.md. Project code: ~/DQML (Colab). The results page covers Phases 2 to 3B (2026-09-25/28). Paths kept in this comment only (glossary: no paths on visible slides). -->
-<!-- 2026-09-29 integration (second round): references now match the citations visible on the slides after the round-2 edits. Split into three pages: (2) quantum and distributed machine learning, (3) communication complexity. Added the communication-complexity references of the joint-function table (64a-fingerprint-protocol.md src line): Buhrman-Cleve-Wigderson 1998, Cleve-van Dam-Nielsen-Tapp 1998, Yao 2003, Razborov 2003, Bar-Yossef-Jayram-Kerenidis 2004, Aaronson-Ambainis 2005, Gavinsky-Kempe-Kerenidis-Raz-de Wolf 2007, Klartag-Regev 2011 (bibliographic details as verified by the functions group in 64a's src comments: Yao STOC 2003 pp. 77-81; Aaronson-Ambainis Theory Comput. 1, 47-79, arXiv quant-ph/0303041; Razborov Izv. Math. 67, 145-159, arXiv quant-ph/0204025; BJK journal version SIAM J. Comput. 38, 366-384; Gavinsky et al. STOC 2007 pp. 516-525, arXiv quant-ph/0611209, journal SIAM J. Comput. 38(5), 1695-1708; Klartag-Regev STOC 2011 pp. 31-40, arXiv 1009.3640; Cleve et al. LNCS 1509, 61-74, arXiv quant-ph/9708019; BCW arXiv quant-ph/9802040). Dropped Ambainis, Algorithmica 16, 298 (1996) and Newman-Szegedy, STOC 1996, p. 561: since round 2 they are cited only in 64a's src comments, not on any slide. The removed slides 56-shuffle.md and 57-quantum-channel.md cited no reference of their own. -->
-<!-- Assembled from REFS-*.md (venues verified by web search on 2026-09-28; Kandala et al. = REFS-circuit.md item 1) and, for 31-39, the 64a src comments (read 2026-09-29). In 1. raw/references.bib: 12, 16, 21, 25, 27, 28; 31 is filed as 1. raw/papers/buhrman2001quantum/ but references.bib has not been rebuilt since. All others are candidates for `aleph-ref add` on the human's request. Cited only in speaker notes or source comments, so omitted here: Leshno et al. 1993 (12-uat.md); Kushilevitz and Nisan, Communication Complexity (1997), Ambainis 1996, Newman and Szegedy 1996, Kalyanasundaram and Schnitger 1992, Razborov 1992, Chor and Goldreich 1988, Kremer 1995, Raz 1999, Gavinsky-Kempe-de Wolf CCC 2006 (64a-fingerprint-protocol.md); scikit-learn (fig_linear.py). The CY code base (25-dqml.md) is an unpublished project, not a reference. -->
